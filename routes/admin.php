@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\BrandController;
+use App\Http\Controllers\Admin\CategoryController;
 
 
 /*------------------------------------------
@@ -26,5 +28,20 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::get('/new-admin/{id}/edit', [AdminController::class, 'adminEdit']);
     Route::post('/new-admin-update', [AdminController::class, 'adminUpdate']);
     Route::get('/new-admin/{id}', [AdminController::class, 'adminDelete']);
+
+    
+    Route::get('/brand', [BrandController::class, 'index'])->name('admin.brand');
+    Route::post('/brand', [BrandController::class, 'store']);
+    Route::get('/brand/{id}/edit', [BrandController::class, 'edit']);
+    Route::post('/brand-update', [BrandController::class, 'update']);
+    Route::get('/brand/{id}', [BrandController::class, 'delete']);
+
+    
+    Route::get('/category', [CategoryController::class, 'index'])->name('admin.category');
+    Route::post('/category', [CategoryController::class, 'store']);
+    Route::get('/category/{id}/edit', [CategoryController::class, 'edit']);
+    Route::post('/category-update', [CategoryController::class, 'update']);
+    Route::get('/category/{id}', [CategoryController::class, 'delete']);
+
 });
   

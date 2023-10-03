@@ -71,7 +71,7 @@
                       </h2>
                       <div id="fundtab" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#dropdownLink">
                         <div class="accordion-body">
-                            <li><a href="{{route('alladmin')}}" class="nav-link {{ (request()->is('admin/all-admin*')) ? 'current' : '' }}">Brand</a></li>
+                            <li><a href="{{route('admin.brand')}}" class="nav-link {{ (request()->is('admin/brand*')) ? 'current' : '' }}">Brand</a></li>
                         </div>
                       </div>
                     </div> 
