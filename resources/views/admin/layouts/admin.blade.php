@@ -78,6 +78,8 @@
                     </div> 
                 </div>
 
+                <li><a href="{{route('admin.timeslot')}}" class="nav-link {{ (request()->is('admin/time-slot*')) ? 'current' : '' }}">Time Slot</a></li>
+
                 
 
                 
