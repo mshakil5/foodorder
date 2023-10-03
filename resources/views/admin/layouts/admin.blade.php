@@ -60,9 +60,22 @@
             <ul class="navigation">
                 <li><a href="{{route('admin.dashboard')}}" class="nav-link {{ (request()->is('admin/dashboard*')) ? 'current' : '' }}">Dashboard</a></li>
 
-                
+                <li><a href="{{route('alladmin')}}" class="nav-link {{ (request()->is('admin/all-admin*')) ? 'current' : '' }}">Admin</a></li>
 
-                
+                <div class="accordion" id="dropdownLink">
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#fundtab" aria-expanded="false" aria-controls="fundtab">
+                            Products
+                        </button>
+                      </h2>
+                      <div id="fundtab" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#dropdownLink">
+                        <div class="accordion-body">
+                            <li><a href="{{route('alladmin')}}" class="nav-link {{ (request()->is('admin/all-admin*')) ? 'current' : '' }}">Brand</a></li>
+                        </div>
+                      </div>
+                    </div> 
+                </div>
 
                 
 

@@ -19,5 +19,12 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::post('changepassword', [AdminController::class, 'changeAdminPassword']);
     Route::put('image/{id}', [AdminController::class, 'adminImageUpload']);
     //profile end
+
+    
+    Route::get('/new-admin', [AdminController::class, 'getAdmin'])->name('alladmin');
+    Route::post('/new-admin', [AdminController::class, 'adminStore']);
+    Route::get('/new-admin/{id}/edit', [AdminController::class, 'adminEdit']);
+    Route::post('/new-admin-update', [AdminController::class, 'adminUpdate']);
+    Route::get('/new-admin/{id}', [AdminController::class, 'adminDelete']);
 });
   
