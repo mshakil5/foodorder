@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\TimeSlotController;
+use App\Http\Controllers\Admin\AdditionalItemController;
 
 
 /*------------------------------------------
@@ -49,6 +50,12 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::get('/time-slot/{id}/edit', [TimeSlotController::class, 'edit']);
     Route::post('/time-slot-update', [TimeSlotController::class, 'update']);
     Route::get('/time-slot/{id}', [TimeSlotController::class, 'delete']);
+    
+    Route::get('/additional-item-title', [AdditionalItemController::class, 'getTitle'])->name('admin.additionalItemTitle');
+    Route::post('/additional-item-title', [AdditionalItemController::class, 'titleStore']);
+    Route::get('/additional-item-title/{id}/edit', [AdditionalItemController::class, 'titleEdit']);
+    Route::post('/additional-item-title-update', [AdditionalItemController::class, 'titleUpdate']);
+    Route::get('/additional-item-title/{id}', [AdditionalItemController::class, 'titleDelete']);
 
 
 });

@@ -80,7 +80,7 @@
 
                 <li><a href="{{route('admin.timeslot')}}" class="nav-link {{ (request()->is('admin/time-slot*')) ? 'current' : '' }}">Time Slot</a></li>
 
-                <li><a href="{{route('admin.timeslot')}}" class="nav-link {{ (request()->is('admin/time-slot*')) ? 'current' : '' }}">Additional Item Title</a></li>
+                <li><a href="{{route('admin.additionalItemTitle')}}" class="nav-link {{ (request()->is('admin/additional-item-title*')) ? 'current' : '' }}">Additional Item Title</a></li>
 
                 
 
