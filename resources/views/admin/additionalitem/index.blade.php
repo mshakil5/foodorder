@@ -30,12 +30,37 @@
                                     {!! Form::hidden('codeid','', ['id' => 'codeid']) !!}
                                     @csrf
                                     <div>
-                                        <label for="start_time">Start Time</label>
-                                        <input type="time" id="start_time" name="start_time" class="form-control">
+                                        <label for="additional_item_title_id">Title</label>
+                                        <select name="additional_item_title_id" id="additional_item_title_id" class="form-control">
+                                            <option value="">Select</option>
+                                            @foreach ($titles as $item)
+                                            <option value="{{$item->id}}">{{$item->name}}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
+                                    
                                     <div>
-                                        <label for="end_time">End Time</label>
-                                        <input type="time" id="end_time" name="end_time" class="form-control">
+                                        <label for="item_status">Item Category</label>
+                                        <select name="item_status" id="item_status" class="form-control">
+                                            <option value="">Select</option>
+                                            <option value="1">Mendatory</option>
+                                            <option value="2">Not Mendatory</option>
+                                        </select>
+                                    </div>
+
+                                    <div>
+                                        <label for="item_name">Item Name</label>
+                                        <input type="text" id="item_name" name="item_name" class="form-control">
+                                    </div>
+
+                                    <div>
+                                        <label for="description">Description</label>
+                                        <input type="text" id="description" name="description" class="form-control">
+                                    </div>
+
+                                    <div>
+                                        <label for="amount">Amount</label>
+                                        <input type="number" id="amount" name="amount" class="form-control">
                                     </div>
                                 </div>
                                 
@@ -73,9 +98,11 @@
                             <thead>
                             <tr>
                                 <th style="text-align: center">SL</th>
-                                <th style="text-align: center">Date</th>
-                                <th style="text-align: center">Start time</th>
-                                <th style="text-align: center">End time</th>
+                                <th style="text-align: center">Name</th>
+                                <th style="text-align: center">Title</th>
+                                <th style="text-align: center">Item Status</th>
+                                <th style="text-align: center">Description</th>
+                                <th style="text-align: center">Amount</th>
                                 <th style="text-align: center">Action</th>
                             </tr>
                             </thead>
@@ -83,9 +110,11 @@
                                 @foreach ($data as $key => $data)
                                     <tr>
                                         <td style="text-align: center">{{ $key + 1 }}</td>
-                                        <td style="text-align: center">{{$data->created_at}}</td>
-                                        <td style="text-align: center">{{$data->start_time}}</td>
-                                        <td style="text-align: center">{{$data->end_time}}</td>
+                                        <td style="text-align: center">{{$data->item_name}}</td>
+                                        <td style="text-align: center">{{$data->additional_item_title_id}}</td>
+                                        <td style="text-align: center">{{$data->item_status}}</td>
+                                        <td style="text-align: center">{{$data->description}}</td>
+                                        <td style="text-align: center">{{$data->amount}}</td>
                                         <td style="text-align: center">
                                             <a id="EditBtn" rid="{{$data->id}}"> <i class="fa fa-edit" style="color: #2196f3;font-size:16px;"> </i></a>
                                             <a id="deleteBtn" rid="{{$data->id}}"> <i class="fa fa-trash-o" style="color: red;font-size:16px;"></i></a>
@@ -158,15 +187,18 @@
         //header for csrf-token is must in laravel
         $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
             //
-            var url = "{{URL::to('/admin/time-slot')}}";
-            var updateurl = "{{URL::to('/admin/time-slot-update')}}";
+            var url = "{{URL::to('/admin/additional-items')}}";
+            var updateurl = "{{URL::to('/admin/additional-items-update')}}";
             // console.log(url);
             $("#addBtn").click(function(){
                 // fundraiser create 
                 if($(this).val() == 'Create') {
                     var form_data = new FormData();
-                    form_data.append("start_time", $("#start_time").val());
-                    form_data.append("end_time", $("#end_time").val());
+                    form_data.append("additional_item_title_id", $("#additional_item_title_id").val());
+                    form_data.append("item_status", $("#item_status").val());
+                    form_data.append("item_name", $("#item_name").val());
+                    form_data.append("description", $("#description").val());
+                    form_data.append("amount", $("#amount").val());
                     
                     $.ajax({
                         url: url,
@@ -193,8 +225,11 @@
                 if($(this).val() == 'Update'){
 
                     var form_data = new FormData();
-                    form_data.append("start_time", $("#start_time").val());
-                    form_data.append("end_time", $("#end_time").val());
+                    form_data.append("additional_item_title_id", $("#additional_item_title_id").val());
+                    form_data.append("item_status", $("#item_status").val());
+                    form_data.append("item_name", $("#item_name").val());
+                    form_data.append("description", $("#description").val());
+                    form_data.append("amount", $("#amount").val());
                     form_data.append("codeid", $("#codeid").val());
                     
                     $.ajax({
@@ -257,8 +292,11 @@
             //Delete
 
             function populateForm(data){
-                $("#start_time").val(data.start_time);   
-                $("#end_time").val(data.end_time);   
+                $("#additional_item_title_id").val(data.additional_item_title_id);   
+                $("#item_status").val(data.item_status);   
+                $("#item_name").val(data.item_name);   
+                $("#description").val(data.description);   
+                $("#amount").val(data.amount);   
                 $("#codeid").val(data.id);
                 $("#addBtn").val('Update');
                 $("#addThisFormContainer").show(300);

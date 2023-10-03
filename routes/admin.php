@@ -57,6 +57,13 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::post('/additional-item-title-update', [AdditionalItemController::class, 'titleUpdate']);
     Route::get('/additional-item-title/{id}', [AdditionalItemController::class, 'titleDelete']);
 
+    
+    Route::get('/additional-items', [AdditionalItemController::class, 'index'])->name('admin.additionalItem');
+    Route::post('/additional-items', [AdditionalItemController::class, 'store']);
+    Route::get('/additional-items/{id}/edit', [AdditionalItemController::class, 'edit']);
+    Route::post('/additional-items-update', [AdditionalItemController::class, 'update']);
+    Route::get('/additional-items/{id}', [AdditionalItemController::class, 'delete']);
+
 
 });
   
