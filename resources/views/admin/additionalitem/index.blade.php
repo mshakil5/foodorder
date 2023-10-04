@@ -111,8 +111,9 @@
                                     <tr>
                                         <td style="text-align: center">{{ $key + 1 }}</td>
                                         <td style="text-align: center">{{$data->item_name}}</td>
-                                        <td style="text-align: center">{{$data->additional_item_title_id}}</td>
-                                        <td style="text-align: center">{{$data->item_status}}</td>
+                                        <td style="text-align: center">{{\App\Models\AdditionalItemTitle::where('id',$data->additional_item_title_id)->first()->name}}</td>
+                                        <td style="text-align: center">@if ($data->item_status == 1)
+                                            Mendatory @else Not Mendatory @endif</td>
                                         <td style="text-align: center">{{$data->description}}</td>
                                         <td style="text-align: center">{{$data->amount}}</td>
                                         <td style="text-align: center">
