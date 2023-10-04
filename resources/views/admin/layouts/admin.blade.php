@@ -73,6 +73,8 @@
                         <div class="accordion-body">
                             <li><a href="{{route('admin.brand')}}" class="nav-link {{ (request()->is('admin/brand*')) ? 'current' : '' }}">Brand</a></li>
                             <li><a href="{{route('admin.category')}}" class="nav-link {{ (request()->is('admin/category*')) ? 'current' : '' }}">Category</a></li>
+                            <li><a href="{{route('admin.product')}}" class="nav-link {{ (request()->is('admin/product*')) ? 'current' : '' }}">Product</a></li>
+
                         </div>
                       </div>
                     </div> 
@@ -83,6 +85,7 @@
                 <li><a href="{{route('admin.additionalItemTitle')}}" class="nav-link {{ (request()->is('admin/additional-item-title*')) ? 'current' : '' }}">Additional Item Title</a></li>
                 <li><a href="{{route('admin.additionalItem')}}" class="nav-link {{ (request()->is('admin/additional-items*')) ? 'current' : '' }}">Additional Item</a></li>
 
+                
                 
 
                 

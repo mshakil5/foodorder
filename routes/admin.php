@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\TimeSlotController;
 use App\Http\Controllers\Admin\AdditionalItemController;
+use App\Http\Controllers\Admin\ProductController;
 
 
 /*------------------------------------------
@@ -23,21 +24,18 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::post('changepassword', [AdminController::class, 'changeAdminPassword']);
     Route::put('image/{id}', [AdminController::class, 'adminImageUpload']);
     //profile end
-
     
     Route::get('/new-admin', [AdminController::class, 'getAdmin'])->name('alladmin');
     Route::post('/new-admin', [AdminController::class, 'adminStore']);
     Route::get('/new-admin/{id}/edit', [AdminController::class, 'adminEdit']);
     Route::post('/new-admin-update', [AdminController::class, 'adminUpdate']);
     Route::get('/new-admin/{id}', [AdminController::class, 'adminDelete']);
-
     
     Route::get('/brand', [BrandController::class, 'index'])->name('admin.brand');
     Route::post('/brand', [BrandController::class, 'store']);
     Route::get('/brand/{id}/edit', [BrandController::class, 'edit']);
     Route::post('/brand-update', [BrandController::class, 'update']);
     Route::get('/brand/{id}', [BrandController::class, 'delete']);
-
     
     Route::get('/category', [CategoryController::class, 'index'])->name('admin.category');
     Route::post('/category', [CategoryController::class, 'store']);
@@ -56,13 +54,18 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::get('/additional-item-title/{id}/edit', [AdditionalItemController::class, 'titleEdit']);
     Route::post('/additional-item-title-update', [AdditionalItemController::class, 'titleUpdate']);
     Route::get('/additional-item-title/{id}', [AdditionalItemController::class, 'titleDelete']);
-
     
     Route::get('/additional-items', [AdditionalItemController::class, 'index'])->name('admin.additionalItem');
     Route::post('/additional-items', [AdditionalItemController::class, 'store']);
     Route::get('/additional-items/{id}/edit', [AdditionalItemController::class, 'edit']);
     Route::post('/additional-items-update', [AdditionalItemController::class, 'update']);
     Route::get('/additional-items/{id}', [AdditionalItemController::class, 'delete']);
+    
+    Route::get('/product', [ProductController::class, 'index'])->name('admin.product');
+    Route::post('/product', [ProductController::class, 'store']);
+    Route::get('/product/{id}/edit', [ProductController::class, 'edit']);
+    Route::post('/product-update', [ProductController::class, 'update']);
+    Route::get('/product/{id}', [ProductController::class, 'delete']);
 
 
 });
