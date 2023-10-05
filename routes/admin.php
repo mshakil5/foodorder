@@ -67,6 +67,10 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::post('/product-update', [ProductController::class, 'update']);
     Route::get('/product/{id}', [ProductController::class, 'delete']);
 
+    
+    Route::get('/assign-product/{id}', [ProductController::class, 'assignProduct'])->name('admin.assignProduct');
+    Route::post('/assign-product', [ProductController::class, 'assignProductStore'])->name('admin.assignProductStore');
+
 
 });
   

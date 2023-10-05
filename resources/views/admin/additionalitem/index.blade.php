@@ -43,8 +43,8 @@
                                         <label for="item_status">Item Category</label>
                                         <select name="item_status" id="item_status" class="form-control">
                                             <option value="">Select</option>
-                                            <option value="1">Mendatory</option>
-                                            <option value="2">Not Mendatory</option>
+                                            <option value="1">Required</option>
+                                            <option value="2">Optional</option>
                                         </select>
                                     </div>
 
@@ -113,7 +113,7 @@
                                         <td style="text-align: center">{{$data->item_name}}</td>
                                         <td style="text-align: center">{{\App\Models\AdditionalItemTitle::where('id',$data->additional_item_title_id)->first()->name}}</td>
                                         <td style="text-align: center">@if ($data->item_status == 1)
-                                            Mendatory @else Not Mendatory @endif</td>
+                                            Required @else Optional @endif</td>
                                         <td style="text-align: center">{{$data->description}}</td>
                                         <td style="text-align: center">{{$data->amount}}</td>
                                         <td style="text-align: center">

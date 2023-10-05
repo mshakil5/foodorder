@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Brand;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\AdditionalItemTitle;
 use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
@@ -110,5 +111,22 @@ class ProductController extends Controller
         }else{
             return response()->json(['success'=>false,'message'=>'Delete Failed']);
         }
+    }
+
+    public function assignProduct($id)
+    {
+        $data = Product::where('id',$id)->first();
+        $additionalproducts = AdditionalItemTitle::with('additionalitem')->get();
+        // dd($additionalproducts);
+        return view('admin.product.assignproduct', compact('data','additionalproducts'));
+    }
+
+    public function assignProductStore(Request $request)
+    {
+        dd($request->all());
+        // $data = Product::where('id',$id)->first();
+        $additionalproducts = AdditionalItemTitle::with('additionalitem')->get();
+        // dd($additionalproducts);
+        return view('admin.product.assignproduct', compact('data','additionalproducts'));
     }
 }

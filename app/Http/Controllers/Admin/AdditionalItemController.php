@@ -38,11 +38,7 @@ class AdditionalItemController extends Controller
             exit();
         }
 
-        if(empty($request->amount)){
-            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Amount \" field..!</b></div>";
-            return response()->json(['status'=> 303,'message'=>$message]);
-            exit();
-        }
+        
 
 
         $data = new AdditionalItem;
@@ -90,11 +86,7 @@ class AdditionalItemController extends Controller
             exit();
         }
 
-        if(empty($request->amount)){
-            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Amount \" field..!</b></div>";
-            return response()->json(['status'=> 303,'message'=>$message]);
-            exit();
-        }
+        
 
 
         $data = AdditionalItem::find($request->codeid);
