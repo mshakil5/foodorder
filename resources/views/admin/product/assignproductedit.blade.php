@@ -43,7 +43,7 @@
                                             </td>
                                             <td style="text-align: center">{{$item->amount}}</td>
                                             <td style="text-align: center">
-                                                <input type="checkbox" name="itemid[]" value="{{$item->id}}" class="form-check-label">
+                                                <input type="checkbox" name="itemid[]" value="{{$item->id}}" class="form-check-label" @foreach (json_decode($data->assignitem) as $assignitem) @if ($assignitem == $item->id) checked @endif @endforeach>
                                             </td>
                                         </tr>
                                         @endforeach

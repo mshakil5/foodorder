@@ -3,12 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\AdditionalItem;
 use Illuminate\Http\Request;
 use App\Models\Brand;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\AdditionalItemTitle;
+use App\Models\AssignProduct;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -123,10 +126,41 @@ class ProductController extends Controller
 
     public function assignProductStore(Request $request)
     {
-        dd($request->all());
-        // $data = Product::where('id',$id)->first();
+        
+        $product = $request->product_id;
+        $items = $request->itemid;
+
+        foreach ($items as $key => $item) {
+            
+            $additionalItem = AdditionalItem::where('id', $item)->first();
+            
+            $data = new AssignProduct();
+            $data->product_id = $product;
+            $data->additional_item_id = $item;
+            $data->product_name = $additionalItem->item_name;
+            $data->price = $additionalItem->amount;
+            $data->save();
+
+        }
+
+        $upproduct = Product::find($product);
+        $upproduct->assign = "1";
+        $upproduct->assignitem = json_encode($items);
+        $upproduct->save();
+
+        return redirect()->route('admin.product')->with('success', 'Product Assign Successfully');
+
+    }
+
+    public function assignProductEdit($id)
+    {
+        $data = Product::where('id',$id)->first();
         $additionalproducts = AdditionalItemTitle::with('additionalitem')->get();
-        // dd($additionalproducts);
-        return view('admin.product.assignproduct', compact('data','additionalproducts'));
+        
+        $assignitems=DB::table('assign_products')
+             ->where('product_id',$id)->pluck('additional_item_id')->all();
+
+        // dd($assignitems);
+        return view('admin.product.assignproductedit', compact('data','additionalproducts','assignitems'));
     }
 }

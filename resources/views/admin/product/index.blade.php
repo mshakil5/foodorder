@@ -100,6 +100,14 @@
 
 <button id="newBtn" type="button" class="btn-theme bg-primary">Add New</button>
 <div class="stsermsg"></div>
+    @if (Session::has('success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>{{ session::get('success') }} </strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    @endif
     <hr>
     <div id="contentContainer">
         <div class="row">
@@ -143,8 +151,13 @@
                                             @endif
                                         </td>
                                         <td style="text-align: center">
-                                            
+                                            @if ($data->assign == 1)
+                                            <a href="{{route('admin.assignProductEdit', $data->id)}}"> <i class="fa fa-plus" style="color: #f34f21;font-size:16px;"> </i></a>
+
+                                            @else
                                             <a href="{{route('admin.assignProduct', $data->id)}}"> <i class="fa fa-plus" style="color: #2196f3;font-size:16px;"> </i></a>
+                                            @endif
+                                            
                                             <a id="EditBtn" rid="{{$data->id}}"> <i class="fa fa-edit" style="color: #2196f3;font-size:16px;"> </i></a>
                                             <a id="deleteBtn" rid="{{$data->id}}"> <i class="fa fa-trash-o" style="color: red;font-size:16px;"></i></a>
                                         </td>
