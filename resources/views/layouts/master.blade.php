@@ -60,7 +60,7 @@
 		</style>
 
 
-
+        @yield('script')
 
 </body>
 </html>

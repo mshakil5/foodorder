@@ -4,13 +4,21 @@
 
 <style>
     .title-section {
-    background-color: #f5f3f1;
-    padding: 19px 24px;
-    color: #515e64;
-    font-weight: bold;
-    text-transform: capitalize;
-    font-size: 2.1rem;
-}
+        background-color: #f5f3f1;
+        padding: 19px 24px;
+        color: #515e64;
+        font-weight: bold;
+        text-transform: capitalize;
+        font-size: 2.1rem;
+    }
+    .center-form {
+        text-align: center;
+    }
+
+    .center-form form {
+        display: inline-block;
+        text-align: left;
+    }
 </style>
 
 <div class="container mt-5">
@@ -28,7 +36,7 @@
 
         <div class="col-md-5 col-xs-8">		
             <div class="row" id="get_product">
-                @foreach (\App\Models\Product::all() as $product)
+                @foreach ($products as $product)
                     <div class='col-md-9 col-xs-12'>
                         <h3 style='margin-top: 0px'>{{$product->product_name}}</h3>
                         <p>{{$product->description}}</p>
@@ -37,47 +45,11 @@
                     <div class='col-md-2 col-xs-6'>£{{ number_format($product->price, 2) }}</div>
                     <div class='col-md-1 col-xs-6'>
                         @if ($product->assign == 1)
-                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModal" style="margin-left: -7px;">Add</button>
+                            {{-- <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModal{{$product->id}}" style="margin-left: -7px;">Add</button> --}}
 
-                            <!-- Modal -->
-                            <div class="modal fade" id="myModal" role="dialog">
-                                <div class="modal-dialog">
-                                
-                                <!-- Modal content-->
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    <h4 class="modal-title">{{$product->product_name}}</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                    <p align="center"> <b>£{{ number_format($product->price, 2) }}</b> </p>
-                                    <p align="center">{{$product->description}}</p>
-
-                                    <div class="title-section">
-                                        <div class="mx-2">Add-ons </div>
-                                    </div>
-
-                                    <table>
-                                        <tbody>
-                                            <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-
-
-
-
-                                    </div>
-                                    <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    </div>
-                                </div>
-                                
-                                </div>
-                            </div>
+                            <button class="btn btn-primary btn-sm btn-transfer" data-toggle="modal" data-target="#additemModal" style="margin-left: -7px;" pid="{{$product->id}}" pname="{{$product->product_name}}" pdesc="{{$product->description}}" price="{{ number_format($product->price, 2) }}">
+                                 add
+                            </button>
 
 
                         @else
@@ -319,7 +291,307 @@
     </div>
 </div>
 
+<!----------------------------additemModal ------------------------->
+<div class="modal fade transfer-modal" id="additemModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header alert alert-success" style="text-align: left;">
+                <div>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="pnameshow"></h4>
+                </div>
+            </div>
+            <div class="modal-body transferProduct">
+                
+                <div class="row text-left tValues">
+                    <div class="col-sm-8 col-sm-offset-2">
+                        <div class="row">
+                            
+                            <p align="center"> <b><span id="priceShow"></span></b> </p>
+                            <p align="center"><span id="descShow"></span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row text-left tValues">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="title-section">
+                                <div class="mx-2">Add-ons </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <table class="table" style="width: 100%">
+                    <tbody>
+
+
+                        <tr>
+                            <td style="width: 10%; text-align:center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16" style="height:22px">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                  </svg>
+                            </td>
+                            <td style="width: 70%">
+                                Egg
+                            </td>
+                            <td style="width: 20%; text-align:right"> +£1.25 </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 10%; text-align:center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16" style="height:22px">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                  </svg>
+                            </td>
+                            <td style="width: 70%">
+                                Egg
+                            </td>
+                            <td style="width: 20%; text-align:right"> +£1.25 </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 10%; text-align:center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16" style="height:22px">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                  </svg>
+                            </td>
+                            <td style="width: 70%">
+                                Egg
+                            </td>
+                            <td style="width: 20%; text-align:right"> +£1.25 </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 10%; text-align:center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16" style="height:22px">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                  </svg>
+                            </td>
+                            <td style="width: 70%">
+                                Egg
+                            </td>
+                            <td style="width: 20%; text-align:right"> +£1.25 </td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+
+                <div class="modal-footer">
+                    <div class="center-form">
+                        <button>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus add" viewBox="0 0 16 16">
+                                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                            </svg> 
+                        </button>
+                        
+                        {{-- <input type="button" value="+" id="add1" class="add" /> --}}
+                        <input type="hidden" id="qty" value="1" min="1" class="qty" />
+                        {{-- <input type="button" value="-" id="minus1" class="minus" /> --}}
+        
+                          <b> <span style="font-size: 22px;" id="pShow"></span>   </b>
+                          <input type="hidden" id="unitprice" name="unitprice" value="">
+        
+                        <button>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-dash minus" viewBox="0 0 16 16">
+                                <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
+                            </svg>
+                        </button>
+        
+                    </div><br>
+
+                    <div class="row text-left tValues">
+                        <div class="col-sm-12">
+                            <div class="row">
+                                
+                                <button type="submit" class="btn btn-success btn-lg btn-block">
+                                    Add to order
+                                </button>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                        
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    </div>
 
 
 
+
+
+
+
+
+
+
+
+<!-- Modal -->
+{{-- <div class="modal fade" id="myModal{{$product->id}}" role="dialog">
+    <div class="modal-dialog">
+    
+        
+    <div class="modal-content">
+        <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">{{$product->product_name}}</h4>
+        </div>
+        <div class="modal-body">
+        <p align="center"> <b>£{{ number_format($product->price, 2) }}</b> </p>
+        <p align="center">{{$product->description}}</p>
+
+        <input type="hidden" id="pid" name="pid" value="{{$product->id}}">
+        <input type="hidden" id="unitprice" name="unitprice" value="{{$product->price}}">
+        <div class="title-section">
+            <div class="mx-2">Add-ons </div>
+        </div>
+
+        <table class="table" style="width: 100%">
+            <tbody>
+                <tr>
+                    <td style="width: 10%; text-align:center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16" style="height:22px">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                          </svg>
+                    </td>
+                    <td style="width: 70%">
+                        Egg
+                    </td>
+                    <td style="width: 20%; text-align:right"> +£1.25 </td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+        <div class="modal-footer">
+            <div class="center-form">
+                <button>
+                    
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus add" viewBox="0 0 16 16">
+                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                    </svg> 
+                </button>
+                
+                
+                <input type="hidden" id="qty" value="1" min="1" class="qty" />
+                
+
+                  <b> <span style="font-size: 22px;" id="priceShow">£{{ number_format($product->price, 2) }}</span>   </b>
+
+                <button>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-dash minus" viewBox="0 0 16 16">
+                        <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
+                    </svg>
+                </button>
+
+            </div>
+        <button type="button" class="btn btn-success d-block" >Add</button>
+        </div>
+    </div>
+    
+    </div>
+</div> --}}
+
+
+@endsection
+
+@section('script')
+
+<script>
+    $(function()
+        {
+            $(".add").click(function()
+            {
+                var currentVal = parseInt($("#qty").val());
+                var unitprice = $("#unitprice").val();
+                var priceperunit = (currentVal+1)*unitprice;
+                var amt = parseFloat(priceperunit);
+                
+                if (currentVal != NaN)
+                {
+                    $("#qty").val(currentVal + 1);
+                    $("#pShow").html("£"+ amt.toFixed(2));
+                }
+            });
+
+            $(".minus").click(function()
+            {
+                var currentVal = parseInt($("#qty").val());
+                var unitprice = $("#unitprice").val();
+                var priceperunit = (currentVal-1)*unitprice;
+                var amt = parseFloat(priceperunit);
+                
+                if (currentVal != NaN)
+                {
+                    if(currentVal > 1){
+                        $("#qty").val(currentVal - 1);
+                        $("#pShow").html("£"+ amt.toFixed(2));
+                    }
+
+                }
+            });
+        });
+
+        
+        var urlbr = "{{URL::to('/get-additional-product')}}";
+
+        $(document).on('click', '.btn-transfer', function () {
+            // let stockid = $(this).val();
+            pdesc = $(this).attr('pdesc');
+            productid = $(this).attr('pid');
+            pname = $(this).attr('pname');
+            price = $(this).attr('price');
+            
+            $('#additemModal').find('.modal-body #productname').val(pname);
+            $('#additemModal').find('.modal-body #productid').val(productid);
+            $('#additemModal').find('.modal-body #pdesc').val(pdesc);
+            $("#pnameshow").html(pname);
+            $("#descShow").html(pdesc);
+            $("#priceShow").html("£"+price);
+            $("#pShow").html("£"+price);
+            $("#unitprice").val(price);
+            $('#additemModal').find('.modal-body #price').val(price);
+
+            // loop start
+            $.ajax({
+                    url: urlbr,
+                    method: "POST",
+                    data: {productid:productid},
+
+                    success: function (d) {
+                        if (d.status == 303) {
+
+                        }else if(d.status == 300){
+                            
+                            // alternatives
+                            var altertable = $(".altertable tbody");
+                            altertable.empty();
+                            $.each(d.alternatives, function (a, b) {
+                                altertable.append("<tr><td class='text-left'>" + b.productname + "</td>" +
+                                    "<td class='text-success text-left'>" + b.part_no + "</td>" +
+                                    "<td class='text-success text-left'>" + b.location + "</td>" +
+                                    "<td class='text-success text-left'>" + b.selling_price + "</td>" +
+                                    "</tr>");
+                            });
+                            // alternatives end
+
+                        // $("#proname").html(d.productname);     
+                        }
+                    },
+                    error: function (d) {
+                        console.log(d);
+                    }
+                }); 
+            // loop end
+        });
+</script>
+    
 @endsection
