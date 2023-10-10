@@ -70,6 +70,7 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     
     Route::get('/assign-product/{id}', [ProductController::class, 'assignProduct'])->name('admin.assignProduct');
     Route::post('/assign-product', [ProductController::class, 'assignProductStore'])->name('admin.assignProductStore');
+    Route::post('/assign-product-update', [ProductController::class, 'assignProductUpdate'])->name('admin.assignProductUpdate');
 
     Route::get('/assign-product-edit/{id}', [ProductController::class, 'assignProductEdit'])->name('admin.assignProductEdit');
 

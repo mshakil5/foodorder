@@ -24,5 +24,22 @@ class Product extends Model
         return $this->hasMany(AssignProduct::class);
     }
 
+    public function additionalItems()
+    {
+        return $this->belongsToMany(AdditionalItem::class, 'assign_products');
+    }
+
+    public function additionalItemTitles()
+    {
+        return $this->hasManyThrough(
+            AdditionalItemTitle::class,
+            AdditionalItem::class,
+            'product_id',
+            'additional_item_id',
+            'id',
+            'additional_item_title_id'
+        );
+    }
+
     
 }

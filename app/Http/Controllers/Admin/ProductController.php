@@ -163,4 +163,36 @@ class ProductController extends Controller
         // dd($assignitems);
         return view('admin.product.assignproductedit', compact('data','additionalproducts','assignitems'));
     }
+
+    public function assignProductUpdate(Request $request)
+    {
+        
+        $product = $request->product_id;
+        $items = $request->itemid;
+
+        $collection = AssignProduct::where('product_id', $product)->get(['id']);
+        AssignProduct::destroy($collection->toArray());
+
+
+        foreach ($items as $key => $item) {
+            
+            $additionalItem = AdditionalItem::where('id', $item)->first();
+            
+            $data = new AssignProduct();
+            $data->product_id = $product;
+            $data->additional_item_id = $item;
+            $data->product_name = $additionalItem->item_name;
+            $data->price = $additionalItem->amount;
+            $data->save();
+
+        }
+
+        $upproduct = Product::find($product);
+        $upproduct->assign = "1";
+        $upproduct->assignitem = json_encode($items);
+        $upproduct->save();
+
+        return redirect()->route('admin.product')->with('success', 'Product Assign Successfully');
+
+    }
 }

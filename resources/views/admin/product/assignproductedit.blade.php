@@ -6,7 +6,7 @@
 <div class="stsermsg"></div>
     <hr>
     <div id="contentContainer">
-        <form action="{{route('admin.assignProductStore')}}" method="POST">
+        <form action="{{route('admin.assignProductUpdate')}}" method="POST">
             @csrf
             <div class="row">
                 <input type="hidden" name="product_id" id="product_id" value="{{$data->id}}">
