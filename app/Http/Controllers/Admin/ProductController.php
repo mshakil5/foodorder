@@ -137,6 +137,7 @@ class ProductController extends Controller
             $data = new AssignProduct();
             $data->product_id = $product;
             $data->additional_item_id = $item;
+            $data->additional_item_title_id = $additionalItem->additional_item_title_id;
             $data->product_name = $additionalItem->item_name;
             $data->price = $additionalItem->amount;
             $data->save();
@@ -181,6 +182,7 @@ class ProductController extends Controller
             $data = new AssignProduct();
             $data->product_id = $product;
             $data->additional_item_id = $item;
+            $data->additional_item_title_id = $additionalItem->additional_item_title_id;
             $data->product_name = $additionalItem->item_name;
             $data->price = $additionalItem->amount;
             $data->save();

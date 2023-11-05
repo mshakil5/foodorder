@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="pagetitle pb-2">
-                Time Slot
+                Additional Item
             </div>
         </div>
     </div>
@@ -16,7 +16,7 @@
         <div class="col-md-12">
             <div class="card" style="background-color: #fdf3ee">
                 <div class="card-header">
-                    <h5>Time Slot create form</h5>
+                    <h5>Additional Item create form</h5>
                 </div>
                 <div class="card-body">
                     <div class="row">

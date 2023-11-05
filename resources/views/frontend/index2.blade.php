@@ -28,8 +28,8 @@
             <ul class="list-group" id="get_category">
                 @foreach (\App\Models\Category::orderby('id','ASC')->get() as $cat)
                     
-                <li><button value="{{$cat->id}}" class='category list-group-item getsrchval'>{{$cat->name}}</button></li>
-
+                <li><a href='#' class='category list-group-item'>{{$cat->name}}</a></li>
+                
                 @endforeach
                 
             </ul>
@@ -46,13 +46,87 @@
                     <div class='col-md-2 col-xs-6'>£{{ number_format($product->price, 2) }}</div>
                     <div class='col-md-1 col-xs-6'>
                         @if ($product->assign == 1)
-                            <button class="btn btn-primary btn-sm btn-modal" data-toggle="modal" data-target="#additemModal" style="margin-left: -7px;" pid="{{$product->id}}" pname="{{$product->product_name}}" pdesc="{{$product->description}}" price="{{ number_format($product->price, 2) }}">
+                            {{-- <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModal{{$product->id}}" style="margin-left: -7px;">Add</button> --}}
+
+                            <button class="btn btn-primary btn-sm btn-transfer" data-toggle="modal" data-target="#additemModal" style="margin-left: -7px;" pid="{{$product->id}}" pname="{{$product->product_name}}" pdesc="{{$product->description}}" price="{{ number_format($product->price, 2) }}">
                                  add
                             </button>
+
+
                         @else
                             <button class="btn btn-primary btn-sm" style="margin-left: -7px;">Add</button>
                         @endif
                     </div>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="myModal{{$product->id}}" role="dialog">
+                        <div class="modal-dialog">
+                        
+                            
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">{{$product->product_name}}</h4>
+                            </div>
+                            <div class="modal-body">
+                            <p align="center"> <b>£{{ number_format($product->price, 2) }}</b> </p>
+                            <p align="center">{{$product->description}}</p>
+
+                            <input type="hidden" id="pid" name="pid" value="{{$product->id}}">
+                            <input type="hidden" id="unitprice" name="unitprice" value="{{$product->price}}">
+                            <div class="title-section">
+                                <div class="mx-2">Add-ons </div>
+                            </div>
+
+                            <table class="table" style="width: 100%">
+                                <tbody>
+                                    <tr>
+                                        <td style="width: 10%; text-align:center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16" style="height:22px">
+                                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                            </svg>
+                                        </td>
+                                        <td style="width: 70%">
+                                            Egg
+                                        </td>
+                                        <td style="width: 20%; text-align:right"> +£1.25 </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            </div>
+                            <div class="modal-footer">
+                                <div class="center-form">
+                                    <button>
+                                        
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus add" viewBox="0 0 16 16">
+                                            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                        </svg> 
+                                    </button>
+                                    
+                                    
+                                    <input type="hidden" id="qty" value="1" min="1" class="qty" />
+                                    
+
+                                    <b> <span style="font-size: 22px;" id="priceShow">£{{ number_format($product->price, 2) }}</span>   </b>
+
+                                    <button>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-dash minus" viewBox="0 0 16 16">
+                                            <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
+                                        </svg>
+                                    </button>
+
+                                </div>
+                            <button type="button" class="btn btn-success d-block" >Add</button>
+                            </div>
+                        </div>
+                        
+                        </div>
+                    </div>
+
+
+
+
                 @endforeach
                 
             </div>	
@@ -435,7 +509,7 @@
 
         var urlbr = "{{URL::to('/get-additional-product')}}";
 
-        $(document).on('click', '.btn-modal', function () {
+        $(document).on('click', '.btn-transfer', function () {
             let stockid = $(this).val();
             pdesc = $(this).attr('pdesc');
             productid = $(this).attr('pid');
@@ -482,34 +556,6 @@
                     }
                 }); 
             // loop end
-        });
-
-
-        $("body").delegate(".getsrchval","click",function () {
-            var searchurl = "{{URL::to('/getcatproduct')}}";
-            var id = $(this).attr('value');
-            
-            var form_data = new FormData();			
-            form_data.append("id", id);
-
-            $.ajax({
-            url:searchurl,
-            method: "POST",
-            type: "POST",
-            contentType: false,
-            processData: false,
-            data:form_data,
-            success: function(d){
-                $("#get_product").html(d.product);
-                // console.log((d.min));
-            },
-            error:function(d){
-                console.log(d);
-            }
-        });
-
-
-
         });
 
     });

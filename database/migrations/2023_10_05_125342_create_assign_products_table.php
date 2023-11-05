@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('assign_products', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('additional_item_title_id')->unsigned()->nullable();
+            $table->foreign('additional_item_title_id')->references('id')->on('additional_item_titles')->onDelete('cascade');
             $table->bigInteger('additional_item_id')->unsigned()->nullable();
             $table->foreign('additional_item_id')->references('id')->on('additional_items')->onDelete('cascade');
             $table->bigInteger('product_id')->unsigned()->nullable();

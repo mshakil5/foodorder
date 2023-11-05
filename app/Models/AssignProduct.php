@@ -13,4 +13,9 @@ class AssignProduct extends Model
     {
         return $this->belongsTo(Product::class);
     }
+
+    public function additionalitemtitle()
+    {
+        return $this->belongsTo(AdditionalItemTitle::class);
+    }
 }

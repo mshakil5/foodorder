@@ -13,4 +13,9 @@ class AdditionalItemTitle extends Model
     {
         return $this->hasMany(AdditionalItem::class);
     }
+
+    public function assignproduct()
+    {
+        return $this->hasMany(AssignProduct::class);
+    }
 }
