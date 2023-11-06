@@ -290,7 +290,7 @@
 
 <!----------------------------additemModal ------------------------->
 <div class="modal fade transfer-modal" id="additemModal">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-scrollable ">
         <div class="modal-content">
             <div class="modal-header alert alert-success" style="text-align: left;">
                 <div>
@@ -310,7 +310,7 @@
                     </div>
                 </div>
 
-                <div class="row text-left tValues">
+                <div class="row text-left tValues addons" style="display: none">
                     <div class="col-sm-12">
                         <div class="row">
                             <div class="title-section">
@@ -319,14 +319,79 @@
                         </div>
                     </div>
                 </div>
-
-                <table class="table table-striped table-hover altertable" style="width: 100%">
+                <table class="table table-striped table-hover addonsitem" style="width: 100%">
                     <tbody>
+                    </tbody>
+                </table>
+
+                <div class="row text-left tValues breads" style="display: none">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="title-section">
+                                <div class="mx-2">Choose Bread </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-striped table-hover breadsitem" style="width: 100%">
+                    <tbody>
+                    </tbody>
+                </table>
+
+                <div class="row text-left tValues cheese" style="display: none">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="title-section">
+                                <div class="mx-2">Choose Cheese </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-striped table-hover cheeseitem" style="width: 100%">
+                    <tbody>
+                    </tbody>
+                </table>
+
+                <div class="row text-left tValues chutney" style="display: none">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="title-section">
+                                <div class="mx-2">Chutney and Sauces </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-striped table-hover chutneyitem" style="width: 100%">
+                    <tbody>
+                    </tbody>
+                </table>
+
+                <div class="row text-left tValues toppings" style="display: none">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="title-section">
+                                <div class="mx-2">Optional Toppings </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-striped table-hover toppingsitem" style="width: 100%">
+                    <tbody>
+                    </tbody>
+                </table>
 
 
-                        
-
-
+                <div class="row text-left tValues extoppings" style="display: none">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="title-section">
+                                <div class="mx-2">Extra Toppings </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-striped table-hover extoppingsitem" style="width: 100%">
+                    <tbody>
                     </tbody>
                 </table>
 
@@ -373,17 +438,6 @@
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
     </div>
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -463,14 +517,70 @@
                         if (d.status == 303) {
 
                         }else if(d.status == 300){
-                            // alternatives
-                            var additionalitems = $(".altertable tbody");
-                            additionalitems.empty();
+                            
+                            $(".breads").hide();
+                            $(".cheese").hide();
+                            $(".chutney").hide(100);
+                            $(".toppings").hide(100);
+                            $(".extoppings").hide(100);
+
+                            // breadsitems
+                            var breadsitems = $(".breadsitem tbody");
+                            breadsitems.empty();
                             $.each(d.items, function (a, b) {
-                                additionalitems.append("<tr><td style='width: 10%; text-align:center'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-plus-circle' viewBox='0 0 16 16' style='height:22px'><path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/><path d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'/></svg></td><td style='width: 70%'>" + b.item_name + "</td>" + "<td style='width: 20%; text-align:right'>£" +b.price +"</td>" +
-                            "</tr>");
+                                if (b.additional_item_title_id == 5) {
+                                    $(".breads").show(100);
+                                    breadsitems.append("<tr><td style='width: 10%; text-align:center'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-plus-circle' viewBox='0 0 16 16' style='height:22px'><path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/><path d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'/></svg></td><td style='width: 70%'>" + b.item_name + "</td>" + "<td style='width: 20%; text-align:right'>£" +b.price +"</td>" + "</tr>"); 
+                                }
                             });
-                            // alternatives end
+                            // breadsitems end
+
+                            //cheese items start
+                            var cheeseitems = $(".cheeseitem tbody");
+                            cheeseitems.empty();
+                            $.each(d.items, function (a, b) {
+
+                                    // add-ons product
+                                if (b.additional_item_title_id == 4) {
+                                    $(".cheese").show(100);
+                                    cheeseitems.append("<tr><td style='width: 10%; text-align:center'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-plus-circle' viewBox='0 0 16 16' style='height:22px'><path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/><path d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'/></svg></td><td style='width: 70%'>" + b.item_name + "</td>" + "<td style='width: 20%; text-align:right'>£" +b.price +"</td>" + "</tr>"); 
+                                }
+                                
+                            });
+                            //cheese items end
+
+                            //Chutney and Sauces start
+                            var chutneyitems = $(".chutneyitem tbody");
+                            chutneyitems.empty();
+                            $.each(d.items, function (a, b) {
+                                if (b.additional_item_title_id == 4) {
+                                    $(".chutney").show(100);
+                                    chutneyitems.append("<tr><td style='width: 10%; text-align:center'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-plus-circle' viewBox='0 0 16 16' style='height:22px'><path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/><path d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'/></svg></td><td style='width: 70%'>" + b.item_name + "</td>" + "<td style='width: 20%; text-align:right'>£" +b.price +"</td>" + "</tr>"); 
+                                }
+                            });
+                            //Chutney and Sauces end
+
+                            //toppings item start
+                            var toppingsitems = $(".toppingsitem tbody");
+                            toppingsitems.empty();
+                            $.each(d.items, function (a, b) {
+                                if (b.additional_item_title_id == 1) {
+                                    $(".toppings").show(100);
+                                    toppingsitems.append("<tr><td style='width: 10%; text-align:center'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-plus-circle' viewBox='0 0 16 16' style='height:22px'><path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/><path d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'/></svg></td><td style='width: 70%'>" + b.item_name + "</td>" + "<td style='width: 20%; text-align:right'>£" +b.price +"</td>" + "</tr>"); 
+                                }
+                            });
+                            //toppings item end
+
+                            //extra toppings item start
+                            var extoppingsitems = $(".extoppingsitem tbody");
+                            extoppingsitems.empty();
+                            $.each(d.items, function (a, b) {
+                                if (b.additional_item_title_id == 2) {
+                                    $(".extoppings").show(100);
+                                    extoppingsitems.append("<tr><td style='width: 10%; text-align:center'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-plus-circle' viewBox='0 0 16 16' style='height:22px'><path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/><path d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'/></svg></td><td style='width: 70%'>" + b.item_name + "</td>" + "<td style='width: 20%; text-align:right'>£" +b.price +"</td>" + "</tr>"); 
+                                }
+                            });
+                            //extra toppings item end
 
                             
 
