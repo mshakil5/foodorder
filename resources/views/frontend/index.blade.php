@@ -386,6 +386,7 @@
                         <div class="row">
                             <div class="title-section">
                                 <div class="mx-2">Extra Toppings </div>
+                                
                             </div>
                         </div>
                     </div>
@@ -523,6 +524,22 @@
                             $(".chutney").hide(100);
                             $(".toppings").hide(100);
                             $(".extoppings").hide(100);
+                            $(".addons").hide(100);
+
+                            // addonsitems
+                            var addonsitems = $(".addonsitem tbody");
+                            addonsitems.empty();
+                            $.each(d.items, function (a, b) {
+                                if (b.additional_item_title_id == 6) {
+                                    $(".addons").show(100);
+                                    addonsitems.append("<tr><td style='width: 10%; text-align:center'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-plus-circle' viewBox='0 0 16 16' style='height:22px'><path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/><path d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'/></svg></td><td style='width: 70%'>" + b.item_name + "</td>" + "<td style='width: 20%; text-align:right'>"); 
+                                    if (b.price > 0) {
+                                        addonsitems.append("£" +b.price +"</td>");
+                                    }
+                                    addonsitems.append("</tr>");
+                                }
+                            });
+                            // addonsitems end
 
                             // breadsitems
                             var breadsitems = $(".breadsitem tbody");
@@ -530,7 +547,12 @@
                             $.each(d.items, function (a, b) {
                                 if (b.additional_item_title_id == 5) {
                                     $(".breads").show(100);
-                                    breadsitems.append("<tr><td style='width: 10%; text-align:center'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-plus-circle' viewBox='0 0 16 16' style='height:22px'><path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/><path d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'/></svg></td><td style='width: 70%'>" + b.item_name + "</td>" + "<td style='width: 20%; text-align:right'>£" +b.price +"</td>" + "</tr>"); 
+                                    breadsitems.append("<tr><td style='width: 10%; text-align:center'><input type='radio' name='bread' id='bread' value='" + b.additional_item_id + "' class='radio'> </td><td style='width: 70%'>" + b.item_name + "</td>" + "<td style='width: 20%; text-align:right'>"); 
+
+                                    if (b.price > 0) {
+                                        breadsitems.append("£" +b.price +"</td>");
+                                    }
+                                    breadsitems.append("</tr>");
                                 }
                             });
                             // breadsitems end
@@ -543,7 +565,12 @@
                                     // add-ons product
                                 if (b.additional_item_title_id == 4) {
                                     $(".cheese").show(100);
-                                    cheeseitems.append("<tr><td style='width: 10%; text-align:center'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-plus-circle' viewBox='0 0 16 16' style='height:22px'><path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/><path d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'/></svg></td><td style='width: 70%'>" + b.item_name + "</td>" + "<td style='width: 20%; text-align:right'>£" +b.price +"</td>" + "</tr>"); 
+                                    cheeseitems.append("<tr><td style='width: 10%; text-align:center'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-plus-circle' viewBox='0 0 16 16' style='height:22px'><path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/><path d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'/></svg></td><td style='width: 70%'>" + b.item_name + "</td>" + "<td style='width: 20%; text-align:right'>"); 
+                                    if (b.price > 0) {
+                                        cheeseitems.append("£" +b.price +"</td>");
+                                    }
+                                    cheeseitems.append("</tr>");
+
                                 }
                                 
                             });
@@ -555,7 +582,11 @@
                             $.each(d.items, function (a, b) {
                                 if (b.additional_item_title_id == 4) {
                                     $(".chutney").show(100);
-                                    chutneyitems.append("<tr><td style='width: 10%; text-align:center'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-plus-circle' viewBox='0 0 16 16' style='height:22px'><path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/><path d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'/></svg></td><td style='width: 70%'>" + b.item_name + "</td>" + "<td style='width: 20%; text-align:right'>£" +b.price +"</td>" + "</tr>"); 
+                                    chutneyitems.append("<tr><td style='width: 10%; text-align:center'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-plus-circle' viewBox='0 0 16 16' style='height:22px'><path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/><path d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'/></svg></td><td style='width: 70%'>" + b.item_name + "</td>" + "<td style='width: 20%; text-align:right'>"); 
+                                    if (b.price > 0) {
+                                        chutneyitems.append("£" +b.price +"</td>");
+                                    }
+                                    chutneyitems.append("</tr>");
                                 }
                             });
                             //Chutney and Sauces end
@@ -566,7 +597,11 @@
                             $.each(d.items, function (a, b) {
                                 if (b.additional_item_title_id == 1) {
                                     $(".toppings").show(100);
-                                    toppingsitems.append("<tr><td style='width: 10%; text-align:center'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-plus-circle' viewBox='0 0 16 16' style='height:22px'><path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/><path d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'/></svg></td><td style='width: 70%'>" + b.item_name + "</td>" + "<td style='width: 20%; text-align:right'>£" +b.price +"</td>" + "</tr>"); 
+                                    toppingsitems.append("<tr><td style='width: 10%; text-align:center'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-plus-circle' viewBox='0 0 16 16' style='height:22px'><path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/><path d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'/></svg></td><td style='width: 70%'>" + b.item_name + "</td>" + "<td style='width: 20%; text-align:right'>"); 
+                                    if (b.price > 0) {
+                                        toppingsitems.append("£" +b.price +"</td>");
+                                    }
+                                    toppingsitems.append("</tr>");
                                 }
                             });
                             //toppings item end
@@ -577,7 +612,11 @@
                             $.each(d.items, function (a, b) {
                                 if (b.additional_item_title_id == 2) {
                                     $(".extoppings").show(100);
-                                    extoppingsitems.append("<tr><td style='width: 10%; text-align:center'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-plus-circle' viewBox='0 0 16 16' style='height:22px'><path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/><path d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'/></svg></td><td style='width: 70%'>" + b.item_name + "</td>" + "<td style='width: 20%; text-align:right'>£" +b.price +"</td>" + "</tr>"); 
+                                    extoppingsitems.append("<tr><td style='width: 10%; text-align:center'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-plus-circle' viewBox='0 0 16 16' style='height:22px'><path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/><path d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'/></svg></td><td style='width: 70%'>" + b.item_name + "</td>" + "<td style='width: 20%; text-align:right'>"); 
+                                    if (b.price > 0) {
+                                        extoppingsitems.append("£" +b.price +"</td>");
+                                    }
+                                    extoppingsitems.append("</tr>");
                                 }
                             });
                             //extra toppings item end
