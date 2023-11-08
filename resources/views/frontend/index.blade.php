@@ -21,6 +21,13 @@
     }
 </style>
 
+<style>
+    input.largerCheckbox {
+      width: 25px;
+      height: 25px;
+    }
+  </style>
+
 <div class="container mt-5">
     <div class="row">
     
@@ -266,7 +273,7 @@
                                                 </div> 
                                                 <div class="form-group"> 
                                                     <label for="email">Mail</label> 
-                                                    <input type="text" class="form-control" id="email" name="email" placeholder="example@mail.com"> 
+                                                    <input type="text" class="form-control" id="uemail" name="email" placeholder="example@mail.com"> 
                                                 </div> 
                                                 <div class="form-group"> 
                                                     <label for="contactno">Contact No</label> 
@@ -289,7 +296,8 @@
 </div>
 
 <!----------------------------additemModal ------------------------->
-<div class="modal fade transfer-modal" id="additemModal">
+<div class="modal fade" id="additemModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  
     <div class="modal-dialog modal-dialog-scrollable ">
         <div class="modal-content">
             <div class="modal-header alert alert-success" style="text-align: left;">
@@ -396,6 +404,7 @@
                     </tbody>
                 </table>
 
+                
 
                 <div class="modal-footer">
                     <div class="center-form">
@@ -532,11 +541,7 @@
                             $.each(d.items, function (a, b) {
                                 if (b.additional_item_title_id == 6) {
                                     $(".addons").show(100);
-                                    addonsitems.append("<tr><td style='width: 10%; text-align:center'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-plus-circle' viewBox='0 0 16 16' style='height:22px'><path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/><path d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'/></svg></td><td style='width: 70%'>" + b.item_name + "</td>" + "<td style='width: 20%; text-align:right'>"); 
-                                    if (b.price > 0) {
-                                        addonsitems.append("£" +b.price +"</td>");
-                                    }
-                                    addonsitems.append("</tr>");
+                                    addonsitems.append("<tr><td style='width: 10%; text-align:center'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-plus-circle' viewBox='0 0 16 16' style='height:22px'><path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/><path d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'/></svg></td><td style='width: 70%'>" + b.item_name + "</td>" + "<td style='width: 20%; text-align:right'>"+ (b.price > 0 ? "£"+b.price.toFixed(2) : '')+"</td></tr>");
                                 }
                             });
                             // addonsitems end
@@ -547,12 +552,7 @@
                             $.each(d.items, function (a, b) {
                                 if (b.additional_item_title_id == 5) {
                                     $(".breads").show(100);
-                                    breadsitems.append("<tr><td style='width: 10%; text-align:center'><input type='radio' name='bread' id='bread' value='" + b.additional_item_id + "' class='radio'> </td><td style='width: 70%'>" + b.item_name + "</td>" + "<td style='width: 20%; text-align:right'>"); 
-
-                                    if (b.price > 0) {
-                                        breadsitems.append("£" +b.price +"</td>");
-                                    }
-                                    breadsitems.append("</tr>");
+                                    breadsitems.append("<tr><td style='width: 10%; text-align:center'><input type='radio' name='bread' id='bread' value='"+b.additional_item_id+"' class='largerCheckbox'> </td><td style='width: 70%'>" + b.item_name + "</td>" + "<td style='width: 20%; text-align:right'>"+ (b.price > 0 ? "£"+b.price.toFixed(2) : '')+"</td></tr>"); 
                                 }
                             });
                             // breadsitems end
@@ -565,12 +565,8 @@
                                     // add-ons product
                                 if (b.additional_item_title_id == 4) {
                                     $(".cheese").show(100);
-                                    cheeseitems.append("<tr><td style='width: 10%; text-align:center'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-plus-circle' viewBox='0 0 16 16' style='height:22px'><path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/><path d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'/></svg></td><td style='width: 70%'>" + b.item_name + "</td>" + "<td style='width: 20%; text-align:right'>"); 
-                                    if (b.price > 0) {
-                                        cheeseitems.append("£" +b.price +"</td>");
-                                    }
-                                    cheeseitems.append("</tr>");
-
+                                    cheeseitems.append("<tr><td style='width: 10%; text-align:center'><input type='checkbox' class='largerCheckbox' name='cheese' value='"+b.additional_item_id+"'></td><td style='width: 70%'>" + b.item_name + "</td>" + "<td style='width: 20%; text-align:right'>"+ (b.price > 0 ? "£"+b.price.toFixed(2) : '')+"</td></tr>");
+                                        
                                 }
                                 
                             });
@@ -582,11 +578,8 @@
                             $.each(d.items, function (a, b) {
                                 if (b.additional_item_title_id == 4) {
                                     $(".chutney").show(100);
-                                    chutneyitems.append("<tr><td style='width: 10%; text-align:center'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-plus-circle' viewBox='0 0 16 16' style='height:22px'><path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/><path d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'/></svg></td><td style='width: 70%'>" + b.item_name + "</td>" + "<td style='width: 20%; text-align:right'>"); 
-                                    if (b.price > 0) {
-                                        chutneyitems.append("£" +b.price +"</td>");
-                                    }
-                                    chutneyitems.append("</tr>");
+                                    chutneyitems.append("<tr><td style='width: 10%; text-align:center'><input type='checkbox' class='largerCheckbox' name='chutney' value='"+b.additional_item_id+"'></td><td style='width: 70%'>" + b.item_name + "</td>" + "<td style='width: 20%; text-align:right'>"+ (b.price > 0 ? "£"+b.price.toFixed(2) : '')+"</td></tr>"); 
+                                    
                                 }
                             });
                             //Chutney and Sauces end
@@ -597,11 +590,7 @@
                             $.each(d.items, function (a, b) {
                                 if (b.additional_item_title_id == 1) {
                                     $(".toppings").show(100);
-                                    toppingsitems.append("<tr><td style='width: 10%; text-align:center'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-plus-circle' viewBox='0 0 16 16' style='height:22px'><path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/><path d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'/></svg></td><td style='width: 70%'>" + b.item_name + "</td>" + "<td style='width: 20%; text-align:right'>"); 
-                                    if (b.price > 0) {
-                                        toppingsitems.append("£" +b.price +"</td>");
-                                    }
-                                    toppingsitems.append("</tr>");
+                                    toppingsitems.append("<tr><td style='width: 10%; text-align:center'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-plus-circle' viewBox='0 0 16 16' style='height:22px'><path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/><path d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'/></svg></td><td style='width: 70%'>" + b.item_name + "</td>" + "<td style='width: 20%; text-align:right'>"+ (b.price > 0 ? "£"+b.price.toFixed(2) : '')+"</td></tr>"); 
                                 }
                             });
                             //toppings item end
@@ -612,15 +601,11 @@
                             $.each(d.items, function (a, b) {
                                 if (b.additional_item_title_id == 2) {
                                     $(".extoppings").show(100);
-                                    extoppingsitems.append("<tr><td style='width: 10%; text-align:center'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-plus-circle' viewBox='0 0 16 16' style='height:22px'><path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/><path d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'/></svg></td><td style='width: 70%'>" + b.item_name + "</td>" + "<td style='width: 20%; text-align:right'>"); 
-                                    if (b.price > 0) {
-                                        extoppingsitems.append("£" +b.price +"</td>");
-                                    }
-                                    extoppingsitems.append("</tr>");
+                                    extoppingsitems.append("<tr><td class='additemval' value='"+b.additional_item_id+"' price='"+b.price+"' style='width: 10%; text-align:center'><svg xmlns='http://www.w3.org/2000/svg' width='25' height='25' fill='currentColor' class='bi bi-plus-circle' viewBox='0 0 16 16' style='height:22px'><path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/><path d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'/></svg></td><td style='width: 70%'>" + b.item_name + "<span class='badge badge-success pl-2' id='output"+b.additional_item_id+"'></span></td>" + "<td style='width: 20%; text-align:right'>"+ (b.price > 0 ? "£"+b.price.toFixed(2) : '')+"</td><td class='minusitemval' value='"+b.additional_item_id+"' id='minusadditem"+b.additional_item_id+"' style='width: 10%; text-align:center;display:none'><svg xmlns='http://www.w3.org/2000/svg' width='25' height='25' fill='currentColor' class='bi bi-dash-circle' viewBox='0 0 16 16'><path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/><path d='M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z'/></svg></td></tr>"); 
                                 }
                             });
                             //extra toppings item end
-
+                            
                             
 
                         // $("#proname").html(d.productname);     
@@ -637,28 +622,53 @@
         $("body").delegate(".getsrchval","click",function () {
             var searchurl = "{{URL::to('/getcatproduct')}}";
             var id = $(this).attr('value');
-            
             var form_data = new FormData();			
             form_data.append("id", id);
 
             $.ajax({
-            url:searchurl,
-            method: "POST",
-            type: "POST",
-            contentType: false,
-            processData: false,
-            data:form_data,
-            success: function(d){
-                $("#get_product").html(d.product);
-                // console.log((d.min));
-            },
-            error:function(d){
-                console.log(d);
-            }
+                url:searchurl,
+                method: "POST",
+                type: "POST",
+                contentType: false,
+                processData: false,
+                data:form_data,
+                success: function(d){
+                    $("#get_product").html(d.product);
+                    // console.log((d.min));
+                },
+                error:function(d){
+                    console.log(d);
+                }
+            });
         });
 
 
+        $("body").delegate(".additemval","click",function () {
+            
+            var id = $(this).attr('value');
+            var price = $(this).attr('price');
+            console.log(price);
+            $('#output'+id).html(function(i, val) { return val*1+1 });
 
+
+            var output = $('#output'+id).html();
+            var additemqty = parseInt(output);
+            if (additemqty>0) {
+                $("#minusadditem"+id).show();
+            }
+            
+        });
+
+        $("body").delegate(".minusitemval","click",function () {
+            
+            var id = $(this).attr('value');
+            console.log(id);
+            $('#output'+id).html(function(i, val) { return val*1-1 });
+            var output = $('#output'+id).html();
+            var additemqty = parseInt(output);
+            if (additemqty<1) {
+                $("#minusadditem"+id).hide();
+            }
         });
 
     });
