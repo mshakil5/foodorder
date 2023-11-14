@@ -69,7 +69,7 @@ class FrontendController extends Controller
                                 $prop.= '<button class="btn btn-primary btn-sm btn-modal" data-toggle="modal" data-target="#additemModal" style="margin-left: -7px;" pid="'.$product->id.'" pname="'.$product->product_name.'" pdesc="'.$product->description.'" price="'.number_format($product->price, 2).'"> add </button>';
 
                             } else {
-                                $prop.='<button class="btn btn-primary btn-sm" style="margin-left: -7px;">Add</button>';
+                                $prop.='<button class="btn btn-primary btn-sm" style="margin-left: -7px;"  id="addToCard" pqty="1" pid="'.$product->id.'" net_amount="'.number_format($product->price, 2).'" price="'.number_format($product->price, 2).'" pname="'.$product->product_name.'">Add</button>';
                             }
                             
                             $prop.='</div>';

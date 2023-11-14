@@ -57,7 +57,7 @@
                                  add
                             </button>
                         @else
-                            <button class="btn btn-primary btn-sm" style="margin-left: -7px;">Add</button>
+                            <button class="btn btn-primary btn-sm" style="margin-left: -7px;"  id="addToCard" pqty="1" pid="{{$product->id}}" net_amount="{{ number_format($product->price, 2) }}" price="{{ number_format($product->price, 2) }}" pname="{{$product->product_name}}">Add</button>
                         @endif
                     </div>
                 @endforeach
@@ -82,32 +82,39 @@
                             </div>
                             <div class="panel-body">
                                 <div class="row">
-                                    <div class="col-md-2 col-xs-2"><b>Action</b></div>
-                                    <div class="col-md-3 col-xs-4"><b>Name</b></div>
-                                    <div class="col-md-2 col-xs-2"><b>Quantity</b></div>
-                                    <div class="col-md-2 col-xs-2"><b>Price</b></div>
-                                    <div class="col-md-3 col-xs-2"><b>Total £</b></div>
-                                </div>
 
-                                <div class="row">
-                                    <div class="col-md-2 col-xs-3">
-                                        <div class="btn-group">
-                                            <a href="#" remove_id="'.$cart_item_id.'" class="btn btn-danger remove"><span class="glyphicon glyphicon-trash"></span></a>
-                                        </div>
-                                    </div>
-                                    <input type="hidden" name="product_id[]" value=""/>
-                                    <input type="hidden" name="" value=""/>								
-                                    <div class="col-md-3 col-xs-3">Full English Breakfast Tray</div>
-                                    <div class="col-md-2 col-xs-2">
-                                        <input type="text" class="form-control qty" value="2" >
-                                    </div>
-                                    <div class="col-md-2 col-xs-2">
-                                        <input type="text" class="form-control price"  value="£12.95" readonly="readonly">
-                                    </div>
-                                    <div class="col-md-3 col-xs-2">
-                                        <input type="text" class="form-control total" value="£12.95" readonly="readonly">
-                                    </div>
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th style="text-align: center">Action</th>
+                                                <th style="text-align: center">Name</th>
+                                                <th style="text-align: center">Quantity</th>
+                                                <th style="text-align: center">Price</th>
+                                                <th style="text-align: center">Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="cardinner">
+                                            {{-- <tr>
+                                                <td style="text-align: center">
+                                                    <div style="color: white;  user-select:none;  padding: 5px;    background: red;    width: 45px;    display: flex;    align-items: center; margin-right:5px;   justify-content: center;    border-radius: 4px;   left: 4px;    top: 81px;" onclick="removeRow(event)" >X</div></td>
+                                                <td style="text-align: center"><input type="text" id="parent_product_name" name="parent_product_name" value="" class="form-control"><input type="hidden" id="parent_product_id" name="parent_product_id" value="" class="form-control"></td>
+                                                <td style="text-align: center">
+                                                <input type="number" id="parent_product_qty" name="parent_product_qty" value="" class="form-control">
+                                                </td>
+                                                <td style="text-align: center">
+                                                <input type="number" id="parent_product_price" name="parent_product_price" step="any" value="" class="form-control" readonly>
+                                                </td>
+                                                <td style="text-align: center">
+                                                    <input type="number" id="parent_product_total_price" name="parent_product_total_price" step="any" value="" class="form-control" readonly>
+                                                </td>
+                                            </tr> --}}
+                                        </tbody>
+
+                                    </table>
+
                                 </div>
+                                
+                                
                             </div>
 
                             <!--**********************************cart item end *************************************************-->
@@ -415,7 +422,11 @@
                         </button>
                         
                         {{-- <input type="button" value="+" id="add1" class="add" /> --}}
+                        <input type="hidden" id="productid" value="" class="productid" />
                         <input type="hidden" id="qty" value="1" min="1" class="qty" />
+                        <input type="hidden" id="tamount" value=""  class="tamount" />
+                        <input type="hidden" id="additemtamnt" value="0"  class="additemtamnt" />
+                        <input type="hidden" id="additemtunitamnt" value=""  class="additemtunitamnt" />
                         {{-- <input type="button" value="-" id="minus1" class="minus" /> --}}
         
                           <b> <span style="font-size: 22px;" id="pShow"></span>   </b>
@@ -433,7 +444,7 @@
                         <div class="col-sm-12">
                             <div class="row">
                                 
-                                <button type="submit" class="btn btn-success btn-lg btn-block">
+                                <button type="submit" id="addToCard" pqty="" pid="" net_amount="" price="" pname="" class="btn btn-success btn-lg btn-block orderBtn">
                                     Add to order
                                 </button>
 
@@ -447,47 +458,68 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
-    </div>
+</div>
 
 
 
 @endsection
 
 @section('script')
-
+<script type="text/javascript">
+    function removeRow(event) {
+        event.target.parentElement.parentElement.remove();
+        }
+</script>
 <script>
     $(function()
         {
+            // parent increase function start
             $(".add").click(function()
             {
                 var currentVal = parseInt($("#qty").val());
                 var unitprice = $("#unitprice").val();
+                var additemtotal = $("#additemtamnt").val();
                 var priceperunit = (currentVal+1)*unitprice;
                 var amt = parseFloat(priceperunit);
+                var adamt = parseFloat(additemtotal);
+                var net_amnt = adamt + amt;
                 
                 if (currentVal != NaN)
                 {
                     $("#qty").val(currentVal + 1);
-                    $("#pShow").html("£"+ amt.toFixed(2));
+                    $("#pShow").html("£"+ net_amnt.toFixed(2));
+                    $("#tamount").val(net_amnt.toFixed(2));
+                    $('.orderBtn').attr('net_amount', net_amnt.toFixed(2));
+                    $('.orderBtn').attr('pqty', currentVal + 1);
                 }
             });
+            // parent increase function end
 
+            // parent decrease function start
             $(".minus").click(function()
             {
                 var currentVal = parseInt($("#qty").val());
                 var unitprice = $("#unitprice").val();
+                var additemtotal = $("#additemtamnt").val();
                 var priceperunit = (currentVal-1)*unitprice;
+                
                 var amt = parseFloat(priceperunit);
+                var adamt = parseFloat(additemtotal);
+                var net_amnt = adamt + amt;
                 
                 if (currentVal != NaN)
                 {
                     if(currentVal > 1){
                         $("#qty").val(currentVal - 1);
-                        $("#pShow").html("£"+ amt.toFixed(2));
+                        $("#pShow").html("£"+ net_amnt.toFixed(2));
+                        $("#tamount").val(net_amnt.toFixed(2));
+                        $('.orderBtn').attr('net_amount', net_amnt.toFixed(2));
+                        $('.orderBtn').attr('pqty', currentVal - 1);
                     }
 
                 }
             });
+            // parent decrease function end
         });
 
 
@@ -495,10 +527,36 @@
          $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
         // 
 
+        // category wise product show
+        $("body").delegate(".getsrchval","click",function () {
+            var searchurl = "{{URL::to('/getcatproduct')}}";
+            var id = $(this).attr('value');
+            var form_data = new FormData();			
+            form_data.append("id", id);
+
+            $.ajax({
+                url:searchurl,
+                method: "POST",
+                type: "POST",
+                contentType: false,
+                processData: false,
+                data:form_data,
+                success: function(d){
+                    $("#get_product").html(d.product);
+                    // console.log((d.min));
+                },
+                error:function(d){
+                    console.log(d);
+                }
+            });
+        });
+        // category wise product show
+
     $(document).ready(function() {
 
         var urlbr = "{{URL::to('/get-additional-product')}}";
 
+        // product show in modal start
         $(document).on('click', '.btn-modal', function () {
             let stockid = $(this).val();
             pdesc = $(this).attr('pdesc');
@@ -514,7 +572,13 @@
             $("#priceShow").html("£"+price);
             $("#pShow").html("£"+price);
             $("#unitprice").val(price);
+            $("#tamount").val(price);
             $('#additemModal').find('.modal-body #price').val(price);
+            $('.orderBtn').attr('net_amount', price);
+            $('.orderBtn').attr('price', price);
+            $('.orderBtn').attr('pid', productid);
+            $('.orderBtn').attr('pname', pname);
+            $('.orderBtn').attr('pqty', 1);
 
             // loop start
             $.ajax({
@@ -565,7 +629,7 @@
                                     // add-ons product
                                 if (b.additional_item_title_id == 4) {
                                     $(".cheese").show(100);
-                                    cheeseitems.append("<tr><td style='width: 10%; text-align:center'><input type='checkbox' class='largerCheckbox' name='cheese' value='"+b.additional_item_id+"'></td><td style='width: 70%'>" + b.item_name + "</td>" + "<td style='width: 20%; text-align:right'>"+ (b.price > 0 ? "£"+b.price.toFixed(2) : '')+"</td></tr>");
+                                    cheeseitems.append("<tr><td style='width: 10%; text-align:center'><input type='checkbox' class='largerCheckbox cheesesingleitem' id='cheese"+b.additional_item_id+"' name='cheese' value='"+b.additional_item_id+"' price='"+b.price+"'></td><td style='width: 70%'>" + b.item_name + "</td>" + "<td style='width: 20%; text-align:right'>"+ (b.price > 0 ? "£"+b.price.toFixed(2) : '')+"</td></tr>");
                                         
                                 }
                                 
@@ -578,7 +642,7 @@
                             $.each(d.items, function (a, b) {
                                 if (b.additional_item_title_id == 4) {
                                     $(".chutney").show(100);
-                                    chutneyitems.append("<tr><td style='width: 10%; text-align:center'><input type='checkbox' class='largerCheckbox' name='chutney' value='"+b.additional_item_id+"'></td><td style='width: 70%'>" + b.item_name + "</td>" + "<td style='width: 20%; text-align:right'>"+ (b.price > 0 ? "£"+b.price.toFixed(2) : '')+"</td></tr>"); 
+                                    chutneyitems.append("<tr><td style='width: 10%; text-align:center'><input type='checkbox' class='largerCheckbox chutneysingleitem' name='chutney' value='"+b.additional_item_id+"' price='"+b.price+"'></td><td style='width: 70%'>" + b.item_name + "</td>" + "<td style='width: 20%; text-align:right'>"+ (b.price > 0 ? "£"+b.price.toFixed(2) : '')+"</td></tr>"); 
                                     
                                 }
                             });
@@ -601,7 +665,7 @@
                             $.each(d.items, function (a, b) {
                                 if (b.additional_item_title_id == 2) {
                                     $(".extoppings").show(100);
-                                    extoppingsitems.append("<tr><td class='additemval' value='"+b.additional_item_id+"' price='"+b.price+"' style='width: 10%; text-align:center'><svg xmlns='http://www.w3.org/2000/svg' width='25' height='25' fill='currentColor' class='bi bi-plus-circle' viewBox='0 0 16 16' style='height:22px'><path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/><path d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'/></svg></td><td style='width: 70%'>" + b.item_name + "<span class='badge badge-success pl-2' id='output"+b.additional_item_id+"'></span></td>" + "<td style='width: 20%; text-align:right'>"+ (b.price > 0 ? "£"+b.price.toFixed(2) : '')+"</td><td class='minusitemval' value='"+b.additional_item_id+"' id='minusadditem"+b.additional_item_id+"' style='width: 10%; text-align:center;display:none'><svg xmlns='http://www.w3.org/2000/svg' width='25' height='25' fill='currentColor' class='bi bi-dash-circle' viewBox='0 0 16 16'><path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/><path d='M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z'/></svg></td></tr>"); 
+                                    extoppingsitems.append("<tr><td class='additemval' value='"+b.additional_item_id+"' price='"+b.price+"' style='width: 10%; text-align:center'><svg xmlns='http://www.w3.org/2000/svg' width='25' height='25' fill='currentColor' class='bi bi-plus-circle' viewBox='0 0 16 16' style='height:22px'><path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/><path d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'/></svg></td><td style='width: 70%'>" + b.item_name + "<span class='badge badge-success pl-2' id='output"+b.additional_item_id+"'></span></td>" + "<td style='width: 20%; text-align:right'>"+ (b.price > 0 ? "£"+b.price.toFixed(2) : '')+"</td><td class='minusitemval' value='"+b.additional_item_id+"' id='minusadditem"+b.additional_item_id+"' price='"+b.price+"' style='width: 10%; text-align:center;display:none'><svg xmlns='http://www.w3.org/2000/svg' width='25' height='25' fill='currentColor' class='bi bi-dash-circle' viewBox='0 0 16 16'><path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/><path d='M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z'/></svg></td></tr>"); 
                                 }
                             });
                             //extra toppings item end
@@ -617,61 +681,168 @@
                 }); 
             // loop end
         });
+        // product show in modal end
 
 
-        $("body").delegate(".getsrchval","click",function () {
-            var searchurl = "{{URL::to('/getcatproduct')}}";
-            var id = $(this).attr('value');
-            var form_data = new FormData();			
-            form_data.append("id", id);
+        
 
-            $.ajax({
-                url:searchurl,
-                method: "POST",
-                type: "POST",
-                contentType: false,
-                processData: false,
-                data:form_data,
-                success: function(d){
-                    $("#get_product").html(d.product);
-                    // console.log((d.min));
-                },
-                error:function(d){
-                    console.log(d);
-                }
-            });
-        });
-
-
+        // child product increase start
         $("body").delegate(".additemval","click",function () {
             
             var id = $(this).attr('value');
             var price = $(this).attr('price');
-            console.log(price);
+            // console.log(price);
             $('#output'+id).html(function(i, val) { return val*1+1 });
-
 
             var output = $('#output'+id).html();
             var additemqty = parseInt(output);
+            var additemtunitamnt = additemqty * price;
+            var parent_item_price = $("#tamount").val();
+            var additemtamnt = $("#additemtamnt").val();
+            var total_add_item_amnt = parseFloat(additemtamnt) + parseFloat(price);
+            var parent_item_total_price = parseFloat(parent_item_price) + parseFloat(total_add_item_amnt);
+            $("#pShow").html("£"+ parent_item_total_price.toFixed(2));
+            $("#additemtunitamnt").val(additemtunitamnt.toFixed(2));
+            $("#additemtamnt").val(total_add_item_amnt.toFixed(2));
             if (additemqty>0) {
                 $("#minusadditem"+id).show();
             }
             
         });
+        // child product increase end
 
+        // child product decrease start
         $("body").delegate(".minusitemval","click",function () {
             
             var id = $(this).attr('value');
-            console.log(id);
+            var price = $(this).attr('price');
             $('#output'+id).html(function(i, val) { return val*1-1 });
             var output = $('#output'+id).html();
             var additemqty = parseInt(output);
+
+            
+            var additemtunitamnt = additemqty * price;
+            var parent_item_price = $("#tamount").val();
+            var additemtamnt = $("#additemtamnt").val();
+            var total_add_item_amnt = parseFloat(additemtamnt) - parseFloat(price);
+            var parent_item_total_price = parseFloat(parent_item_price) + parseFloat(total_add_item_amnt);
+            $("#pShow").html("£"+ parent_item_total_price.toFixed(2));
+            $("#additemtunitamnt").val(additemtunitamnt.toFixed(2));
+            $("#additemtamnt").val(total_add_item_amnt.toFixed(2));
+
+
             if (additemqty<1) {
                 $("#minusadditem"+id).hide();
             }
         });
+        // child product decrease end
+
+
+        // enable disable checkbox item start
+        $("body").delegate(".cheeseitem","click",function () {
+            var id = $(this).attr('value');
+            var check = $(this).find('input[type="checkbox"]:checked').length;
+            if (check>1) {
+                    $(this).find('input[type="checkbox"]').prop('disabled', true);
+                    $(this).find('input[type="checkbox"]:checked').prop('disabled', false);
+            } else {
+                $(this).find('input[type="checkbox"]').prop('disabled', false);
+            }
+        });
+
+        $("body").delegate(".chutneyitem","click",function () {
+            var id = $(this).attr('value');
+            var check = $(this).find('input[type="checkbox"]:checked').length;
+            if (check>1) {
+                    $(this).find('input[type="checkbox"]').prop('disabled', true);
+                    $(this).find('input[type="checkbox"]:checked').prop('disabled', false);
+            } else {
+                $(this).find('input[type="checkbox"]').prop('disabled', false);
+            }
+        });
+        // enable disable checkbox item end
+
+
+        // child checkbox item calculation start
+        $("body").delegate(".cheesesingleitem","click",function () {
+            var id = $(this).attr('value');
+            var price = $(this).attr('price');
+            var parent_item_price = $("#tamount").val();
+            var additemtamnt = $("#additemtamnt").val();
+            
+            if(this.checked){
+                var total_add_item_amnt = parseFloat(additemtamnt) + parseFloat(price);
+                var parent_item_total_price = parseFloat(parent_item_price) + parseFloat(total_add_item_amnt);
+                $("#pShow").html("£"+ parent_item_total_price.toFixed(2));
+                $("#additemtamnt").val(total_add_item_amnt.toFixed(2));
+            } else {
+                var total_add_item_amnt = parseFloat(additemtamnt) - parseFloat(price);
+                var parent_item_total_price = parseFloat(parent_item_price) + parseFloat(total_add_item_amnt);
+                $("#pShow").html("£"+ parent_item_total_price.toFixed(2));
+                $("#additemtamnt").val(total_add_item_amnt.toFixed(2));
+            }
+        });
+
+        $("body").delegate(".chutneysingleitem","click",function () {
+            var id = $(this).attr('value');
+            var price = $(this).attr('price');
+            var parent_item_price = $("#tamount").val();
+            var additemtamnt = $("#additemtamnt").val();
+            
+            if(this.checked){
+                var total_add_item_amnt = parseFloat(additemtamnt) + parseFloat(price);
+                var parent_item_total_price = parseFloat(parent_item_price) + parseFloat(total_add_item_amnt);
+                $("#pShow").html("£"+ parent_item_total_price.toFixed(2));
+                $("#additemtamnt").val(total_add_item_amnt.toFixed(2));
+            } else {
+                var total_add_item_amnt = parseFloat(additemtamnt) - parseFloat(price);
+                var parent_item_total_price = parseFloat(parent_item_price) + parseFloat(total_add_item_amnt);
+                $("#pShow").html("£"+ parent_item_total_price.toFixed(2));
+                $("#additemtamnt").val(total_add_item_amnt.toFixed(2));
+            }
+        });
+        // child checkbox item calculation end
+
+
+        
+
+        // return stock
+        $("body").delegate("#addToCard","click",function () {
+
+            pqty = $(this).attr('pqty');
+            pid = $(this).attr('pid');
+            price = $(this).attr('price');
+            pname = $(this).attr('pname');
+            net_amount = $(this).attr('net_amount');
+
+            var card_product_id = $("input[name='parent_product_id[]']")
+                        .map(function(){return $(this).val();}).get();
+                        
+            card_product_id.push(pid);
+            seen = card_product_id.filter((s => v => s.has(v) || !s.add(v))(new Set));
+
+            if (Array.isArray(seen) && seen.length) {
+                alert('This product already added!!');
+                $('#additemModal').modal('hide');
+                return;
+            }
+
+
+            var markup = '<tr><td style="text-align: center"><div style="color: white;  user-select:none;  padding: 5px;    background: red;    width: 45px;    display: flex;    align-items: center; margin-right:5px;   justify-content: center;    border-radius: 4px;   left: 4px;    top: 81px;" onclick="removeRow(event)" >X</div></td><td style="text-align: center"><input type="text" id="parent_product_name" name="parent_product_name[]" value="'+pname+'" class="form-control"><input type="hidden" id="parent_product_id" name="parent_product_id[]" value="'+pid+'" class="form-control"></td><td style="text-align: center"><input type="number" id="parent_product_qty" name="parent_product_qty[]" value="'+pqty+'" class="form-control"></td><td style="text-align: center"><input type="number" id="parent_product_price" name="parent_product_price[]" step="any" value="'+price+'" class="form-control" readonly></td><td style="text-align: center"><input type="number" id="parent_product_total_price" name="parent_product_total_price[]" step="any" value="'+net_amount+'" class="form-control" readonly></td></tr>';
+
+        
+            $("table #cardinner ").append(markup);
+            $('#additemModal').modal('hide');
+
+        });
+        // return stock end
+        
 
     });
+</script>
+
+<script>
+
 </script>
     
 @endsection
