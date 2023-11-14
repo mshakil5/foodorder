@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
   
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\OrderController;
   
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +38,9 @@ Route::post('get-additional-product', [FrontendController::class, 'getAdditional
 
 //search
 Route::post('/getcatproduct', [FrontendController::class, 'searchproduct']);
+
+// order
+Route::post('/order', [OrderController::class, 'orderStore']);
 
 
   

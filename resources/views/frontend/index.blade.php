@@ -94,20 +94,7 @@
                                             </tr>
                                         </thead>
                                         <tbody id="cardinner">
-                                            {{-- <tr>
-                                                <td style="text-align: center">
-                                                    <div style="color: white;  user-select:none;  padding: 5px;    background: red;    width: 45px;    display: flex;    align-items: center; margin-right:5px;   justify-content: center;    border-radius: 4px;   left: 4px;    top: 81px;" onclick="removeRow(event)" >X</div></td>
-                                                <td style="text-align: center"><input type="text" id="parent_product_name" name="parent_product_name" value="" class="form-control"><input type="hidden" id="parent_product_id" name="parent_product_id" value="" class="form-control"></td>
-                                                <td style="text-align: center">
-                                                <input type="number" id="parent_product_qty" name="parent_product_qty" value="" class="form-control">
-                                                </td>
-                                                <td style="text-align: center">
-                                                <input type="number" id="parent_product_price" name="parent_product_price" step="any" value="" class="form-control" readonly>
-                                                </td>
-                                                <td style="text-align: center">
-                                                    <input type="number" id="parent_product_total_price" name="parent_product_total_price" step="any" value="" class="form-control" readonly>
-                                                </td>
-                                            </tr> --}}
+                                            
                                         </tbody>
 
                                     </table>
@@ -123,7 +110,7 @@
                             </div>	
 
                         </div>
-                                <!--************************************* right side cart div end ************************************************* -->
+<!--*************** right side cart div end ************************ -->
 
                         <div class="row">
                             <div class="col-md-12">
@@ -137,12 +124,12 @@
                                         <div class="row"> 
                                             <div class="col-md-6 col-xs-12"><b>
                                                 <div class="radio"> 
-                                                    <label><input type="radio" name="payment" value="Paypal" checked>Paypal</label>
+                                                    <label><input type="radio" name="payment" value="Paypal" >Paypal</label>
                                                 </div> </b>
                                             </div> 
                                             <div class="col-md-6 col-xs-12"><b>
                                                 <div class="radio"> 
-                                                    <label><input type="radio" name="payment" value="Cash">Cash</label>
+                                                    <label><input type="radio" name="payment" value="Cash" checked>Cash</label>
                                                 </div></b>
                                             </div> 
                                         </div> 
@@ -150,7 +137,9 @@
                                 </div> 
                             </div> 
                         </div> 
-                        <!--**********************************Payment Option end*************************************************--> <!--**********************************Collection Option start*************************************************--> 
+<!--**********************************Payment Option end*************************************************-->
+
+<!--**********************************Collection Option start*************************************************--> 
                         <div class="row"> 
                             <div class="col-md-12">
                                 <div class="panel panel-primary"> 
@@ -177,7 +166,7 @@
                                             </div>
 
                                             <div class="col-md-6">
-                                                <label for="delivery">Collection/Delivery Date</label><input type="text" class="date-picker form-control hasDatepicker" name="date" id="date" placeholder="Select date" required="">
+                                                <label for="delivery">Collection/Delivery Date</label><input type="date" class="date-picker form-control hasDatepicker" name="date" id="date" placeholder="Select date" required>
                                             </div>
 
                                             <div class="col-md-6">
@@ -272,6 +261,7 @@
                                         </div> 
                                     </div> 
                                     <div class="panel-body"> 
+                                        <div class="ermsg"></div>
                                         <div class="row"> 
                                             <div class="col-md-12 col-xs-12"> 
                                                 <div class="form-group"> 
@@ -283,8 +273,8 @@
                                                     <input type="text" class="form-control" id="uemail" name="email" placeholder="example@mail.com"> 
                                                 </div> 
                                                 <div class="form-group"> 
-                                                    <label for="contactno">Contact No</label> 
-                                                    <input type="text" class="form-control" id="mobile" name="mobile" placeholder="mobile"> 
+                                                    <label for="phone">Contact No</label> 
+                                                    <input type="text" class="form-control" id="phone" name="phone" placeholder="phone"> 
                                                 </div>
                                             </div> 
                                         </div> 
@@ -293,7 +283,7 @@
                             </div> 
                         </div>
 
-                        <input type="button" id="gust-signup-form" style="float:right;" name="login_user_with_product" class="btn btn-info btn-lg" value="Submit Order">
+                        <input type="button" id="orderCreateBtn" style="float:left;" name="orderCreateBtn" class="btn btn-info btn-lg" value="Submit Order">
 
                     </div>
                 </div>
@@ -574,6 +564,7 @@
             $("#unitprice").val(price);
             $("#tamount").val(price);
             $('#additemModal').find('.modal-body #price').val(price);
+
             $('.orderBtn').attr('net_amount', price);
             $('.orderBtn').attr('price', price);
             $('.orderBtn').attr('pid', productid);
@@ -836,6 +827,53 @@
 
         });
         // return stock end
+
+
+        // submit to purchase 
+        var orderurl = "{{URL::to('/order')}}";
+
+            $("body").delegate("#orderCreateBtn","click",function(event){
+                event.preventDefault();
+                
+                var collection_date = $("#date").val();
+                var collection_time = $("#timeslot").val();
+                var name = $("#name").val();
+                var email = $("#uemail").val();
+                var phone = $("#phone").val();
+                
+                var parent_product_id = $("input[name='parent_product_id[]']")
+                    .map(function(){return $(this).val();}).get();
+                    
+                var parent_product_qty = $("input[name='parent_product_qty[]']")
+                    .map(function(){return $(this).val();}).get();
+                    
+                var parent_product_price = $("input[name='parent_product_price[]']")
+                    .map(function(){return $(this).val();}).get();
+
+                var parent_product_total_price = $("input[name='parent_product_total_price[]']")
+                    .map(function(){return $(this).val();}).get();
+
+                $.ajax({
+                    url: orderurl,
+                    method: "POST",
+                    data: {collection_date,collection_time,name,email,phone,parent_product_id,parent_product_qty,parent_product_price,parent_product_total_price},
+
+                    success: function (d) {
+                        if (d.status == 303) {
+                            $(".ermsg").html(d.message);
+                            pagetop();
+                        }else if(d.status == 300){
+                            $(".ermsg").html(d.message);
+                            pagetop();
+                        }
+                    },
+                    error: function (d) {
+                        console.log(d);
+                    }
+                });
+
+            });
+            // submit to purchase end
         
 
     });
