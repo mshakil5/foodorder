@@ -35,22 +35,26 @@ class OrderController extends Controller
         $order->name = $request->name;
         $order->email = $request->email;
         $order->phone = $request->phone;
+        $order->delivery_type = $request->delivery_type;
+        $order->payment_type = $request->payment_type;
         if($order->save()){
 
-            // foreach($request->input('product_id') as $key => $value)
-            // {
-            //     $orderDtl = new OrderDetail();
-            //     $orderDtl->invoiceno = $order->invoiceno;
-            //     $orderDtl->order_id = $order->id;
-            //     $orderDtl->product_id = $request->get('product_id')[$key];
-            //     $orderDtl->quantity = $request->get('quantity')[$key];
-            //     $orderDtl->sellingprice = $request->get('sellingprice')[$key];
-            //     $orderDtl->total_amount = $request->get('quantity')[$key] * $request->get('sellingprice')[$key];
-            //     $orderDtl->created_by = Auth::user()->id;
-            //     $orderDtl->save();
-            // }
+            $net_amount = 0;
+            foreach($request->input('parent_product_id') as $key => $value)
+            {
+                $orderDtl = new OrderDetail();
+                $orderDtl->order_id = $order->id;
+                $orderDtl->product_id = $request->get('parent_product_id')[$key];
+                $orderDtl->product_name = $request->get('parent_product_name')[$key];
+                $orderDtl->quantity = $request->get('parent_product_qty')[$key];
+                $orderDtl->price_per_unit = $request->get('parent_product_price')[$key];
+                $orderDtl->total_price = $request->get('parent_product_qty')[$key] * $request->get('parent_product_price')[$key];
+                $orderDtl->save();
+                $net_amount = $net_amount + $orderDtl->total_price;
+            }
             
-            
+        $order->net_amount = $net_amount;
+        $order->save();
             
             $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Thank you for this order.</b></div>";
             return response()->json(['status'=> 300,'message'=>$message,'id'=>$order->id]);

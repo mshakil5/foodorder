@@ -698,7 +698,7 @@
             if (additemqty>0) {
                 $("#minusadditem"+id).show();
             }
-            
+
         });
         // child product increase end
 
@@ -797,7 +797,7 @@
 
         
 
-        // return stock
+        // add to card start
         $("body").delegate("#addToCard","click",function () {
 
             pqty = $(this).attr('pqty');
@@ -826,54 +826,59 @@
             $('#additemModal').modal('hide');
 
         });
-        // return stock end
-
+        // add to card end
 
         // submit to purchase 
         var orderurl = "{{URL::to('/order')}}";
 
-            $("body").delegate("#orderCreateBtn","click",function(event){
-                event.preventDefault();
+        $("body").delegate("#orderCreateBtn","click",function(event){
+            event.preventDefault();
+            
+            var collection_date = $("#date").val();
+            var collection_time = $("#timeslot").val();
+            var name = $("#name").val();
+            var email = $("#uemail").val();
+            var phone = $("#phone").val();
+            var delivery_type = $('input[name="collection"]:checked').val();
+            var payment_type = $('input[name="payment"]:checked').val();
+            
+            var parent_product_name = $("input[name='parent_product_name[]']")
+                .map(function(){return $(this).val();}).get();
+
+            var parent_product_id = $("input[name='parent_product_id[]']")
+                .map(function(){return $(this).val();}).get();
                 
-                var collection_date = $("#date").val();
-                var collection_time = $("#timeslot").val();
-                var name = $("#name").val();
-                var email = $("#uemail").val();
-                var phone = $("#phone").val();
+            var parent_product_qty = $("input[name='parent_product_qty[]']")
+                .map(function(){return $(this).val();}).get();
                 
-                var parent_product_id = $("input[name='parent_product_id[]']")
-                    .map(function(){return $(this).val();}).get();
-                    
-                var parent_product_qty = $("input[name='parent_product_qty[]']")
-                    .map(function(){return $(this).val();}).get();
-                    
-                var parent_product_price = $("input[name='parent_product_price[]']")
-                    .map(function(){return $(this).val();}).get();
+            var parent_product_price = $("input[name='parent_product_price[]']")
+                .map(function(){return $(this).val();}).get();
 
-                var parent_product_total_price = $("input[name='parent_product_total_price[]']")
-                    .map(function(){return $(this).val();}).get();
+            var parent_product_total_price = $("input[name='parent_product_total_price[]']")
+                .map(function(){return $(this).val();}).get();
 
-                $.ajax({
-                    url: orderurl,
-                    method: "POST",
-                    data: {collection_date,collection_time,name,email,phone,parent_product_id,parent_product_qty,parent_product_price,parent_product_total_price},
+            $.ajax({
+                url: orderurl,
+                method: "POST",
+                data: {collection_date,collection_time,name,email,phone,parent_product_id,parent_product_qty,parent_product_price,parent_product_total_price,parent_product_name,delivery_type,payment_type},
 
-                    success: function (d) {
-                        if (d.status == 303) {
-                            $(".ermsg").html(d.message);
-                            pagetop();
-                        }else if(d.status == 300){
-                            $(".ermsg").html(d.message);
-                            pagetop();
-                        }
-                    },
-                    error: function (d) {
-                        console.log(d);
+                success: function (d) {
+                    if (d.status == 303) {
+                        $(".ermsg").html(d.message);
+                        pagetop();
+                    }else if(d.status == 300){
+                        $(".ermsg").html(d.message);
+                        pagetop();
+                        window.setTimeout(function(){location.reload()},2000)
                     }
-                });
-
+                },
+                error: function (d) {
+                    console.log(d);
+                }
             });
-            // submit to purchase end
+
+        });
+        // submit to purchase end
         
 
     });
