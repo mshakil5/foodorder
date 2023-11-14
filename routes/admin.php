@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\TimeSlotController;
 use App\Http\Controllers\Admin\AdditionalItemController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\OrderController;
 
 
 /*------------------------------------------
@@ -71,9 +72,11 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::get('/assign-product/{id}', [ProductController::class, 'assignProduct'])->name('admin.assignProduct');
     Route::post('/assign-product', [ProductController::class, 'assignProductStore'])->name('admin.assignProductStore');
     Route::post('/assign-product-update', [ProductController::class, 'assignProductUpdate'])->name('admin.assignProductUpdate');
-
     Route::get('/assign-product-edit/{id}', [ProductController::class, 'assignProductEdit'])->name('admin.assignProductEdit');
 
+
+    // order
+    Route::get('/order', [OrderController::class, 'getAllOrder'])->name('admin.order');
 
 });
   

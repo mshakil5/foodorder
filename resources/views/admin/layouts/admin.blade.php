@@ -85,6 +85,25 @@
                 <li><a href="{{route('admin.additionalItemTitle')}}" class="nav-link {{ (request()->is('admin/additional-item-title*')) ? 'current' : '' }}">Additional Item Title</a></li>
                 <li><a href="{{route('admin.additionalItem')}}" class="nav-link {{ (request()->is('admin/additional-items*')) ? 'current' : '' }}">Additional Item</a></li>
 
+
+                <div class="accordion" id="orderLink">
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="ordermenu">
+                        <button class="accordion-button  {{ (request()->is('admin/order*')) ? '' : 'collapsed' }}" type="button" data-bs-toggle="collapse" data-bs-target="#ordertab" aria-expanded="false" aria-controls="ordertab">
+                            Orders
+                        </button>
+                      </h2>
+                      <div id="ordertab" class="accordion-collapse  {{ (request()->is('admin/order*')) ? '' : 'collapse' }} " aria-labelledby="ordermenu" data-bs-parent="#orderLink">
+                        <div class="accordion-body">
+                            <li><a href="{{route('admin.order')}}" class="nav-link {{ (request()->is('admin/order*')) ? 'current' : '' }}">All Order</a></li>
+                            <li><a href="#" class="nav-link">Processing Orders</a></li>
+                            <li><a href="#" class="nav-link">Completed Orders</a></li>
+
+                        </div>
+                      </div>
+                    </div> 
+                </div>
+
                 
                 
 
