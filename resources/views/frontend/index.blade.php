@@ -682,7 +682,6 @@
             
             var id = $(this).attr('value');
             var price = $(this).attr('price');
-            // console.log(price);
             $('#output'+id).html(function(i, val) { return val*1+1 });
 
             var output = $('#output'+id).html();
