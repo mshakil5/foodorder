@@ -434,13 +434,15 @@
                         <div class="col-sm-12">
                             <div class="row">
                                 
-                                <button type="submit" id="addToCard" pqty="" pid="" net_amount="" price="" pname="" class="btn btn-success btn-lg btn-block orderBtn">
+                                <button type="submit" id="addToCard" pqty="" pid="" net_amount="" price="" pname="" additionalitem="[]" class="btn btn-success btn-lg btn-block orderBtn">
                                     Add to order
                                 </button>
 
                             </div>
                         </div>
                     </div>
+
+                    
 
 
                         
@@ -578,7 +580,7 @@
                     data: {productid:productid},
 
                     success: function (d) {
-                            console.log(d);
+                            // console.log(d);
                         if (d.status == 303) {
 
                         }else if(d.status == 300){
@@ -633,7 +635,7 @@
                             $.each(d.items, function (a, b) {
                                 if (b.additional_item_title_id == 4) {
                                     $(".chutney").show(100);
-                                    chutneyitems.append("<tr><td style='width: 10%; text-align:center'><input type='checkbox' class='largerCheckbox chutneysingleitem' name='chutney' value='"+b.additional_item_id+"' price='"+b.price+"'></td><td style='width: 70%'>" + b.item_name + "</td>" + "<td style='width: 20%; text-align:right'>"+ (b.price > 0 ? "£"+b.price.toFixed(2) : '')+"</td></tr>"); 
+                                    chutneyitems.append("<tr><td style='width: 10%; text-align:center'><input type='checkbox' class='largerCheckbox chutneysingleitem' name='chutney' value='"+b.additional_item_id+"' price='"+b.price+"'><input type='hidden' id='addechutneyitems"+b.additional_item_id+"' data-itemid='' name='additionalitm' data-count='' value='"+b.price+"' class='extraaitem'></td><td style='width: 70%'>" + b.item_name + "</td>" + "<td style='width: 20%; text-align:right'>"+ (b.price > 0 ? "£"+b.price.toFixed(2) : '')+"</td></tr>"); 
                                     
                                 }
                             });
@@ -656,7 +658,7 @@
                             $.each(d.items, function (a, b) {
                                 if (b.additional_item_title_id == 2) {
                                     $(".extoppings").show(100);
-                                    extoppingsitems.append("<tr><td class='additemval' value='"+b.additional_item_id+"' price='"+b.price+"' style='width: 10%; text-align:center'><svg xmlns='http://www.w3.org/2000/svg' width='25' height='25' fill='currentColor' class='bi bi-plus-circle' viewBox='0 0 16 16' style='height:22px'><path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/><path d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'/></svg></td><td style='width: 70%'>" + b.item_name + "<span class='badge badge-success pl-2' id='output"+b.additional_item_id+"'></span></td>" + "<td style='width: 20%; text-align:right'>"+ (b.price > 0 ? "£"+b.price.toFixed(2) : '')+"</td><td class='minusitemval' value='"+b.additional_item_id+"' id='minusadditem"+b.additional_item_id+"' price='"+b.price+"' style='width: 10%; text-align:center;display:none'><svg xmlns='http://www.w3.org/2000/svg' width='25' height='25' fill='currentColor' class='bi bi-dash-circle' viewBox='0 0 16 16'><path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/><path d='M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z'/></svg></td></tr>"); 
+                                    extoppingsitems.append("<tr><td class='additemval' value='"+b.additional_item_id+"' price='"+b.price+"' style='width: 10%; text-align:center'><svg xmlns='http://www.w3.org/2000/svg' width='25' height='25' fill='currentColor' class='bi bi-plus-circle' viewBox='0 0 16 16' style='height:22px'><path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/><path d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'/></svg><input type='hidden' id='addetoppings"+b.additional_item_id+"' data-itemid='' name='additionalitm' data-count='' value='"+b.price+"' class='extraaitem'></td><td style='width: 70%'>" + b.item_name + "<span class='badge badge-success pl-2' id='output"+b.additional_item_id+"'></span></td>" + "<td style='width: 20%; text-align:right'>"+ (b.price > 0 ? "£"+b.price.toFixed(2) : '')+"</td><td class='minusitemval' value='"+b.additional_item_id+"' id='minusadditem"+b.additional_item_id+"' price='"+b.price+"' style='width: 10%; text-align:center;display:none'><svg xmlns='http://www.w3.org/2000/svg' width='25' height='25' fill='currentColor' class='bi bi-dash-circle' viewBox='0 0 16 16'><path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/><path d='M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z'/></svg></td></tr>"); 
                                 }
                             });
                             //extra toppings item end
@@ -694,6 +696,9 @@
             $("#pShow").html("£"+ parent_item_total_price.toFixed(2));
             $("#additemtunitamnt").val(additemtunitamnt.toFixed(2));
             $("#additemtamnt").val(total_add_item_amnt.toFixed(2));
+            $("#addetoppings"+id).val(additemtunitamnt.toFixed(2));
+            $("#addetoppings"+id).attr('data-count', output);
+            $("#addetoppings"+id).attr('data-itemid', id);
             if (additemqty>0) {
                 $("#minusadditem"+id).show();
             }
@@ -710,7 +715,6 @@
             var output = $('#output'+id).html();
             var additemqty = parseInt(output);
 
-            
             var additemtunitamnt = additemqty * price;
             var parent_item_price = $("#tamount").val();
             var additemtamnt = $("#additemtamnt").val();
@@ -719,7 +723,9 @@
             $("#pShow").html("£"+ parent_item_total_price.toFixed(2));
             $("#additemtunitamnt").val(additemtunitamnt.toFixed(2));
             $("#additemtamnt").val(total_add_item_amnt.toFixed(2));
-
+            $("#addetoppings"+id).val(additemtunitamnt.toFixed(2));
+            $("#addetoppings"+id).attr('data-count', output);
+            $("#addetoppings"+id).attr('data-itemid', id);
 
             if (additemqty<1) {
                 $("#minusadditem"+id).hide();
@@ -778,17 +784,26 @@
             var price = $(this).attr('price');
             var parent_item_price = $("#tamount").val();
             var additemtamnt = $("#additemtamnt").val();
+            var additemtamntint = parseFloat(price);
             
             if(this.checked){
                 var total_add_item_amnt = parseFloat(additemtamnt) + parseFloat(price);
                 var parent_item_total_price = parseFloat(parent_item_price) + parseFloat(total_add_item_amnt);
                 $("#pShow").html("£"+ parent_item_total_price.toFixed(2));
                 $("#additemtamnt").val(total_add_item_amnt.toFixed(2));
+
+                $("#addechutneyitems"+id).val(additemtamntint);
+                $("#addechutneyitems"+id).attr('data-count', 1);
+                $("#addechutneyitems"+id).attr('data-itemid', id);
             } else {
                 var total_add_item_amnt = parseFloat(additemtamnt) - parseFloat(price);
                 var parent_item_total_price = parseFloat(parent_item_price) + parseFloat(total_add_item_amnt);
                 $("#pShow").html("£"+ parent_item_total_price.toFixed(2));
                 $("#additemtamnt").val(total_add_item_amnt.toFixed(2));
+
+                $("#addechutneyitems"+id).val();
+                $("#addechutneyitems"+id).attr('data-count', '');
+                $("#addechutneyitems"+id).attr('data-itemid', '');
             }
         });
         // child checkbox item calculation end
@@ -798,6 +813,21 @@
 
         // add to card start
         $("body").delegate("#addToCard","click",function () {
+
+            var extraaToppings = [];
+            $( '.extraaitem' ).each( function() {
+                var counts = $( this ).data('count');
+                if (counts>0) {
+                    extraaToppings.push( {
+                    count: $( this ).data('count'),
+                    price: $( this ).val(),
+                    id: $( this ).data( 'itemid' )
+                    });  
+                }
+                
+            });
+            console.log( extraaToppings );
+
 
             pqty = $(this).attr('pqty');
             pid = $(this).attr('pid');
