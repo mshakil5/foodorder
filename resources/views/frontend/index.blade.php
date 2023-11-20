@@ -54,7 +54,7 @@
                     <div class='col-md-1 col-xs-6'>
                         @if ($product->assign == 1)
                             <button class="btn btn-primary btn-sm btn-modal" data-toggle="modal" data-target="#additemModal" style="margin-left: -7px;" pid="{{$product->id}}" pname="{{$product->product_name}}" pdesc="{{$product->description}}" price="{{ number_format($product->price, 2) }}">
-                                 add
+                                add
                             </button>
                         @else
                             <button class="btn btn-primary btn-sm" style="margin-left: -7px;"  id="addToCard" pqty="1" pid="{{$product->id}}" net_amount="{{ number_format($product->price, 2) }}" price="{{ number_format($product->price, 2) }}" pname="{{$product->product_name}}">Add</button>
@@ -65,12 +65,12 @@
             </div>	
         </div>
 
-            <!--************************************* right side cart div start ************************************************* -->
+
 
         <div class="col-md-5 col-xs-12"> 
-            <!--**********************************cart item start *************************************************-->
+    
             <div id="cart_checkout">
-                
+                {{-- card checkout card start  --}}
                 <div class="row">
                     <div class="col-md-12 col-xs-12">
                         <div class="panel panel-primary">
@@ -82,9 +82,8 @@
                             </div>
                             <div class="panel-body">
                                 <div class="row">
-
                                     <table class="table">
-                                        <thead>
+                                        {{-- <thead>
                                             <tr>
                                                 <th style="text-align: center">Action</th>
                                                 <th style="text-align: center">Name</th>
@@ -92,203 +91,222 @@
                                                 <th style="text-align: center">Price</th>
                                                 <th style="text-align: center">Total</th>
                                             </tr>
-                                        </thead>
+                                        </thead> --}}
                                         <tbody id="cardinner">
+                                            <tr><td style="text-align: center; border:0px"><div style="color: white;  user-select:none;  padding: 5px;    background: red;    width: 35px;    display: flex;    align-items: center; margin-right:5px;   justify-content: center;    border-radius: 4px;   left: 4px;    top: 81px;" onclick="removeRow(event)" >X</div></td><td style="text-align: left; border:0px; width:65%" colspan="2">'+pname+'<input type="hidden" id="parent_product_name" name="parent_product_name[]" value="'+pname+'" class="form-control"><input type="hidden" id="parent_product_id" name="parent_product_id[]" value="'+pid+'" class="form-control"><div class="childitems" id="childitems"></div></td><td style="text-align: center; border:0px"><div style="color: white;  user-select:none;  padding: 5px;    background: rgb(60, 123, 41);    width: 45px;    display: flex;    align-items: center; margin-right:5px;   justify-content: center;    border-radius: 4px;   left: 4px;    top: 81px;">'+pqty+'</div><input type="hidden" id="parent_product_qty" name="parent_product_qty[]" value="'+pqty+'" class="form-control"></td><td style="text-align: center; border:0px">'+net_amount+'<input type="hidden" id="parent_product_price" name="parent_product_price[]" step="any" value="'+price+'" class="form-control" readonly><input type="hidden" id="parent_product_total_price" name="parent_product_total_price[]" step="any" value="'+net_amount+'" class="form-control" readonly></td></tr>
+
+                                            {{-- <tr>
+                                                <td style="text-align: center">
+                                                    <div style="color: white;  user-select:none;  padding: 5px;    background: red;    width: 45px;    display: flex;    align-items: center; margin-right:5px;   justify-content: center;    border-radius: 4px;   left: 4px;    top: 81px;" onclick="removeRow(event)" >X</div>
+                                                </td>
+                                                <td style="text-align: center">
+                                                    <input type="text" id="parent_product_name" name="parent_product_name[]" value="'+pname+'" class="form-control">
+                                                    <input type="hidden" id="parent_product_id" name="parent_product_id[]" value="'+pid+'" class="form-control">
+                                                </td>
+                                                <td style="text-align: center">
+                                                    <input type="number" id="parent_product_qty" name="parent_product_qty[]" value="'+pqty+'" class="form-control">
+                                                </td>
+                                                <td style="text-align: center">
+                                                    <input type="number" id="parent_product_price" name="parent_product_price[]" step="any" value="'+price+'" class="form-control" readonly>
+                                                </td>
+                                                <td style="text-align: center">
+                                                    <input type="number" id="parent_product_total_price" name="parent_product_total_price[]" step="any" value="'+net_amount+'" class="form-control" readonly>
+                                                </td>
+                                            </tr> --}}
                                             
                                         </tbody>
-
+                                        <tfoot id="cardfooter">
+                                            <tr>
+                                                <th style="text-align: center; border:0px"><div id="childitemsxx"></div></th>
+                                                <th style="text-align: center; border:0px"></th>
+                                                <th style="text-align: center; border:0px"></th>
+                                                <th style="text-align: center; border:0px">Total Amount</th>
+                                                <th style="text-align: center; border:0px"><div class="net_total_amount" id="net_total_amount">1000</div><input type="hidden" name="net_total_value" id="net_total_value"></th>
+                                            </tr>
+                                        </tfoot>
                                     </table>
-
                                 </div>
-                                
-                                
                             </div>
-
-                            <!--**********************************cart item end *************************************************-->
-                            <div id="cart_info">
-                                
-                            </div>	
-
                         </div>
-<!--*************** right side cart div end ************************ -->
+                    </div>
+                </div>
+                {{-- card checkout card end  --}}
+                
 
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="panel panel-primary">
-                                    <div class="panel-heading">
-                                        <div class="row">
-                                            <div class="col-md-4">Payment Option</div> 
-                                        </div> 
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-md-4">Payment Option</div> 
+                                </div> 
+                            </div> 
+                            <div class="panel-body"> 
+                                <div class="row"> 
+                                    <div class="col-md-6 col-xs-12"><b>
+                                        <div class="radio"> 
+                                            <label><input type="radio" name="payment" value="Paypal" >Paypal</label>
+                                        </div> </b>
                                     </div> 
-                                    <div class="panel-body"> 
-                                        <div class="row"> 
-                                            <div class="col-md-6 col-xs-12"><b>
-                                                <div class="radio"> 
-                                                    <label><input type="radio" name="payment" value="Paypal" >Paypal</label>
-                                                </div> </b>
-                                            </div> 
-                                            <div class="col-md-6 col-xs-12"><b>
-                                                <div class="radio"> 
-                                                    <label><input type="radio" name="payment" value="Cash" checked>Cash</label>
-                                                </div></b>
-                                            </div> 
-                                        </div> 
+                                    <div class="col-md-6 col-xs-12"><b>
+                                        <div class="radio"> 
+                                            <label><input type="radio" name="payment" value="Cash" checked>Cash</label>
+                                        </div></b>
                                     </div> 
                                 </div> 
                             </div> 
                         </div> 
-<!--**********************************Payment Option end*************************************************-->
-
-<!--**********************************Collection Option start*************************************************--> 
-                        <div class="row"> 
-                            <div class="col-md-12">
-                                <div class="panel panel-primary"> 
-                                    <div class="panel-heading"> 
-                                        <div class="row"> 
-                                            <div class="col-md-4">Collection Option</div> 
-                                        </div> 
-                                    </div> 
-                                    <div class="panel-body"> 
-                                        <div class="row"> 
-                                            <div class="col-md-6 col-xs-12">
-                                                <b>
-                                                <div class="radio"> 
-                                                    <label for="clnChkNo" class="rmvDiv">
-                                                    <input type="radio" name="collection" value="Collection" class="rmvDiv" id="clnChkNo" onclick="ShowHideDivforCln()" checked>Collection</label> <p>Within 20 Minutes</p> 
-                                                </div>
-                                                </b>
-                                            </div> 
-                                            <div class="col-md-6 col-xs-12"><b>
-                                                <div class="radio"> 
-                                                    <label for="clnChkYes">
-                                                    <input type="radio" name="collection" value="Delivery" id="clnChkYes" onclick="ShowHideDivforCln()">Delivery</label> <p>Within 60 Minutes</p> 
-                                                </div></b>
-                                            </div>
-
-                                            <div class="col-md-6">
-                                                <label for="delivery">Collection/Delivery Date</label><input type="date" class="date-picker form-control hasDatepicker" name="date" id="date" placeholder="Select date" required>
-                                            </div>
-
-                                            <div class="col-md-6">
-                                                <label for="delivery">Collection/Delivery Time</label> 
-                                                <select id="timeslot" class="form-control"  name="timeslot">					
-                                                <option value="0">Delivery/Collection time</option>
-                                                <option value="11:00am - 11:10am">11:00am - 11:10am</option>
-                                                <option value="11:10am - 11:20am">11:10am - 11:20am</option>
-                                                <option value="11:20am - :1130am">11:20am - :1130am</option>
-                                                <option value="11:30am - 11:40am">11:30am - 11:40am</option>
-                                                <option value="11:40am - 11:50am">11:40am - 11:50am</option>
-                                                <option value="11:50am - 12:00pm">11:50am - 12:00pm</option>
-                                                <option value="12:00pm - 12:10pm">12:00pm - 12:10pm</option>
-                                                <option value="12:10pm - 12:20pm">12:10pm - 12:20pm</option>
-                                                <option value="12:20pm - 12:30pm">12:20pm - 12:30pm</option>
-                                                <option value="12:30pm - 12:40pm">12:30pm - 12:40pm</option>
-                                                <option value="12:40pm - 12:50pm">12:40pm - 12:50pm</option>
-                                                <option value="1:00pm - 1:10pm">1:00pm - 1:10pm</option>
-                                                <option value="1:10pm - 1:20pm">1:10pm - 1:20pm</option>
-                                                <option value="1:20pm - 1:30pm">1:20pm - 1:30pm</option>
-                                                <option value="1:30pm - 1:40pm">1:30pm - 1:40pm</option>
-                                                <option value="1:40pm - 1:50pm">1:40pm - 1:50pm</option>
-                                                <option value="1:50pm - 2:00pm">1:50pm - 2:00pm</option>
-                                                <option value="2:00pm - 2:10pm">2:00pm - 2:10pm</option>
-                                                <option value="2:10pm - 2:20pm">2:10pm - 2:20pm</option>
-                                                <option value="2:20pm - 2:30pm">2:20pm - 2:30pm</option>
-                                                <option value="2:30pm - 2:40pm">2:30pm - 2:40pm</option>
-                                                <option value="2:40pm - 2:50pm">2:40pm - 2:50pm</option>
-                                                <option value="2:50pm - 3:00pm">2:50pm - 3:00pm</option>
-                                                <option value="3:00pm - 3:10pm">3:00pm - 3:10pm</option>
-                                                <option value="3:10pm - 3:20pm">3:10pm - 3:20pm</option>
-                                                <option value="3:20pm - 3:30pm">3:20pm - 3:30pm</option>
-                                                <option value="3:30pm - 3:40pm">3:30pm - 3:40pm</option>
-                                                <option value="3:40pm - 3:50pm">3:40pm - 3:50pm</option>
-                                                <option value="3:50pm - 4:00pm">3:50pm - 4:00pm</option>
-                                                <option value="4:00pm - 4:10pm">4:00pm - 4:10pm</option>
-                                                <option value="4:10pm - 4:20pm">4:10pm - 4:20pm</option>
-                                                <option value="4:20pm - 4:30pm">4:20pm - 4:30pm</option>
-                                                <option value="4:30pm - 4:40pm">4:30pm - 4:40pm</option>
-                                                <option value="4:40pm - 4:50pm">4:40pm - 4:50pm</option>
-                                                <option value="4:50pm - 5:00pm">4:50pm - 5:00pm</option>
-                                                <option value="5:00pm - 5:10pm">5:00pm - 5:10pm</option>
-                                                <option value="5:10pm - 5:20pm">5:10pm - 5:20pm</option>
-                                                <option value="5:20pm - 5:30pm">5:20pm - 5:30pm</option>
-                                                <option value="5:30pm - 5:40pm">5:30pm - 5:40pm</option>
-                                                <option value="5:40pm - 5:50pm">5:40pm - 5:50pm</option>
-                                                <option value="5:50pm - 6:00pm">5:50pm - 6:00pm</option>
-                                                <option value="6:00pm - 6:10pm">6:00pm - 6:10pm</option>
-                                                <option value="6:10pm - 6:20pm">6:10pm - 6:20pm</option>
-                                                <option value="6:20pm - 6:30pm">6:20pm - 6:30pm</option>
-                                                <option value="6:30pm - 6:40pm">6:30pm - 6:40pm</option>
-                                                <option value="6:40pm - 6:50pm">6:40pm - 6:50pm</option>
-                                                <option value="6:50pm - 7:00pm">6:50pm - 7:00pm</option>
-                                                <option value="7:00pm - 7:10pm">7:00pm - 7:10pm</option>
-                                                <option value="7:10pm - 7:20pm">7:10pm - 7:20pm</option>
-                                                <option value="7:20pm - 7:30pm">7:20pm - 7:30pm</option>
-                                                <option value="7:30pm - 7:40pm">7:30pm - 7:40pm</option>
-                                                <option value="7:40pm - 7:50pm">7:40pm - 7:50pm</option>
-                                                <option value="7:50pm - 8:00pm">7:50pm - 8:00pm</option>
-                                                <option value="8:00pm - 8:10pm">8:00pm - 8:10pm</option>
-                                                <option value="8:10pm - 8:20pm">8:10pm - 8:20pm</option>
-                                                <option value="8:20pm - 8:30pm">8:20pm - 8:30pm</option>
-                                                <option value="8:30pm - 8:40pm">8:30pm - 8:40pm</option>
-                                                <option value="8:40pm - 8:50pm">8:40pm - 8:50pm</option>
-                                                <option value="8:50pm - 9:00pm">8:50pm - 9:00pm</option>
-                                                <option value="9:00pm - 9:10pm">9:00pm - 9:10pm</option>
-                                                <option value="9:10pm - 9:20pm">9:10pm - 9:20pm</option>
-                                                <option value="9:20pm - 9:30pm">9:20pm - 9:30pm</option>
-                                                <option value="9:30pm - 9:40pm">9:30pm - 9:40pm</option>
-                                                <option value="9:40pm - 9:50pm">9:40pm - 9:50pm</option>
-                                                <option value="9:50pm - 10:00pm">9:50pm - 10:00pm</option>
-                                                <option value="10:00pm - 10:10pm">10:00pm - 10:10pm</option>
-                                                <option value="10:10pm - 10:20pm">10:10pm - 10:20pm</option>
-                                                <option value="10:20pm - 10:30pm">10:20pm - 10:30pm</option>
-                                                <option value="10:30pm - 10:40pm">10:30pm - 10:40pm</option>
-                                                <option value="10:40pm - 10:50pm">10:40pm - 10:50pm</option>
-                                                <option value="10:50pm - 11:00pm">10:50pm - 11:00pm</option>
-                                                </select>
-                                            </div>
+                    </div> 
+                </div> 
+                
+                <div class="row"> 
+                    <div class="col-md-12">
+                        <div class="panel panel-primary"> 
+                            <div class="panel-heading"> 
+                                <div class="row"> 
+                                    <div class="col-md-4">Collection Option</div> 
+                                </div> 
+                            </div> 
+                            <div class="panel-body"> 
+                                <div class="row"> 
+                                    <div class="col-md-6 col-xs-12">
+                                        <b>
+                                        <div class="radio"> 
+                                            <label for="clnChkNo" class="rmvDiv">
+                                            <input type="radio" name="collection" value="Collection" class="rmvDiv" id="clnChkNo" onclick="ShowHideDivforCln()" checked>Collection</label> <p>Within 20 Minutes</p> 
                                         </div>
+                                        </b>
+                                    </div> 
+                                    <div class="col-md-6 col-xs-12"><b>
+                                        <div class="radio"> 
+                                            <label for="clnChkYes">
+                                            <input type="radio" name="collection" value="Delivery" id="clnChkYes" onclick="ShowHideDivforCln()">Delivery</label> <p>Within 60 Minutes</p> 
+                                        </div></b>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label for="delivery">Collection/Delivery Date</label><input type="date" class="date-picker form-control hasDatepicker" name="date" id="date" placeholder="Select date" required>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label for="delivery">Collection/Delivery Time</label> 
+                                        <select id="timeslot" class="form-control"  name="timeslot">					
+                                        <option value="0">Delivery/Collection time</option>
+                                        <option value="11:00am - 11:10am">11:00am - 11:10am</option>
+                                        <option value="11:10am - 11:20am">11:10am - 11:20am</option>
+                                        <option value="11:20am - :1130am">11:20am - :1130am</option>
+                                        <option value="11:30am - 11:40am">11:30am - 11:40am</option>
+                                        <option value="11:40am - 11:50am">11:40am - 11:50am</option>
+                                        <option value="11:50am - 12:00pm">11:50am - 12:00pm</option>
+                                        <option value="12:00pm - 12:10pm">12:00pm - 12:10pm</option>
+                                        <option value="12:10pm - 12:20pm">12:10pm - 12:20pm</option>
+                                        <option value="12:20pm - 12:30pm">12:20pm - 12:30pm</option>
+                                        <option value="12:30pm - 12:40pm">12:30pm - 12:40pm</option>
+                                        <option value="12:40pm - 12:50pm">12:40pm - 12:50pm</option>
+                                        <option value="1:00pm - 1:10pm">1:00pm - 1:10pm</option>
+                                        <option value="1:10pm - 1:20pm">1:10pm - 1:20pm</option>
+                                        <option value="1:20pm - 1:30pm">1:20pm - 1:30pm</option>
+                                        <option value="1:30pm - 1:40pm">1:30pm - 1:40pm</option>
+                                        <option value="1:40pm - 1:50pm">1:40pm - 1:50pm</option>
+                                        <option value="1:50pm - 2:00pm">1:50pm - 2:00pm</option>
+                                        <option value="2:00pm - 2:10pm">2:00pm - 2:10pm</option>
+                                        <option value="2:10pm - 2:20pm">2:10pm - 2:20pm</option>
+                                        <option value="2:20pm - 2:30pm">2:20pm - 2:30pm</option>
+                                        <option value="2:30pm - 2:40pm">2:30pm - 2:40pm</option>
+                                        <option value="2:40pm - 2:50pm">2:40pm - 2:50pm</option>
+                                        <option value="2:50pm - 3:00pm">2:50pm - 3:00pm</option>
+                                        <option value="3:00pm - 3:10pm">3:00pm - 3:10pm</option>
+                                        <option value="3:10pm - 3:20pm">3:10pm - 3:20pm</option>
+                                        <option value="3:20pm - 3:30pm">3:20pm - 3:30pm</option>
+                                        <option value="3:30pm - 3:40pm">3:30pm - 3:40pm</option>
+                                        <option value="3:40pm - 3:50pm">3:40pm - 3:50pm</option>
+                                        <option value="3:50pm - 4:00pm">3:50pm - 4:00pm</option>
+                                        <option value="4:00pm - 4:10pm">4:00pm - 4:10pm</option>
+                                        <option value="4:10pm - 4:20pm">4:10pm - 4:20pm</option>
+                                        <option value="4:20pm - 4:30pm">4:20pm - 4:30pm</option>
+                                        <option value="4:30pm - 4:40pm">4:30pm - 4:40pm</option>
+                                        <option value="4:40pm - 4:50pm">4:40pm - 4:50pm</option>
+                                        <option value="4:50pm - 5:00pm">4:50pm - 5:00pm</option>
+                                        <option value="5:00pm - 5:10pm">5:00pm - 5:10pm</option>
+                                        <option value="5:10pm - 5:20pm">5:10pm - 5:20pm</option>
+                                        <option value="5:20pm - 5:30pm">5:20pm - 5:30pm</option>
+                                        <option value="5:30pm - 5:40pm">5:30pm - 5:40pm</option>
+                                        <option value="5:40pm - 5:50pm">5:40pm - 5:50pm</option>
+                                        <option value="5:50pm - 6:00pm">5:50pm - 6:00pm</option>
+                                        <option value="6:00pm - 6:10pm">6:00pm - 6:10pm</option>
+                                        <option value="6:10pm - 6:20pm">6:10pm - 6:20pm</option>
+                                        <option value="6:20pm - 6:30pm">6:20pm - 6:30pm</option>
+                                        <option value="6:30pm - 6:40pm">6:30pm - 6:40pm</option>
+                                        <option value="6:40pm - 6:50pm">6:40pm - 6:50pm</option>
+                                        <option value="6:50pm - 7:00pm">6:50pm - 7:00pm</option>
+                                        <option value="7:00pm - 7:10pm">7:00pm - 7:10pm</option>
+                                        <option value="7:10pm - 7:20pm">7:10pm - 7:20pm</option>
+                                        <option value="7:20pm - 7:30pm">7:20pm - 7:30pm</option>
+                                        <option value="7:30pm - 7:40pm">7:30pm - 7:40pm</option>
+                                        <option value="7:40pm - 7:50pm">7:40pm - 7:50pm</option>
+                                        <option value="7:50pm - 8:00pm">7:50pm - 8:00pm</option>
+                                        <option value="8:00pm - 8:10pm">8:00pm - 8:10pm</option>
+                                        <option value="8:10pm - 8:20pm">8:10pm - 8:20pm</option>
+                                        <option value="8:20pm - 8:30pm">8:20pm - 8:30pm</option>
+                                        <option value="8:30pm - 8:40pm">8:30pm - 8:40pm</option>
+                                        <option value="8:40pm - 8:50pm">8:40pm - 8:50pm</option>
+                                        <option value="8:50pm - 9:00pm">8:50pm - 9:00pm</option>
+                                        <option value="9:00pm - 9:10pm">9:00pm - 9:10pm</option>
+                                        <option value="9:10pm - 9:20pm">9:10pm - 9:20pm</option>
+                                        <option value="9:20pm - 9:30pm">9:20pm - 9:30pm</option>
+                                        <option value="9:30pm - 9:40pm">9:30pm - 9:40pm</option>
+                                        <option value="9:40pm - 9:50pm">9:40pm - 9:50pm</option>
+                                        <option value="9:50pm - 10:00pm">9:50pm - 10:00pm</option>
+                                        <option value="10:00pm - 10:10pm">10:00pm - 10:10pm</option>
+                                        <option value="10:10pm - 10:20pm">10:10pm - 10:20pm</option>
+                                        <option value="10:20pm - 10:30pm">10:20pm - 10:30pm</option>
+                                        <option value="10:30pm - 10:40pm">10:30pm - 10:40pm</option>
+                                        <option value="10:40pm - 10:50pm">10:40pm - 10:50pm</option>
+                                        <option value="10:50pm - 11:00pm">10:50pm - 11:00pm</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
 
-                        <div class="row"> 
-                            <div class="col-md-12"> 
-                                <div class="panel panel-primary"> 
-                                    <div class="panel-heading"> 
-                                        <div class="row"> 
-                                            <div class="col-md-4">Your Details</div> 
+                <div class="row"> 
+                    <div class="col-md-12"> 
+                        <div class="panel panel-primary"> 
+                            <div class="panel-heading"> 
+                                <div class="row"> 
+                                    <div class="col-md-4">Your Details</div> 
+                                </div> 
+                            </div> 
+                            <div class="panel-body"> 
+                                <div class="ermsg"></div>
+                                <div class="row"> 
+                                    <div class="col-md-12 col-xs-12"> 
+                                        <div class="form-group"> 
+                                            <label for="name">Name</label> 
+                                            <input type="text" class="form-control" id="name" name="name" placeholder="John"> 
                                         </div> 
-                                    </div> 
-                                    <div class="panel-body"> 
-                                        <div class="ermsg"></div>
-                                        <div class="row"> 
-                                            <div class="col-md-12 col-xs-12"> 
-                                                <div class="form-group"> 
-                                                    <label for="name">Name</label> 
-                                                    <input type="text" class="form-control" id="name" name="name" placeholder="John"> 
-                                                </div> 
-                                                <div class="form-group"> 
-                                                    <label for="email">Mail</label> 
-                                                    <input type="text" class="form-control" id="uemail" name="email" placeholder="example@mail.com"> 
-                                                </div> 
-                                                <div class="form-group"> 
-                                                    <label for="phone">Contact No</label> 
-                                                    <input type="text" class="form-control" id="phone" name="phone" placeholder="phone"> 
-                                                </div>
-                                            </div> 
+                                        <div class="form-group"> 
+                                            <label for="email">Mail</label> 
+                                            <input type="text" class="form-control" id="uemail" name="email" placeholder="example@mail.com"> 
                                         </div> 
+                                        <div class="form-group"> 
+                                            <label for="phone">Contact No</label> 
+                                            <input type="text" class="form-control" id="phone" name="phone" placeholder="phone"> 
+                                        </div>
                                     </div> 
                                 </div> 
                             </div> 
-                        </div>
-
-                        <input type="button" id="orderCreateBtn" style="float:left;" name="orderCreateBtn" class="btn btn-info btn-lg" value="Submit Order">
-
-                    </div>
+                        </div> 
+                    </div> 
                 </div>
+
+                <input type="button" id="orderCreateBtn" style="float:left;" name="orderCreateBtn" class="btn btn-info btn-lg" value="Submit Order">
+
             </div>
         </div>
+                
     </div>
 </div>
 
@@ -415,6 +433,7 @@
                         <input type="hidden" id="productid" value="" class="productid" />
                         <input type="hidden" id="qty" value="1" min="1" class="qty" />
                         <input type="hidden" id="tamount" value=""  class="tamount" />
+                        <input type="hidden" id="parent_item_uprice" value=""  class="parent_item_uprice" />
                         <input type="hidden" id="additemtamnt" value="0"  class="additemtamnt" />
                         <input type="hidden" id="additemtunitamnt" value=""  class="additemtunitamnt" />
                         {{-- <input type="button" value="-" id="minus1" class="minus" /> --}}
@@ -434,7 +453,7 @@
                         <div class="col-sm-12">
                             <div class="row">
                                 
-                                <button type="submit" id="addToCard" pqty="" pid="" net_amount="" price="" pname="" additionalitem="[]" class="btn btn-success btn-lg btn-block orderBtn">
+                                <button type="submit" id="addToCard" pqty="" pid="" child_item_total="" net_amount="" price="" pname="" additionalitem="[]" class="btn btn-success btn-lg btn-block orderBtn">
                                     Add to order
                                 </button>
 
@@ -442,10 +461,6 @@
                         </div>
                     </div>
 
-                    
-
-
-                        
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -565,6 +580,7 @@
             $("#pShow").html("£"+price);
             $("#unitprice").val(price);
             $("#tamount").val(price);
+            $("#parent_item_uprice").val(price);
             $('#additemModal').find('.modal-body #price').val(price);
 
             $('.orderBtn').attr('net_amount', price);
@@ -658,7 +674,7 @@
                             $.each(d.items, function (a, b) {
                                 if (b.additional_item_title_id == 2) {
                                     $(".extoppings").show(100);
-                                    extoppingsitems.append("<tr><td class='additemval' value='"+b.additional_item_id+"' price='"+b.price+"' style='width: 10%; text-align:center'><svg xmlns='http://www.w3.org/2000/svg' width='25' height='25' fill='currentColor' class='bi bi-plus-circle' viewBox='0 0 16 16' style='height:22px'><path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/><path d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'/></svg><input type='hidden' id='addetoppings"+b.additional_item_id+"' data-itemid='' name='additionalitm' data-count='' value='"+b.price+"' class='extraaitem'></td><td style='width: 70%'>" + b.item_name + "<span class='badge badge-success pl-2' id='output"+b.additional_item_id+"'></span></td>" + "<td style='width: 20%; text-align:right'>"+ (b.price > 0 ? "£"+b.price.toFixed(2) : '')+"</td><td class='minusitemval' value='"+b.additional_item_id+"' id='minusadditem"+b.additional_item_id+"' price='"+b.price+"' style='width: 10%; text-align:center;display:none'><svg xmlns='http://www.w3.org/2000/svg' width='25' height='25' fill='currentColor' class='bi bi-dash-circle' viewBox='0 0 16 16'><path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/><path d='M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z'/></svg></td></tr>"); 
+                                    extoppingsitems.append("<tr><td class='additemval' value='"+b.additional_item_id+"' price='"+b.price+"' style='width: 10%; text-align:center'><svg xmlns='http://www.w3.org/2000/svg' width='25' height='25' fill='currentColor' class='bi bi-plus-circle' viewBox='0 0 16 16' style='height:22px'><path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/><path d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'/></svg><input type='hidden' id='addetoppings"+b.additional_item_id+"' data-itemid='' name='additionalitm' data-itemname='" + b.item_name + "' data-count='' value='"+b.price+"' class='extraaitem'></td><td style='width: 70%'>" + b.item_name + "<span class='badge badge-success pl-2' id='output"+b.additional_item_id+"'></span></td>" + "<td style='width: 20%; text-align:right'>"+ (b.price > 0 ? "£"+b.price.toFixed(2) : '')+"</td><td class='minusitemval' value='"+b.additional_item_id+"' id='minusadditem"+b.additional_item_id+"' price='"+b.price+"' style='width: 10%; text-align:center;display:none'><svg xmlns='http://www.w3.org/2000/svg' width='25' height='25' fill='currentColor' class='bi bi-dash-circle' viewBox='0 0 16 16'><path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/><path d='M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z'/></svg></td></tr>"); 
                                 }
                             });
                             //extra toppings item end
@@ -689,10 +705,13 @@
             var output = $('#output'+id).html();
             var additemqty = parseInt(output);
             var additemtunitamnt = additemqty * price;
-            var parent_item_price = $("#tamount").val();
+            var parent_item_unit_price = $("#parent_item_uprice").val();
+            var parent_item_qty = $("#qty").val();
+            var parent_item_price = parseFloat(parent_item_unit_price) * parseFloat(parent_item_qty);
             var additemtamnt = $("#additemtamnt").val();
             var total_add_item_amnt = parseFloat(additemtamnt) + parseFloat(price);
             var parent_item_total_price = parseFloat(parent_item_price) + parseFloat(total_add_item_amnt);
+
             $("#pShow").html("£"+ parent_item_total_price.toFixed(2));
             $("#additemtunitamnt").val(additemtunitamnt.toFixed(2));
             $("#additemtamnt").val(total_add_item_amnt.toFixed(2));
@@ -714,9 +733,10 @@
             $('#output'+id).html(function(i, val) { return val*1-1 });
             var output = $('#output'+id).html();
             var additemqty = parseInt(output);
-
             var additemtunitamnt = additemqty * price;
-            var parent_item_price = $("#tamount").val();
+            var parent_item_unit_price = $("#parent_item_uprice").val();
+            var parent_item_qty = $("#qty").val();
+            var parent_item_price = parseFloat(parent_item_unit_price) * parseFloat(parent_item_qty);
             var additemtamnt = $("#additemtamnt").val();
             var total_add_item_amnt = parseFloat(additemtamnt) - parseFloat(price);
             var parent_item_total_price = parseFloat(parent_item_price) + parseFloat(total_add_item_amnt);
@@ -819,6 +839,7 @@
                 var counts = $( this ).data('count');
                 if (counts>0) {
                     extraaToppings.push( {
+                    itemname: $( this ).data('itemname'),
                     count: $( this ).data('count'),
                     price: $( this ).val(),
                     id: $( this ).data( 'itemid' )
@@ -826,14 +847,19 @@
                 }
                 
             });
-            console.log( extraaToppings );
+            // console.log( extraaToppings );
 
 
+        
             pqty = $(this).attr('pqty');
             pid = $(this).attr('pid');
             price = $(this).attr('price');
             pname = $(this).attr('pname');
             net_amount = $(this).attr('net_amount');
+            child_item_total = $("#additemtamnt").val();
+            net_amount_with_child_item = parseFloat(net_amount) + parseFloat(child_item_total);
+
+            // console.log(child_item_total, net_amount, net_amount_with_child_item);
 
             var card_product_id = $("input[name='parent_product_id[]']")
                         .map(function(){return $(this).val();}).get();
@@ -848,10 +874,16 @@
             }
 
 
-            var markup = '<tr><td style="text-align: center"><div style="color: white;  user-select:none;  padding: 5px;    background: red;    width: 45px;    display: flex;    align-items: center; margin-right:5px;   justify-content: center;    border-radius: 4px;   left: 4px;    top: 81px;" onclick="removeRow(event)" >X</div></td><td style="text-align: center"><input type="text" id="parent_product_name" name="parent_product_name[]" value="'+pname+'" class="form-control"><input type="hidden" id="parent_product_id" name="parent_product_id[]" value="'+pid+'" class="form-control"></td><td style="text-align: center"><input type="number" id="parent_product_qty" name="parent_product_qty[]" value="'+pqty+'" class="form-control"></td><td style="text-align: center"><input type="number" id="parent_product_price" name="parent_product_price[]" step="any" value="'+price+'" class="form-control" readonly></td><td style="text-align: center"><input type="number" id="parent_product_total_price" name="parent_product_total_price[]" step="any" value="'+net_amount+'" class="form-control" readonly></td></tr>';
-
-        
+            var markup = '<tr><td style="text-align: center; border:0px"><div style="color: white;  user-select:none;  padding: 5px;    background: red;    width: 35px;    display: flex;    align-items: center; margin-right:5px;   justify-content: center;    border-radius: 4px;   left: 4px;    top: 81px;" onclick="removeRow(event)" >X</div></td><td style="text-align: left; border:0px; width:65%" colspan="2">'+pname+'<input type="hidden" id="parent_product_name" name="parent_product_name[]" value="'+pname+'" class="form-control"><input type="hidden" id="parent_product_id" name="parent_product_id[]" value="'+pid+'" class="form-control"><div class="childitems'+pid+'" id="childitems'+pid+'"><span></span></div></td><td style="text-align: center; border:0px"><div style="color: white;  user-select:none;  padding: 5px;    background: rgb(60, 123, 41);    width: 45px;    display: flex;    align-items: center; margin-right:5px;   justify-content: center;    border-radius: 4px;   left: 4px;    top: 81px;">'+pqty+'</div><input type="hidden" id="parent_product_qty" name="parent_product_qty[]" value="'+pqty+'" class="form-control"></td><td style="text-align: center; border:0px">'+net_amount_with_child_item.toFixed(2)+'<input type="hidden" id="parent_product_price" name="parent_product_price[]" step="any" value="'+price+'" class="form-control" readonly><input type="hidden" id="parent_product_total_price" name="parent_product_total_price[]" step="any" value="'+net_amount_with_child_item.toFixed(2)+'" class="form-control" readonly></td></tr>';
             $("table #cardinner ").append(markup);
+
+            var additmshowcard = $("#childitems"+pid);
+            additmshowcard.empty();
+            $.each(extraaToppings, function (a, b) {
+                additmshowcard.append('<div>'+b.itemname+': <span>'+b.price+'</span> X <span>'+b.count+'</span></div>'); 
+            });
+            console.log(additmshowcard);
+        
             $('#additemModal').modal('hide');
 
         });

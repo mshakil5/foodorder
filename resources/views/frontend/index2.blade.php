@@ -35,6 +35,11 @@
             </ul>
         </div>
 
+        {{-- $.each(extraaToppings, function(x, y) {
+            // console.log(x, y.itemname);
+            }); --}}
+
+
         <div class="col-md-5 col-xs-8">		
             <div class="row" id="get_product">
                 @foreach ($products as $product)
