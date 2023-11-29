@@ -93,7 +93,7 @@
                                             </tr>
                                         </thead> --}}
                                         <tbody id="cardinner">
-                                            <tr><td style="text-align: center; border:0px"><div style="color: white;  user-select:none;  padding: 5px;    background: red;    width: 35px;    display: flex;    align-items: center; margin-right:5px;   justify-content: center;    border-radius: 4px;   left: 4px;    top: 81px;" onclick="removeRow(event)" >X</div></td><td style="text-align: left; border:0px; width:65%" colspan="2">'+pname+'<input type="hidden" id="parent_product_name" name="parent_product_name[]" value="'+pname+'" class="form-control"><input type="hidden" id="parent_product_id" name="parent_product_id[]" value="'+pid+'" class="form-control"><div class="childitems" id="childitems"></div></td><td style="text-align: center; border:0px"><div style="color: white;  user-select:none;  padding: 5px;    background: rgb(60, 123, 41);    width: 45px;    display: flex;    align-items: center; margin-right:5px;   justify-content: center;    border-radius: 4px;   left: 4px;    top: 81px;">'+pqty+'</div><input type="hidden" id="parent_product_qty" name="parent_product_qty[]" value="'+pqty+'" class="form-control"></td><td style="text-align: center; border:0px">'+net_amount+'<input type="hidden" id="parent_product_price" name="parent_product_price[]" step="any" value="'+price+'" class="form-control" readonly><input type="hidden" id="parent_product_total_price" name="parent_product_total_price[]" step="any" value="'+net_amount+'" class="form-control" readonly></td></tr>
+                                            
 
                                             {{-- <tr>
                                                 <td style="text-align: center">
@@ -352,6 +352,7 @@
                         <div class="row">
                             <div class="title-section">
                                 <div class="mx-2">Choose Bread </div>
+                                <input type='hidden' id='addebreaditems' data-itemid='' name='additionalitm' data-count='' value='' data-itemname='' class='extraaitem'> 
                             </div>
                         </div>
                     </div>
@@ -618,7 +619,8 @@
                             $.each(d.items, function (a, b) {
                                 if (b.additional_item_title_id == 6) {
                                     $(".addons").show(100);
-                                    addonsitems.append("<tr><td style='width: 10%; text-align:center'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-plus-circle' viewBox='0 0 16 16' style='height:22px'><path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/><path d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'/></svg></td><td style='width: 70%'>" + b.item_name + "</td>" + "<td style='width: 20%; text-align:right'>"+ (b.price > 0 ? "£"+b.price.toFixed(2) : '')+"</td></tr>");
+
+                                    addonsitems.append("<tr><td class='additemval' value='"+b.additional_item_id+"' price='"+b.price+"' style='width: 10%; text-align:center'><svg xmlns='http://www.w3.org/2000/svg' width='25' height='25' fill='currentColor' class='bi bi-plus-circle' viewBox='0 0 16 16' style='height:22px'><path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/><path d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'/></svg><input type='hidden' id='addetoppings"+b.additional_item_id+"' data-itemid='' name='additionalitm' data-itemname='" + b.item_name + "' data-count='' value='"+b.price+"' class='extraaitem'></td><td style='width: 70%'>" + b.item_name + "<span class='badge badge-success pl-2' id='output"+b.additional_item_id+"'></span></td>" + "<td style='width: 20%; text-align:right'>"+ (b.price > 0 ? "£"+b.price.toFixed(2) : '')+"</td><td class='minusitemval' value='"+b.additional_item_id+"' id='minusadditem"+b.additional_item_id+"' price='"+b.price+"' style='width: 10%; text-align:center;display:none'><svg xmlns='http://www.w3.org/2000/svg' width='25' height='25' fill='currentColor' class='bi bi-dash-circle' viewBox='0 0 16 16'><path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/><path d='M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z'/></svg></td></tr>"); 
                                 }
                             });
                             // addonsitems end
@@ -629,7 +631,7 @@
                             $.each(d.items, function (a, b) {
                                 if (b.additional_item_title_id == 5) {
                                     $(".breads").show(100);
-                                    breadsitems.append("<tr><td style='width: 10%; text-align:center'><input type='radio' name='bread' value='"+b.additional_item_id+"'  id='bread"+b.additional_item_id+"' class='largerCheckbox breadsingleitem' price='"+b.price+"'>   <input type='hidden' id='addebreaditems"+b.additional_item_id+"' data-itemid='' name='additionalitm' data-count='' value='"+b.price+"' data-itemname='" + b.item_name + "' class='extraaitem'>   </td><td style='width: 70%'>" + b.item_name + "</td>" + "<td style='width: 20%; text-align:right'>"+ (b.price > 0 ? "£"+b.price.toFixed(2) : '')+"</td></tr>"); 
+                                    breadsitems.append("<tr><td style='width: 10%; text-align:center'><input type='radio' name='bread' value='"+b.additional_item_id+"'  id='bread"+b.additional_item_id+"' class='largerCheckbox breadsingleitem' breadname='" + b.item_name + "' price='"+b.price+"'>  </td><td style='width: 70%'>" + b.item_name + "</td>" + "<td style='width: 20%; text-align:right'>"+ (b.price > 0 ? "£"+b.price.toFixed(2) : '')+"</td></tr>"); 
                                 }
                             });
                             // breadsitems end
@@ -638,8 +640,7 @@
                             var cheeseitems = $(".cheeseitem tbody");
                             cheeseitems.empty();
                             $.each(d.items, function (a, b) {
-
-                                    // add-ons product
+                                
                                 if (b.additional_item_title_id == 4) {
                                     $(".cheese").show(100);
 
@@ -785,9 +786,11 @@
 
 
         // child checkbox item calculation start
-        $("body").delegate(".breadsingleitem","click",function () {
+        $("body").delegate(".breadsingleitem","change",function () {
+            
             var id = $(this).attr('value');
             var price = $(this).attr('price');
+            var breadname = $(this).attr('breadname');
             var parent_item_price = $("#tamount").val();
             var additemtamnt = $("#additemtamnt").val();
             var additemtamntint = parseFloat(price);
@@ -798,18 +801,16 @@
                 $("#pShow").html("£"+ parent_item_total_price.toFixed(2));
                 $("#additemtamnt").val(total_add_item_amnt.toFixed(2));
 
-                $("#addebreaditems"+id).val(additemtamntint);
-                $("#addebreaditems"+id).attr('data-count', 1);
-                $("#addebreaditems"+id).attr('data-itemid', id);
+                $("#addebreaditems").val(additemtamntint);
+                $("#addebreaditems").attr('data-count', 1);
+                $("#addebreaditems").attr('data-itemid', id);
+                $("#addebreaditems").attr('data-itemname', breadname);
+                $("#addebreaditems").attr('value', price);
             } else {
                 var total_add_item_amnt = parseFloat(additemtamnt) - parseFloat(price);
                 var parent_item_total_price = parseFloat(parent_item_price) + parseFloat(total_add_item_amnt);
                 $("#pShow").html("£"+ parent_item_total_price.toFixed(2));
                 $("#additemtamnt").val(total_add_item_amnt.toFixed(2));
-
-                $("#addebreaditems"+id).val();
-                $("#addebreaditems"+id).attr('data-count', '');
-                $("#addebreaditems"+id).attr('data-itemid', '');
             }
         });
 
@@ -878,11 +879,11 @@
         // add to card start
         $("body").delegate("#addToCard","click",function () {
 
-            var extraaToppings = [];
+            var allextraaItems = [];
             $( '.extraaitem' ).each( function() {
                 var counts = $( this ).data('count');
                 if (counts>0) {
-                    extraaToppings.push( {
+                    allextraaItems.push( {
                     itemname: $( this ).data('itemname'),
                     count: $( this ).data('count'),
                     price: $( this ).val(),
@@ -891,7 +892,7 @@
                 }
                 
             });
-            // console.log( extraaToppings );
+            // console.log( allextraaItems );
 
 
         
@@ -924,7 +925,7 @@
 
             var additmshowcard = $("#childitems"+pid);
             additmshowcard.empty();
-            $.each(extraaToppings, function (a, b) {
+            $.each(allextraaItems, function (a, b) {
                 additmshowcard.append('<div>'+b.itemname+': <span>'+b.price+'</span> X <span>'+b.count+'</span></div>'); 
             });
             console.log(additmshowcard);
