@@ -601,6 +601,10 @@
 
                         }else if(d.status == 300){
                             
+                            $("#qty").val('1');
+                            $("#additemtunitamnt").val('0');
+                            $("#additemtamnt").val('0');
+                            
                             $(".breads").hide();
                             $(".cheese").hide();
                             $(".chutney").hide(100);
@@ -724,7 +728,7 @@
 
         });
         // child product increase end
-
+        
         // child product decrease start
         $("body").delegate(".minusitemval","click",function () {
             
@@ -855,11 +859,12 @@
             pid = $(this).attr('pid');
             price = $(this).attr('price');
             pname = $(this).attr('pname');
-            net_amount = $(this).attr('net_amount');
+            net_amount = price*pqty;
+            // net_amount = $(this).attr('net_amount');
             child_item_total = $("#additemtamnt").val();
             net_amount_with_child_item = parseFloat(net_amount) + parseFloat(child_item_total);
 
-            // console.log(child_item_total, net_amount, net_amount_with_child_item);
+            console.log(child_item_total, net_amount, net_amount_with_child_item);
 
             var card_product_id = $("input[name='parent_product_id[]']")
                         .map(function(){return $(this).val();}).get();
@@ -884,6 +889,12 @@
             });
             console.log(additmshowcard);
         
+            $("#qty").val('1');
+            $("#tamount").val('');
+            $("#parent_item_uprice").val('');
+            $("#additemtunitamnt").val('0');
+            $("#additemtamnt").val('0');
+
             $('#additemModal').modal('hide');
 
         });
