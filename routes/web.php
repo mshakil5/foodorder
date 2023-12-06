@@ -40,7 +40,7 @@ Route::post('get-additional-product', [FrontendController::class, 'getAdditional
 Route::post('/getcatproduct', [FrontendController::class, 'searchproduct']);
 
 // order
-Route::post('/order', [OrderController::class, 'orderStore']);
+Route::post('/order-store', [OrderController::class, 'orderStore']);
 
 
   

@@ -421,6 +421,7 @@
                 </table>
 
                 
+                
 
                 <div class="modal-footer">
                     <div class="center-form">
@@ -892,7 +893,7 @@
                 }
                 
             });
-            // console.log( allextraaItems );
+            console.log( allextraaItems );
 
 
         
@@ -926,9 +927,10 @@
             var additmshowcard = $("#childitems"+pid);
             additmshowcard.empty();
             $.each(allextraaItems, function (a, b) {
-                additmshowcard.append('<div>'+b.itemname+': <span>'+b.price+'</span> X <span>'+b.count+'</span></div>'); 
+                additmshowcard.append('<div><input type="hidden" id="related_parent_id" name="related_parent_id[]" value="'+pid+'"><input type="hidden" id="child_product_id" name="child_product_id[]" value="'+b.id+'"><input type="hidden" id="child_product_qty" name="child_product_qty[]" value="'+b.count+'"><input type="hidden" id="child_product_name" name="child_product_name[]" value="'+b.itemname+'"><input type="hidden" id="child_product_total_price" name="child_product_total_price[]" value="'+b.price+'">'+b.itemname+': <span>'+b.price+'</span> X <span>'+b.count+'</span></div>'); 
             });
-            console.log(additmshowcard);
+            // console.log(additmshowcard);
+            
         
             $("#qty").val('1');
             $("#tamount").val('');
@@ -942,7 +944,7 @@
         // add to card end
 
         // submit to purchase 
-        var orderurl = "{{URL::to('/order')}}";
+        var orderurl = "{{URL::to('/order-store')}}";
 
         $("body").delegate("#orderCreateBtn","click",function(event){
             event.preventDefault();
@@ -970,10 +972,26 @@
             var parent_product_total_price = $("input[name='parent_product_total_price[]']")
                 .map(function(){return $(this).val();}).get();
 
+                
+            var related_parent_id = $("input[name='related_parent_id[]']")
+                .map(function(){return $(this).val();}).get();
+
+            var child_product_id = $("input[name='child_product_id[]']")
+                .map(function(){return $(this).val();}).get();
+                
+            var child_product_qty = $("input[name='child_product_qty[]']")
+                .map(function(){return $(this).val();}).get();
+
+            var child_product_name = $("input[name='child_product_name[]']")
+                .map(function(){return $(this).val();}).get();
+
+            var child_product_total_price = $("input[name='child_product_total_price[]']")
+                .map(function(){return $(this).val();}).get();
+
             $.ajax({
                 url: orderurl,
                 method: "POST",
-                data: {collection_date,collection_time,name,email,phone,parent_product_id,parent_product_qty,parent_product_price,parent_product_total_price,parent_product_name,delivery_type,payment_type},
+                data: {collection_date,collection_time,name,email,phone,parent_product_id,parent_product_qty,parent_product_price,parent_product_total_price,parent_product_name,delivery_type,payment_type,child_product_id,child_product_qty,child_product_total_price,related_parent_id,child_product_name},
 
                 success: function (d) {
                     if (d.status == 303) {
