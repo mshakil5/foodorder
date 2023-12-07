@@ -121,7 +121,7 @@
                                                 <th style="text-align: center; border:0px"></th>
                                                 <th style="text-align: center; border:0px"></th>
                                                 <th style="text-align: center; border:0px">Total Amount</th>
-                                                <th style="text-align: center; border:0px"><div class="net_total_amount" id="net_total_amount">1000</div><input type="hidden" name="net_total_value" id="net_total_value"></th>
+                                                <th style="text-align: center; border:0px"><div class="net_total_amount" id="net_total_amount"></div><input type="hidden" name="net_total_value" id="net_total_value"></th>
                                             </tr>
                                         </tfoot>
                                     </table>
@@ -475,9 +475,22 @@
 
 @section('script')
 <script type="text/javascript">
+    net_total();
     function removeRow(event) {
         event.target.parentElement.parentElement.remove();
+        net_total();
         }
+
+        // net total calculation
+        function net_total(){
+            var totalamount=0;
+            $('.net_amount_with_child_item').each(function(){
+                totalamount += ($(this).val()-0);
+            })
+            $("#net_total_value").val(totalamount.toFixed(2));
+            $("#net_total_amount").html(totalamount.toFixed(2));
+        }
+        // net total calculation
 </script>
 <script>
     $(function()
@@ -921,7 +934,7 @@
             }
 
 
-            var markup = '<tr><td style="text-align: center; border:0px"><div style="color: white;  user-select:none;  padding: 5px;    background: red;    width: 35px;    display: flex;    align-items: center; margin-right:5px;   justify-content: center;    border-radius: 4px;   left: 4px;    top: 81px;" onclick="removeRow(event)" >X</div></td><td style="text-align: left; border:0px; width:65%" colspan="2">'+pname+'<input type="hidden" id="parent_product_name" name="parent_product_name[]" value="'+pname+'" class="form-control"><input type="hidden" id="parent_product_id" name="parent_product_id[]" value="'+pid+'" class="form-control"><div class="childitems'+pid+'" id="childitems'+pid+'"><span></span></div></td><td style="text-align: center; border:0px"><div style="color: white;  user-select:none;  padding: 5px;    background: rgb(60, 123, 41);    width: 45px;    display: flex;    align-items: center; margin-right:5px;   justify-content: center;    border-radius: 4px;   left: 4px;    top: 81px;">'+pqty+'</div><input type="hidden" id="parent_product_qty" name="parent_product_qty[]" value="'+pqty+'" class="form-control"></td><td style="text-align: center; border:0px">'+net_amount_with_child_item.toFixed(2)+'<input type="hidden" id="parent_product_price" name="parent_product_price[]" step="any" value="'+price+'" class="form-control" readonly><input type="hidden" id="parent_product_total_price" name="parent_product_total_price[]" step="any" value="'+net_amount_with_child_item.toFixed(2)+'" class="form-control" readonly></td></tr>';
+            var markup = '<tr><td style="text-align: center; border:0px"><div style="color: white;  user-select:none;  padding: 5px;    background: red;    width: 35px;    display: flex;    align-items: center; margin-right:5px;   justify-content: center;    border-radius: 4px;   left: 4px;    top: 81px;" onclick="removeRow(event)" >X</div></td><td style="text-align: left; border:0px; width:65%" colspan="2">'+pname+'<input type="hidden" id="parent_product_name" name="parent_product_name[]" value="'+pname+'" class="form-control"><input type="hidden" id="parent_product_id" name="parent_product_id[]" value="'+pid+'" class="form-control"><div class="childitems'+pid+'" id="childitems'+pid+'"><span></span></div></td><td style="text-align: center; border:0px"><div style="color: white;  user-select:none;  padding: 5px;    background: rgb(60, 123, 41);    width: 45px;    display: flex;    align-items: center; margin-right:5px;   justify-content: center;    border-radius: 4px;   left: 4px;    top: 81px;">'+pqty+'</div><input type="hidden" id="parent_product_qty" name="parent_product_qty[]" value="'+pqty+'" class="form-control"></td><td style="text-align: center; border:0px">'+net_amount_with_child_item.toFixed(2)+'<input type="hidden" id="parent_product_price" name="parent_product_price[]" step="any" value="'+price+'" class="form-control" readonly><input type="hidden" id="parent_product_total_price" name="parent_product_total_price[]" step="any" value="'+net_amount_with_child_item.toFixed(2)+'" class="form-control net_amount_with_child_item" readonly></td></tr>';
             $("table #cardinner ").append(markup);
 
             var additmshowcard = $("#childitems"+pid);
@@ -930,7 +943,7 @@
                 additmshowcard.append('<div><input type="hidden" id="related_parent_id" name="related_parent_id[]" value="'+pid+'"><input type="hidden" id="child_product_id" name="child_product_id[]" value="'+b.id+'"><input type="hidden" id="child_product_qty" name="child_product_qty[]" value="'+b.count+'"><input type="hidden" id="child_product_name" name="child_product_name[]" value="'+b.itemname+'"><input type="hidden" id="child_product_total_price" name="child_product_total_price[]" value="'+b.price+'">'+b.itemname+': <span>'+b.price+'</span> X <span>'+b.count+'</span></div>'); 
             });
             // console.log(additmshowcard);
-            
+            net_total();
         
             $("#qty").val('1');
             $("#tamount").val('');
@@ -942,6 +955,17 @@
 
         });
         // add to card end
+
+        // net total calculation
+        function net_total(){
+            var totalamount=0;
+            $('.net_amount_with_child_item').each(function(){
+                totalamount += ($(this).val()-0);
+            })
+            $("#net_total_value").val(totalamount.toFixed(2));
+            $("#net_total_amount").html(totalamount.toFixed(2));
+        }
+        // net total calculation
 
         // submit to purchase 
         var orderurl = "{{URL::to('/order-store')}}";

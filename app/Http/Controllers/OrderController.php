@@ -55,9 +55,11 @@ class OrderController extends Controller
                 $orderDtl->save();
                 $net_amount = $net_amount + $orderDtl->total_price;
 
-                if ($orderDtl->product_id == $request->get('related_parent_id')[$key]) {
                     foreach ($request->input('child_product_id') as $childkey => $childvalue) {
                         $childproduct = AdditionalItem::where('id', $request->get('child_product_id')[$childkey])->first();
+
+
+                        if ($orderDtl->product_id == $request->get('related_parent_id')[$childkey]) {
                         $childitem = new OrderAdditionalItem();
                         $childitem->order_id = $order->id;
                         $childitem->order_detail_id = $orderDtl->id;
@@ -67,8 +69,9 @@ class OrderController extends Controller
                         $childitem->price_per_unit = $childproduct->amount;
                         $childitem->total_amount = $request->get('child_product_total_price')[$childkey];
                         $childitem->save();
+
+                        }
                     }
-                }
                 
                 
             }
