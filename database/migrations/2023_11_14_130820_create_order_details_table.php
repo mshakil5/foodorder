@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('quantity')->nullable();
             $table->double('price_per_unit',10,2)->default(0);
             $table->double('total_price',10,2)->default(0);
+            $table->double('additional_item_total_price',10,2)->default(0);
             $table->longText('additional_item_details')->nullable();
             $table->string('status')->default(1);
             $table->string('updated_by')->nullable();

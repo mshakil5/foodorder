@@ -51,10 +51,9 @@ class OrderController extends Controller
                 $orderDtl->product_name = $request->get('parent_product_name')[$key];
                 $orderDtl->quantity = $request->get('parent_product_qty')[$key];
                 $orderDtl->price_per_unit = $request->get('parent_product_price')[$key];
-                $orderDtl->total_price = $request->get('parent_product_qty')[$key] * $request->get('parent_product_price')[$key];
                 $orderDtl->save();
-                $net_amount = $net_amount + $orderDtl->total_price;
 
+                    $additional_item_total_amount = 0;
                     foreach ($request->input('child_product_id') as $childkey => $childvalue) {
                         $childproduct = AdditionalItem::where('id', $request->get('child_product_id')[$childkey])->first();
 
@@ -69,10 +68,14 @@ class OrderController extends Controller
                         $childitem->price_per_unit = $childproduct->amount;
                         $childitem->total_amount = $request->get('child_product_total_price')[$childkey];
                         $childitem->save();
-
+                        $additional_item_total_amount = $additional_item_total_amount + $childitem->total_amount;
                         }
                     }
                 
+                    $orderDtl->total_price = $request->get('parent_product_qty')[$key] * $request->get('parent_product_price')[$key] + $additional_item_total_amount;
+                    $orderDtl->additional_item_total_price = $additional_item_total_amount;
+                    $orderDtl->save();
+                    $net_amount = $net_amount + $orderDtl->total_price;
                 
             }
             
