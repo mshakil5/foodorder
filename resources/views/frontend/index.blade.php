@@ -57,7 +57,13 @@
                                 add
                             </button>
                         @else
-                            <button class="btn btn-primary btn-sm" style="margin-left: -7px;"  id="addToCard" pqty="1" pid="{{$product->id}}" net_amount="{{ number_format($product->price, 2) }}" price="{{ number_format($product->price, 2) }}" pname="{{$product->product_name}}">Add</button>
+
+                            <button class="btn btn-primary btn-sm btn-modal" data-toggle="modal" data-target="#additemModal" style="margin-left: -7px;" pid="{{$product->id}}" pname="{{$product->product_name}}" pdesc="{{$product->description}}" price="{{ number_format($product->price, 2) }}">
+                                add
+                            </button>
+
+
+                            {{-- <button class="btn btn-primary btn-sm" style="margin-left: -7px;"  id="addToCard" pqty="1" pid="{{$product->id}}" net_amount="{{ number_format($product->price, 2) }}" price="{{ number_format($product->price, 2) }}" pname="{{$product->product_name}}">Add</button> --}}
                         @endif
                     </div>
                 @endforeach
@@ -948,6 +954,7 @@ $(document).ready(function() {
             var allextraaItems = [];
             $( '.extraaitem' ).each( function() {
                 var counts = $( this ).data('count');
+                
                 if (counts>0) {
                     allextraaItems.push( {
                     itemname: $( this ).data('itemname'),
@@ -971,7 +978,7 @@ $(document).ready(function() {
             child_item_total = $("#additemtamnt").val();
             net_amount_with_child_item = parseFloat(net_amount) + parseFloat(child_item_total);
 
-            console.log(child_item_total, net_amount, net_amount_with_child_item);
+            // console.log(child_item_total, net_amount, net_amount_with_child_item);
 
             var card_product_id = $("input[name='parent_product_id[]']")
                         .map(function(){return $(this).val();}).get();
