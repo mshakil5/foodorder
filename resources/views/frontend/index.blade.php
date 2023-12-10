@@ -70,6 +70,9 @@
         <div class="col-md-5 col-xs-12"> 
     
             <div id="cart_checkout">
+                <form action="{{route('paypalpayment')}}" method="POST">
+                @csrf
+
                 {{-- card checkout card start  --}}
                 <div class="row">
                     <div class="col-md-12 col-xs-12">
@@ -271,6 +274,13 @@
                     </div>
                 </div>
 
+                @if ($message = Session::get('success'))
+                {{-- <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>{{ $message }}</b></div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div> --}}
+                @endif
+
                 <div class="row"> 
                     <div class="col-md-12"> 
                         <div class="panel panel-primary"> 
@@ -280,6 +290,23 @@
                                 </div> 
                             </div> 
                             <div class="panel-body"> 
+                                
+
+                                @if (isset($message))
+                                <div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>{{ $message }}</b></div>
+                                @endif
+
+                                @if (isset($error))
+                                <div class='alert alert-danger'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>{{ $error }}</b></div>
+                                @endif
+
+            
+                                {{-- @if ($message = Session::get('error'))
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                @endif --}}
                                 <div class="ermsg"></div>
                                 <div class="row"> 
                                     <div class="col-md-12 col-xs-12"> 
@@ -302,7 +329,14 @@
                     </div> 
                 </div>
 
-                <input type="button" id="orderCreateBtn" style="float:left;" name="orderCreateBtn" class="btn btn-info btn-lg" value="Submit Order">
+                <div id="ppdiv" style="display: none">
+                    <button type="submit" class="btn btn-info btn-lg">Submit Order</button>
+                </div>
+                </form>
+
+                <div id="cashdiv">
+                    <input type="button" id="orderCreateBtn" style="float:left;" name="orderCreateBtn" class="btn btn-info btn-lg" value="Submit Order">
+                </div>
 
             </div>
         </div>
@@ -493,6 +527,24 @@
         // net total calculation
 </script>
 <script>
+
+$(document).ready(function() {
+    $("input[name='payment']").click(function() {
+        var val = $(this).val();
+        console.log(val);
+        if (val == "Paypal") {
+            $("#ppdiv").show(); 
+            $("#cashdiv").hide(); 
+        } else {
+            
+            $("#ppdiv").hide(); 
+            $("#cashdiv").show(); 
+        }
+        // $("div.desc").hide();
+    });
+});
+
+
     $(function()
         {
             // parent increase function start
@@ -968,7 +1020,6 @@
         // net total calculation
 
         // submit to purchase 
-        var orderurl = "{{URL::to('/order-store')}}";
 
         $("body").delegate("#orderCreateBtn","click",function(event){
             event.preventDefault();
@@ -980,6 +1031,12 @@
             var phone = $("#phone").val();
             var delivery_type = $('input[name="collection"]:checked').val();
             var payment_type = $('input[name="payment"]:checked').val();
+
+            if (payment_type == "Paypal") {
+                var orderurl = "{{URL::to('/payment')}}";
+            } else {
+                var orderurl = "{{URL::to('/order-store')}}";
+            }
             
             var parent_product_name = $("input[name='parent_product_name[]']")
                 .map(function(){return $(this).val();}).get();

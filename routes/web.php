@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PaypalController;
   
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +42,13 @@ Route::post('/getcatproduct', [FrontendController::class, 'searchproduct']);
 
 // order
 Route::post('/order-store', [OrderController::class, 'orderStore']);
+
+
+
+Route::post('payment', [PaypalController::class, 'payment'])->name('paypalpayment');
+Route::get('success', [PaypalController::class, 'success'])->name('paypal.payment.success');
+Route::get('cancel', [PaypalController::class, 'cancel'])->name('paypal.payment.cancel');
+
 
 
   

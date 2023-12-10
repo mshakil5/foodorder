@@ -54,23 +54,26 @@ class OrderController extends Controller
                 $orderDtl->save();
 
                     $additional_item_total_amount = 0;
-                    foreach ($request->input('child_product_id') as $childkey => $childvalue) {
-                        $childproduct = AdditionalItem::where('id', $request->get('child_product_id')[$childkey])->first();
-
-
-                        if ($orderDtl->product_id == $request->get('related_parent_id')[$childkey]) {
-                        $childitem = new OrderAdditionalItem();
-                        $childitem->order_id = $order->id;
-                        $childitem->order_detail_id = $orderDtl->id;
-                        $childitem->additional_item_id = $request->get('child_product_id')[$childkey];
-                        $childitem->item_name = $request->get('child_product_name')[$childkey];
-                        $childitem->quantity = $request->get('child_product_qty')[$childkey];
-                        $childitem->price_per_unit = $childproduct->amount;
-                        $childitem->total_amount = $request->get('child_product_total_price')[$childkey];
-                        $childitem->save();
-                        $additional_item_total_amount = $additional_item_total_amount + $childitem->total_amount;
+                    if ($request->input('child_product_id')) {
+                        foreach ($request->input('child_product_id') as $childkey => $childvalue) {
+                            $childproduct = AdditionalItem::where('id', $request->get('child_product_id')[$childkey])->first();
+    
+    
+                            if ($orderDtl->product_id == $request->get('related_parent_id')[$childkey]) {
+                            $childitem = new OrderAdditionalItem();
+                            $childitem->order_id = $order->id;
+                            $childitem->order_detail_id = $orderDtl->id;
+                            $childitem->additional_item_id = $request->get('child_product_id')[$childkey];
+                            $childitem->item_name = $request->get('child_product_name')[$childkey];
+                            $childitem->quantity = $request->get('child_product_qty')[$childkey];
+                            $childitem->price_per_unit = $childproduct->amount;
+                            $childitem->total_amount = $request->get('child_product_total_price')[$childkey];
+                            $childitem->save();
+                            $additional_item_total_amount = $additional_item_total_amount + $childitem->total_amount;
+                            }
                         }
                     }
+                    
                 
                     $orderDtl->total_price = $request->get('parent_product_qty')[$key] * $request->get('parent_product_price')[$key] + $additional_item_total_amount;
                     $orderDtl->additional_item_total_price = $additional_item_total_amount;
