@@ -48,7 +48,8 @@
                     <div class='col-md-9 col-xs-12'>
                         <h3 style='margin-top: 0px'>{{$product->product_name}}</h3>
                         <p>{{$product->description}}</p>
-                        <input type='text' placeholder='Note' class='' style='width:100%;border:1px solid black;margin-bottom:20px;' />
+                        {{-- <input type='text' placeholder='Note' class='' style='width:100%;border:1px solid black;margin-bottom:20px;' /> --}}
+                        <hr>
                     </div>
                     <div class='col-md-2 col-xs-6'>£{{ number_format($product->price, 2) }}</div>
                     <div class='col-md-1 col-xs-6'>

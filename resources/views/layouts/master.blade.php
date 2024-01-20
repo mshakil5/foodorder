@@ -64,5 +64,37 @@
 
         @yield('script')
 
+
+	<script>
+		$(document).ready(function () {
+
+			//header for csrf-token is must in laravel
+			$.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
+			// select ticket type
+
+			var url = "{{URL::to('/search-product')}}";
+
+			$("#search").keyup(function(){
+					event.preventDefault();
+					var searchdata = $(this).val();
+					console.log(searchdata);
+					
+					$.ajax({
+					url: url,
+					method: "POST",
+					data: {searchdata:searchdata},
+					success: function(d){
+						$("#get_product").html(d.product);
+						// console.log((d.min));
+					},
+					error:function(d){
+						console.log(d);
+					}
+				});
+			});
+			
+		});
+	</script>
+
 </body>
 </html>

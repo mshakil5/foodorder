@@ -57,9 +57,9 @@ class FrontendController extends Controller
             foreach ($products as $product){
                 // <!-- Single Property Start -->
                 $prop.= '<div class="col-md-9 col-xs-12">
-                            <h3 style="margin-top: 0px">'.$product->name.'</h3>
+                            <h3 style="margin-top: 0px">'.$product->product_name.'</h3>
                             <p>'.$product->description.'</p>
-                            <input type="text" placeholder="Note" style="width:100%;border:1px solid black;margin-bottom:20px;" />
+                            <hr>
                         </div>
                         <div class="col-md-2 col-xs-6">£'.number_format($product->price, 2).'</div>
                         <div class="col-md-1 col-xs-6">';
@@ -82,5 +82,59 @@ class FrontendController extends Controller
             return response()->json(['status'=> 303,'product'=>$prop]);
 
         }
-    // end search property 
+    // end search 
+
+
+
+    // search by name
+    
+    public function searchProductbyName(Request $request)
+    {
+
+        $searchdata = $request->searchdata;
+
+        if (isset($searchdata)) {
+            $products = Product::with('additionalItems.additionalItemTitle')->where([
+                ['product_name', 'LIKE', "%{$searchdata}%"]
+            ])->limit(20)->orderby('id','DESC')->get();
+        } else {
+            $products = Product::with('additionalItems.additionalItemTitle')->get();
+        }
+        
+
+        $prop = '';
+        
+            foreach ($products as $product){
+                // <!-- Single Property Start -->
+                $prop.= '<div class="col-md-9 col-xs-12">
+                            <h3 style="margin-top: 0px">'.$product->product_name.'</h3>
+                            <p>'.$product->description.'</p>
+                            <hr>
+                        </div>
+                        <div class="col-md-2 col-xs-6">£'.number_format($product->price, 2).'</div>
+                        <div class="col-md-1 col-xs-6">';
+
+                            if ($product->assign == 1) {
+                                
+                                $prop.= '<button class="btn btn-primary btn-sm btn-modal" data-toggle="modal" data-target="#additemModal" style="margin-left: -7px;" pid="'.$product->id.'" pname="'.$product->product_name.'" pdesc="'.$product->description.'" price="'.number_format($product->price, 2).'"> add </button>';
+
+                            } else {
+                                
+                                $prop.= '<button class="btn btn-primary btn-sm btn-modal" data-toggle="modal" data-target="#additemModal" style="margin-left: -7px;" pid="'.$product->id.'" pname="'.$product->product_name.'" pdesc="'.$product->description.'" price="'.number_format($product->price, 2).'"> add </button>';
+
+                                // $prop.='<button class="btn btn-primary btn-sm" style="margin-left: -7px;"  id="addToCard" pqty="1" pid="'.$product->id.'" net_amount="'.number_format($product->price, 2).'" price="'.number_format($product->price, 2).'" pname="'.$product->product_name.'">Add</button>';
+                            }
+                            
+                            $prop.='</div>';
+                            
+                }
+
+            return response()->json(['status'=> 303,'product'=>$prop]);
+
+        }
+        
+    // search by name end
+
+
+
 }

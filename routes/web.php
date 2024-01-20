@@ -39,6 +39,7 @@ Route::post('get-additional-product', [FrontendController::class, 'getAdditional
 
 //search
 Route::post('/getcatproduct', [FrontendController::class, 'searchproduct']);
+Route::post('/search-product', [FrontendController::class, 'searchProductbyName']);
 
 // order
 Route::post('/order-store', [OrderController::class, 'orderStore']);
