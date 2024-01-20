@@ -1084,10 +1084,8 @@ $(document).ready(function() {
                 success: function (d) {
                     if (d.status == 303) {
                         $(".ermsg").html(d.message);
-                        pagetop();
                     }else if(d.status == 300){
                         $(".ermsg").html(d.message);
-                        pagetop();
                         window.setTimeout(function(){location.reload()},2000)
                     }
                 },

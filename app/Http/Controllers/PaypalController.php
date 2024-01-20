@@ -158,22 +158,25 @@ class PaypalController extends Controller
                     $orderDtl->price_per_unit = $alldata['parent_product_price'][$key];
                     $orderDtl->save();
                         $additional_item_total_amount = 0;
-                        foreach ($alldata['child_product_id'] as $childkey => $childvalue) {
-                            $childproduct = AdditionalItem::where('id', $alldata['child_product_id'][$childkey])->first();
-                            if ($orderDtl->product_id == $alldata['related_parent_id'][$childkey]) {
-                            $childitem = new OrderAdditionalItem();
-                            $childitem->order_id = $order->id;
-                            $childitem->order_detail_id = $orderDtl->id;
-                            $childitem->additional_item_id = $alldata['child_product_id'][$childkey];
-                            $childitem->item_name = $alldata['child_product_name'][$childkey];
-                            $childitem->quantity = $alldata['child_product_qty'][$childkey];
-                            $childitem->price_per_unit = $childproduct->amount;
-                            $childitem->total_amount = $alldata['child_product_total_price'][$childkey];
-                            $childitem->save();
-                            $additional_item_total_amount = $additional_item_total_amount + $childitem->total_amount;
+
+                        if (isset($alldata['child_product_id'])) {
+                            foreach ($alldata['child_product_id'] as $childkey => $childvalue) {
+                                $childproduct = AdditionalItem::where('id', $alldata['child_product_id'][$childkey])->first();
+                                if ($orderDtl->product_id == $alldata['related_parent_id'][$childkey]) {
+                                $childitem = new OrderAdditionalItem();
+                                $childitem->order_id = $order->id;
+                                $childitem->order_detail_id = $orderDtl->id;
+                                $childitem->additional_item_id = $alldata['child_product_id'][$childkey];
+                                $childitem->item_name = $alldata['child_product_name'][$childkey];
+                                $childitem->quantity = $alldata['child_product_qty'][$childkey];
+                                $childitem->price_per_unit = $childproduct->amount;
+                                $childitem->total_amount = $alldata['child_product_total_price'][$childkey];
+                                $childitem->save();
+                                $additional_item_total_amount = $additional_item_total_amount + $childitem->total_amount;
+                                }
                             }
                         }
-                    
+
                     $orderDtl->total_price = $alldata['parent_product_qty'][$key] * $alldata['parent_product_price'][$key] + $additional_item_total_amount;
                     $orderDtl->additional_item_total_price = $additional_item_total_amount;
                     $orderDtl->save();
@@ -188,7 +191,7 @@ class PaypalController extends Controller
 
             return redirect()
                 ->route('homepage')
-                ->with('success', 'Transaction complete.');
+                ->with('success', 'Thank you for this order.');
         } else {
             return redirect()
                 ->route('homepage')
