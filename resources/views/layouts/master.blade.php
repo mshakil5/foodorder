@@ -26,8 +26,8 @@
             list-style-type: none;
             }
             .navheight{
-                height: 70px;
-                padding-top: 10px;
+                height: 100px;
+                padding-top: 26px;
                 background-color: black;
             }
             .list-group-item{

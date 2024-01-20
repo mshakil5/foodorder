@@ -7,16 +7,16 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="#" class="navbar-brand"><img src="images/img_11183.jpg" width="224px" height="25px"></a>
+            <a href="{{ route('homepage')}}" class="navbar-brand"><img src="{{ asset('slogo.png')}}" width="224px" height="auto" style="margin-top: -60px"></a>
         </div>
         <div class="collapse navbar-collapse" id="collapse">
             <ul class="nav navbar-nav">
-                <li><a href="index.php"><span class="glyphicon glyphicon-home"></span>Home</a></li>
+                <li><a href="{{ route('homepage')}}"><span class="glyphicon glyphicon-home"></span>Home</a></li>
                 
                 <li style="width:300px;left:10px;top:10px;"><input type="text" class="form-control" id="search"></li>
                 <li style="top:10px;left:20px;"><button class="btn btn-primary" id="search_btn">Search</button></li>
             </ul>
-            <ul class="nav navbar-nav navbar-right">
+            <ul class="nav navbar-nav navbar-right" style="display: none">
                 <li><a href="customer_registration.php?register=1" ><span class="glyphicon glyphicon-user"></span> Register</a></li>	
                 <li><a href="customer_registration.php?register=1" ><span class="glyphicon glyphicon-user"></span> Log in</a></li>	
                 
@@ -50,4 +50,4 @@
         </div>
     </div>
 </div>
-<br><br><br><br>
+<br><br><br><br><br><br>
