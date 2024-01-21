@@ -21,6 +21,7 @@ class PaypalController extends Controller
         $order->name = $request->name;
         $order->email = $request->email;
         $order->phone = $request->phone;
+        $order->address = $request->address;
         $order->delivery_type = $request->delivery_type;
         $order->payment_type = $request->payment_type;
         if($order->save()){
@@ -144,6 +145,7 @@ class PaypalController extends Controller
             $order->name = $alldata['name'];
             $order->email = $alldata['email'];
             $order->phone = $alldata['phone'];
+            $order->address = $alldata['address'];
             $order->delivery_type = $alldata['collection'];
             $order->payment_type = $alldata['payment'];
             if($order->save()){

@@ -329,6 +329,11 @@
                                             <label for="phone">Contact No</label> 
                                             <input type="text" class="form-control" id="phone" name="phone" placeholder="phone"> 
                                         </div>
+
+                                        <div class="form-group"> 
+                                            <label for="address">Address</label> 
+                                            <input type="text" class="form-control" id="address" name="address" placeholder="Address"> 
+                                        </div>
                                     </div> 
                                 </div> 
                             </div> 
@@ -1037,6 +1042,7 @@ $(document).ready(function() {
             var name = $("#name").val();
             var email = $("#uemail").val();
             var phone = $("#phone").val();
+            var address = $("#address").val();
             var delivery_type = $('input[name="collection"]:checked').val();
             var payment_type = $('input[name="payment"]:checked').val();
 
@@ -1080,7 +1086,7 @@ $(document).ready(function() {
             $.ajax({
                 url: orderurl,
                 method: "POST",
-                data: {collection_date,collection_time,name,email,phone,parent_product_id,parent_product_qty,parent_product_price,parent_product_total_price,parent_product_name,delivery_type,payment_type,child_product_id,child_product_qty,child_product_total_price,related_parent_id,child_product_name},
+                data: {collection_date,collection_time,name,email,phone,parent_product_id,parent_product_qty,parent_product_price,parent_product_total_price,parent_product_name,delivery_type,payment_type,child_product_id,child_product_qty,child_product_total_price,related_parent_id,child_product_name,address},
 
                 success: function (d) {
                     if (d.status == 303) {

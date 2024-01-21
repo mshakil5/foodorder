@@ -38,6 +38,7 @@ class OrderController extends Controller
         $order->name = $request->name;
         $order->email = $request->email;
         $order->phone = $request->phone;
+        $order->address = $request->address;
         $order->delivery_type = $request->delivery_type;
         $order->payment_type = $request->payment_type;
         if($order->save()){
