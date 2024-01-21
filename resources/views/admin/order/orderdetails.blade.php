@@ -81,8 +81,50 @@
                                         <td style="text-align: center">{{$order->price_per_unit}}</td>
                                         <td style="text-align: center">{{$order->total_price}}</td>
                                         <td style="text-align: center">
-                                            
+                                            <a href="#" class="btn-theme bg-primary w-100 ms-1"  data-bs-toggle="modal" data-bs-target="#viewMore{{$order->id}}">Items</a>
+
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="viewMore{{$order->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header py-2 bg-primary">
+                                                            <h4 class="modal-title fw-bold my-1 text-white" id="exampleModalLabel">Donations</h4>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="row px-3 mb-2">
+                                                                <!-- loop -->
+                                                                <table class="table table-bordered table-hover">
+                                                                    <thead>
+                                                                    <tr>
+                                                                        <th style="text-align: center">Name</th>
+                                                                        <th style="text-align: center">Quantity</th>
+                                                                        <th style="text-align: center">Price per unit</th>
+                                                                        <th style="text-align: center">Total Amount</th>
+                                                                    </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        @foreach ($order->orderadditionalitem as $item)
+                                                                            
+                                                                        <tr>
+                                                                            <td style="text-align: center">{{$item->item_name}}</td>
+                                                                            <td style="text-align: center">{{$item->quantity}}</td>
+                                                                            <td style="text-align: center">{{$item->price_per_unit}}</td>
+                                                                            <td style="text-align: center">{{$item->total_amount}}</td>
+                                                                        </tr>
+
+                                                                        @endforeach
+                                                                    </tbody>
+                                                                </table>
+                                                            </div> 
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
                                         </td>
+
                                     </tr>
                                 @endforeach
                             </tbody>
