@@ -77,6 +77,7 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
 
     // order
     Route::get('/order', [OrderController::class, 'getAllOrder'])->name('admin.order');
+    Route::get('/order/{id}', [OrderController::class, 'getOrderDetails'])->name('admin.orderDeatils');
 
 });
   

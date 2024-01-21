@@ -44,11 +44,11 @@
                                         <td style="text-align: center">{{$data->email}}</td>
                                         <td style="text-align: center">{{$data->net_amount}}</td>
                                         <td style="text-align: center">
-                                            
+                                            <a href="{{route('admin.orderDeatils', $data->id)}}"> <i class="fa fa-eye" style="color: #2196f3;font-size:16px;"> </i></a>
                                         </td>
                                     </tr>
                                 @endforeach
-                                </tbody>
+                            </tbody>
                         </table>
                     </div>
                 </div>
