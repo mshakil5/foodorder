@@ -4,8 +4,10 @@
 /public/hot
 /public/storage
 /public/images
+/public/.htaccess
 /storage/*.key
 /vendor
+.htaccess
 .env
 .env.backup
 .env.production

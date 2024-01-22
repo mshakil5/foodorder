@@ -19,7 +19,7 @@ class FrontendController extends Controller
                     ->get();
         
         // $products = Product::with('additionalItems.additionalItemTitle')->get();
-        $products = Product::with('additionalItems.additionalItemTitle')->get();
+        $products = Product::with('additionalItems.additionalItemTitle')->orderby('id','DESC')->limit(10)->get();
         $additems = AdditionalItemTitle::with('assignproduct')->get();
         // dd($additems);
 
