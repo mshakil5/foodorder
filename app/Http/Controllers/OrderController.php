@@ -14,18 +14,30 @@ class OrderController extends Controller
 {
     public function orderStore(Request $request){
 
-        // $productIDs = $request->input('product_id');
-        // if($productIDs == "" ){
-        //     $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill Product field.</b></div>";
-        //     return response()->json(['status'=> 303,'message'=>$message]);
-        //     exit();
-        // }
+        $productIDs = $request->input('parent_product_id');
+        if($productIDs == "" ){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill Product field.</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
         
-        // if(empty($request->grand_total)){
-        //     $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please Select a \"Product\" field..!</b></div>";
-        //     return response()->json(['status'=> 303,'message'=>$message]);
-        //     exit();
-        // }
+        if(empty($request->name)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please Select a \"Name\" field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
+
+        if(empty($request->phone)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please Select a \"contact number\" field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
+
+        if(empty($request->address)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please Select a \"address\" field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
 
         // dd($request->all());
 
