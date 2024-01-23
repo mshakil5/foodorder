@@ -145,7 +145,10 @@ class PaypalController extends Controller
             $order->name = $alldata['name'];
             $order->email = $alldata['email'];
             $order->phone = $alldata['phone'];
-            $order->address = $alldata['address'];
+            $order->house = $alldata['house'];
+            $order->city = $alldata['city'];
+            $order->street = $alldata['street'];
+            $order->postcode = $alldata['postcode'];
             $order->delivery_type = $alldata['collection'];
             $order->payment_type = $alldata['payment'];
             if($order->save()){

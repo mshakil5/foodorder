@@ -319,21 +319,47 @@
                                     <div class="col-md-12 col-xs-12"> 
                                         <div class="form-group"> 
                                             <label for="name">Name</label> 
-                                            <input type="text" class="form-control" id="name" name="name" placeholder="John"> 
+                                            <input type="text" class="form-control" id="name" name="name" placeholder="John" required> 
                                         </div> 
                                         <div class="form-group"> 
                                             <label for="email">Mail</label> 
-                                            <input type="text" class="form-control" id="uemail" name="email" placeholder="example@mail.com"> 
+                                            <input type="text" class="form-control" id="uemail" name="email" placeholder="example@mail.com" required> 
                                         </div> 
                                         <div class="form-group"> 
                                             <label for="phone">Contact No</label> 
-                                            <input type="text" class="form-control" id="phone" name="phone" placeholder="phone"> 
+                                            <input type="text" class="form-control" id="phone" name="phone" placeholder="phone" required> 
                                         </div>
 
-                                        <div class="form-group"> 
-                                            <label for="address">Address</label> 
-                                            <input type="text" class="form-control" id="address" name="address" placeholder="Address"> 
+                                        <div class="row" id="addressDiv" style="display: none">
+                                            <div class="col-sm-6">
+                                              <div class="form-group">
+                                                <label>House Number</label>
+                                                <input type="text" class="form-control" id="house" name="house">
+                                              </div>
+                                            </div>
+                        
+                                            <div class="col-sm-6">
+                                              <div class="form-group">
+                                                <label>Street</label>
+                                                <input type="text" class="form-control" id="street" name="street">
+                                              </div>
+                                            </div>
+
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                  <label>City</label>
+                                                  <input type="text" class="form-control" id="city" name="city">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                  <label>Postcode</label>
+                                                  <input type="text" class="form-control" id="postcode" name="postcode">
+                                                </div>
+                                            </div>
                                         </div>
+
                                     </div> 
                                 </div> 
                             </div> 
@@ -543,7 +569,6 @@
 $(document).ready(function() {
     $("input[name='payment']").click(function() {
         var val = $(this).val();
-        console.log(val);
         if (val == "Paypal") {
             $("#ppdiv").show(); 
             $("#cashdiv").hide(); 
@@ -551,6 +576,19 @@ $(document).ready(function() {
             
             $("#ppdiv").hide(); 
             $("#cashdiv").show(); 
+        }
+        // $("div.desc").hide();
+    });
+});
+
+$(document).ready(function() {
+    $("input[name='collection']").click(function() {
+        var val = $(this).val();
+        console.log(val);
+        if (val == "Collection") {
+            $("#addressDiv").hide(); 
+        } else {
+            $("#addressDiv").show(); 
         }
         // $("div.desc").hide();
     });
@@ -1042,7 +1080,10 @@ $(document).ready(function() {
             var name = $("#name").val();
             var email = $("#uemail").val();
             var phone = $("#phone").val();
-            var address = $("#address").val();
+            var house = $("#house").val();
+            var street = $("#street").val();
+            var city = $("#city").val();
+            var postcode = $("#postcode").val();
             var delivery_type = $('input[name="collection"]:checked').val();
             var payment_type = $('input[name="payment"]:checked').val();
 
@@ -1086,7 +1127,7 @@ $(document).ready(function() {
             $.ajax({
                 url: orderurl,
                 method: "POST",
-                data: {collection_date,collection_time,name,email,phone,parent_product_id,parent_product_qty,parent_product_price,parent_product_total_price,parent_product_name,delivery_type,payment_type,child_product_id,child_product_qty,child_product_total_price,related_parent_id,child_product_name,address},
+                data: {collection_date,collection_time,name,email,phone,parent_product_id,parent_product_qty,parent_product_price,parent_product_total_price,parent_product_name,delivery_type,payment_type,child_product_id,child_product_qty,child_product_total_price,related_parent_id,child_product_name,house,street,city,postcode},
 
                 success: function (d) {
                     if (d.status == 303) {

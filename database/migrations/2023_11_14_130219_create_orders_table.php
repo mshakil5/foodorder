@@ -18,7 +18,10 @@ return new class extends Migration
             $table->string('name')->nullable();
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
-            $table->string('address')->nullable();
+            $table->string('house')->nullable();
+            $table->string('street')->nullable();
+            $table->string('city')->nullable();
+            $table->string('postcode')->nullable();
             $table->double('total_amount',10,2)->default(0);
             $table->double('net_amount',10,2)->default(0);
             $table->double('discount',10,2)->default(0);

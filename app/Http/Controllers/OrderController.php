@@ -33,11 +33,32 @@ class OrderController extends Controller
             exit();
         }
 
-        if(empty($request->address)){
-            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please Select a \"address\" field..!</b></div>";
-            return response()->json(['status'=> 303,'message'=>$message]);
-            exit();
+        if ($request->delivery_type == "Delivery") {
+            if(empty($request->house)){
+                $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please Select a \"house\" field..!</b></div>";
+                return response()->json(['status'=> 303,'message'=>$message]);
+                exit();
+            }
+
+            if(empty($request->city)){
+                $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please Select a \"city\" field..!</b></div>";
+                return response()->json(['status'=> 303,'message'=>$message]);
+                exit();
+            }
+
+            if(empty($request->street)){
+                $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please Select a \"street\" field..!</b></div>";
+                return response()->json(['status'=> 303,'message'=>$message]);
+                exit();
+            }
+
+            if(empty($request->postcode)){
+                $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please Select a \"postcode\" field..!</b></div>";
+                return response()->json(['status'=> 303,'message'=>$message]);
+                exit();
+            }
         }
+        
 
         // dd($request->all());
 
@@ -50,7 +71,10 @@ class OrderController extends Controller
         $order->name = $request->name;
         $order->email = $request->email;
         $order->phone = $request->phone;
-        $order->address = $request->address;
+        $order->house = $request->house;
+        $order->city = $request->city;
+        $order->street = $request->street;
+        $order->postcode = $request->postcode;
         $order->delivery_type = $request->delivery_type;
         $order->payment_type = $request->payment_type;
         if($order->save()){
