@@ -155,14 +155,16 @@
                                 <div class="row"> 
                                     <div class="col-md-6 col-xs-12"><b>
                                         <div class="radio"> 
+                                            <label><input type="radio" name="payment" value="Cash" checked >Cash</label>
+                                        </div></b>
+                                    </div> 
+                                    
+                                    <div class="col-md-6 col-xs-12"><b>
+                                        <div class="radio"> 
                                             <label><input type="radio" name="payment" value="Paypal" >Paypal</label>
                                         </div> </b>
                                     </div> 
-                                    <div class="col-md-6 col-xs-12"><b>
-                                        <div class="radio"> 
-                                            <label><input type="radio" name="payment" value="Cash" checked>Cash</label>
-                                        </div></b>
-                                    </div> 
+                                    
                                 </div> 
                             </div> 
                         </div> 
@@ -195,7 +197,7 @@
                                     </div>
 
                                     <div class="col-md-6">
-                                        <label for="delivery">Collection/Delivery Date</label><input type="date" class="date-picker form-control hasDatepicker" name="date" id="date" placeholder="Select date" required>
+                                        <label for="delivery">Collection/Delivery Date</label><input type="date" class="date-picker form-control hasDatepicker" name="date" id="date" value="{{date('Y-m-d')}}" placeholder="Select date" required>
                                     </div>
 
                                     <div class="col-md-6">
@@ -281,12 +283,7 @@
                     </div>
                 </div>
 
-                @if ($message = Session::get('success'))
-                {{-- <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>{{ $message }}</b></div>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div> --}}
-                @endif
+                
 
                 <div class="row"> 
                     <div class="col-md-12"> 
@@ -299,35 +296,31 @@
                             <div class="panel-body"> 
                                 
 
-                                @if (isset($message))
-                                <div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>{{ $message }}</b></div>
-                                @endif
-
-                                @if (isset($error))
-                                <div class='alert alert-danger'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>{{ $error }}</b></div>
-                                @endif
-
-            
-                                {{-- @if ($message = Session::get('error'))
-                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
                                     </div>
-                                @endif --}}
+                                @endif
+
+
                                 <div class="ermsg"></div>
                                 <div class="row"> 
                                     <div class="col-md-12 col-xs-12"> 
                                         <div class="form-group"> 
                                             <label for="name">Name</label> 
-                                            <input type="text" class="form-control" id="name" name="name" placeholder="John" required> 
+                                            <input type="text" class="form-control" id="name" name="name" placeholder="John"> 
                                         </div> 
                                         <div class="form-group"> 
                                             <label for="email">Mail</label> 
-                                            <input type="text" class="form-control" id="uemail" name="email" placeholder="example@mail.com" required> 
+                                            <input type="text" class="form-control" id="uemail" name="email" placeholder="example@mail.com"> 
                                         </div> 
                                         <div class="form-group"> 
                                             <label for="phone">Contact No</label> 
-                                            <input type="text" class="form-control" id="phone" name="phone" placeholder="phone" required> 
+                                            <input type="text" class="form-control" id="phone" name="phone" placeholder="phone"> 
                                         </div>
 
                                         <div class="row" id="addressDiv" style="display: none">

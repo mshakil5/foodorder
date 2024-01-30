@@ -7,6 +7,7 @@ use App\Models\OrderAdditionalItem;
 use App\Models\AdditionalItem;
 use App\Models\Order;
 use App\Models\OrderDetail;
+use Illuminate\Http\RedirectResponse;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
 
 class PaypalController extends Controller
@@ -64,8 +65,32 @@ class PaypalController extends Controller
 
 
 
-    public function payment(Request $request)
+    public function payment(Request $request): RedirectResponse
     {
+
+
+        // $rules = [
+        //     'house' => 'required',
+        //     'net_total_value' => 'required',
+        // ];
+        // $customMessages = [
+        //     'required' => 'The :attribute field is required.',
+        //     'net_total_value.required' => 'Please select a product.'
+        // ];
+        // $this->validate($request, $rules, $customMessages);
+
+        // dd($request->all());
+
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'uemail' => 'required',
+            'phone' => 'required',
+            'parent_product_id' => 'required'
+        ], [
+            'name.required' => 'Name field is required.',
+            'parent_product_id.required' => 'Please, choose a product.',
+            'uemail.required' => 'Email field is required.'
+        ]);
 
         
         session(['alldata' => $request->all()]);
@@ -108,7 +133,7 @@ class PaypalController extends Controller
   
         } else {
             return redirect()
-                ->route('create.payment')
+                ->route('homepage')
                 ->with('error', $response['message'] ?? 'Something went wrong.');
         }
     
