@@ -80,6 +80,17 @@
                 <form action="{{route('paypalpayment')}}" method="POST">
                 @csrf
 
+                
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
                 {{-- card checkout card start  --}}
                 <div class="row">
                     <div class="col-md-12 col-xs-12">
@@ -89,6 +100,7 @@
                                     <div class="col-md-4 col-xs-4">Cart Checkout</div>
                                     <div class="col-md-8" id="cart_msg"><!--Cart Message--> </div>
                                 </div>
+
                             </div>
                             <div class="panel-body">
                                 <div class="row">
@@ -143,33 +155,7 @@
                 {{-- card checkout card end  --}}
                 
 
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-md-4">Payment Option</div> 
-                                </div> 
-                            </div> 
-                            <div class="panel-body"> 
-                                <div class="row"> 
-                                    <div class="col-md-6 col-xs-12"><b>
-                                        <div class="radio"> 
-                                            <label><input type="radio" name="payment" value="Cash" checked >Cash</label>
-                                        </div></b>
-                                    </div> 
-                                    
-                                    <div class="col-md-6 col-xs-12"><b>
-                                        <div class="radio"> 
-                                            <label><input type="radio" name="payment" value="Paypal" >Paypal</label>
-                                        </div> </b>
-                                    </div> 
-                                    
-                                </div> 
-                            </div> 
-                        </div> 
-                    </div> 
-                </div> 
+                
                 
                 <div class="row"> 
                     <div class="col-md-12">
@@ -185,14 +171,14 @@
                                         <b>
                                         <div class="radio"> 
                                             <label for="clnChkNo" class="rmvDiv">
-                                            <input type="radio" name="collection" value="Collection" class="rmvDiv" id="clnChkNo" onclick="ShowHideDivforCln()" checked>Collection</label> <p>Within 20 Minutes</p> 
+                                            <input type="radio" name="collection" value="Collection" class="rmvDiv" id="clnChkNo" onclick="ShowHideDivforCln()" {{ old('collection') !== null && old('collection') == "Collection" ? 'checked' : '' }}>Collection</label> <p>Within 20 Minutes</p> 
                                         </div>
                                         </b>
                                     </div> 
                                     <div class="col-md-6 col-xs-12"><b>
                                         <div class="radio"> 
                                             <label for="clnChkYes">
-                                            <input type="radio" name="collection" value="Delivery" id="clnChkYes" onclick="ShowHideDivforCln()">Delivery</label> <p>Within 60 Minutes</p> 
+                                            <input type="radio" name="collection" value="Delivery" id="clnChkYes" onclick="ShowHideDivforCln()" {{ old('collection') !== null && old('collection') == "Delivery" ? 'checked' : '' }}>Delivery</label> <p>Within 60 Minutes</p> 
                                         </div></b>
                                     </div>
 
@@ -312,43 +298,43 @@
                                     <div class="col-md-12 col-xs-12"> 
                                         <div class="form-group"> 
                                             <label for="name">Name</label> 
-                                            <input type="text" class="form-control" id="name" name="name" placeholder="John"> 
+                                            <input type="text" class="form-control" id="name" name="name" placeholder="John" value="{{ old('name') }}"> 
                                         </div> 
                                         <div class="form-group"> 
-                                            <label for="email">Mail</label> 
-                                            <input type="text" class="form-control" id="uemail" name="email" placeholder="example@mail.com"> 
+                                            <label for="uemail">Mail</label> 
+                                            <input type="text" class="form-control" id="uemail" name="uemail" placeholder="example@mail.com" value="{{ old('uemail') }}"> 
                                         </div> 
                                         <div class="form-group"> 
                                             <label for="phone">Contact No</label> 
-                                            <input type="text" class="form-control" id="phone" name="phone" placeholder="phone"> 
+                                            <input type="text" class="form-control" id="phone" name="phone" placeholder="phone" value="{{ old('phone') }}"> 
                                         </div>
 
-                                        <div class="row" id="addressDiv" style="display: none">
+                                        <div class="row" id="addressDiv">
                                             <div class="col-sm-6">
                                               <div class="form-group">
                                                 <label>House Number</label>
-                                                <input type="text" class="form-control" id="house" name="house">
+                                                <input type="text" class="form-control" id="house" name="house" value="{{ old('house') }}">
                                               </div>
                                             </div>
                         
                                             <div class="col-sm-6">
                                               <div class="form-group">
                                                 <label>Street</label>
-                                                <input type="text" class="form-control" id="street" name="street">
+                                                <input type="text" class="form-control" id="street" name="street" value="{{ old('street') }}">
                                               </div>
                                             </div>
 
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                   <label>City</label>
-                                                  <input type="text" class="form-control" id="city" name="city">
+                                                  <input type="text" class="form-control" id="city" name="city" value="{{ old('city') }}">
                                                 </div>
                                             </div>
 
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                   <label>Postcode</label>
-                                                  <input type="text" class="form-control" id="postcode" name="postcode">
+                                                  <input type="text" class="form-control" id="postcode" name="postcode" value="{{ old('postcode') }}">
                                                 </div>
                                             </div>
                                         </div>
@@ -360,13 +346,47 @@
                     </div> 
                 </div>
 
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-md-4">Payment Option</div> 
+                                </div> 
+                            </div> 
+                            <div class="panel-body"> 
+                                <div class="row"> 
+                                    <div class="col-md-6 col-xs-12">
+                                        {{-- <b>
+                                            <div class="radio"> 
+                                                <label><input type="radio" name="payment" value="Cash" checked >Cash</label>
+                                            </div>
+                                        </b> --}}
+                                        <button type="submit" class="btn btn-info btn-lg">Pay with Paypal</button>
+                                    </div> 
+                                    </form>
+                                    
+                                    <div class="col-md-6 col-xs-12">
+                                        {{-- <b>
+                                            <div class="radio"> 
+                                                <label><input type="radio" name="payment" value="Paypal" {{ old('payment') !== null && old('payment') == "Paypal" ? 'checked' : '' }}>Paypal</label>
+                                            </div> 
+                                        </b> --}}
+                                        <input type="button" id="orderCreateBtn" style="float:left;" name="orderCreateBtn" class="btn btn-info btn-lg" value="Pay with Cash">
+                                    </div> 
+                                    
+                                </div> 
+                            </div> 
+                        </div> 
+                    </div> 
+                </div> 
+
                 <div id="ppdiv" style="display: none">
-                    <button type="submit" class="btn btn-info btn-lg">Submit Order</button>
+                    
                 </div>
-                </form>
 
                 <div id="cashdiv">
-                    <input type="button" id="orderCreateBtn" style="float:left;" name="orderCreateBtn" class="btn btn-info btn-lg" value="Submit Order">
                 </div>
 
             </div>
@@ -574,7 +594,9 @@ $(document).ready(function() {
     });
 });
 
+
 $(document).ready(function() {
+    // $("#addressDiv").hide(); 
     $("input[name='collection']").click(function() {
         var val = $(this).val();
         console.log(val);

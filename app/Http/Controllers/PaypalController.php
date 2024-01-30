@@ -81,16 +81,34 @@ class PaypalController extends Controller
 
         // dd($request->all());
 
-        $validatedData = $request->validate([
-            'name' => 'required',
-            'uemail' => 'required',
-            'phone' => 'required',
-            'parent_product_id' => 'required'
-        ], [
-            'name.required' => 'Name field is required.',
-            'parent_product_id.required' => 'Please, choose a product.',
-            'uemail.required' => 'Email field is required.'
-        ]);
+        if ($request->collection == "Delivery") {
+            $validatedData = $request->validate([
+                'name' => 'required',
+                'collection' => 'required',
+                'phone' => 'required',
+                'house' => 'required',
+                'street' => 'required',
+                'city' => 'required',
+                'postcode' => 'required',
+                'parent_product_id' => 'required'
+            ], [
+                'name.required' => 'Name field is required.',
+                'parent_product_id.required' => 'Please, choose a product.'
+            ]);
+        } else {
+            $validatedData = $request->validate([
+                'name' => 'required',
+                'collection' => 'required',
+                'phone' => 'required',
+                'parent_product_id' => 'required'
+            ], [
+                'name.required' => 'Name field is required.',
+                'parent_product_id.required' => 'Please, choose a product.'
+            ]);
+        }
+        
+
+        
 
         
         session(['alldata' => $request->all()]);

@@ -33,9 +33,9 @@
                                 <div class="panel-heading">Log In</div>
                                 <div class="panel-heading">
                                     <form onsubmit="return false" id="login">
-                                        <label for="email">Email</label>
-                                        <input type="email" class="form-control" name="email" id="email" required/>
-                                        <label for="email">Password</label>
+                                        <label for="c_email">Email</label>
+                                        <input type="email" class="form-control" name="c_email" id="c_email" required/>
+                                        <label for="password">Password</label>
                                         <input type="password" class="form-control" name="password" id="password" required/>
                                         <p><br/></p>
                                         <a href="forget_index.php" style="color:white; list-style:none;">Forgotten Password</a><input type="submit" class="btn btn-success" style="float:right;">
