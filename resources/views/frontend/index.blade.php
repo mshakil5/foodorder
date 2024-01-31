@@ -1089,6 +1089,8 @@ $(document).ready(function() {
 
         $("body").delegate("#orderCreateBtn","click",function(event){
             event.preventDefault();
+
+            alert('btn work');
             
             var collection_date = $("#date").val();
             var collection_time = $("#timeslot").val();
