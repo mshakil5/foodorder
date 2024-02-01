@@ -44,40 +44,36 @@ class FrontendController extends Controller
     public function searchproduct(Request $request){
 
         $id = $request->id;
-
         $products = Product::where('category_id', $id)->get();
         
- 
-        
-
         $prop = '';
         
-
-
             foreach ($products as $product){
                 // <!-- Single Property Start -->
-                $prop.= '<div class="col-md-9 col-xs-12">
-                            <h3 style="margin-top: 0px">'.$product->product_name.'</h3>
-                            <p>'.$product->description.'</p>
-                            <hr>
-                        </div>
-                        <div class="col-md-2 col-xs-6">£'.number_format($product->price, 2).'</div>
-                        <div class="col-md-1 col-xs-6">';
+                $prop.= '<div class="col-md-12 box-custom mb-4 rounded-3">
+                            <div class="row">
+                                <div class="col-md-8 col-xs-12">
+                                    <h4 style="margin-top: 0px" class="fw-bold text-primary">'.$product->product_name.'</h4>
+                                    <p>'.$product->description.'</p>
+                                </div>
+                                <div class="col-md-2 col-xs-6">£'.number_format($product->price, 2).'</div>
+
+
+                                <div class="col-md-2 col-xs-6">';
 
                             if ($product->assign == 1) {
                                 
-                                $prop.= '<button class="btn btn-primary btn-sm btn-modal" data-toggle="modal" data-target="#additemModal" style="margin-left: -7px;" pid="'.$product->id.'" pname="'.$product->product_name.'" pdesc="'.$product->description.'" price="'.number_format($product->price, 2).'"> add </button>';
+                                $prop.= '<button class="btn btn-primary text-uppercase btn-sm btn-modal" data-toggle="modal" data-target="#additemModal" style="margin-left: -7px;" pid="'.$product->id.'" pname="'.$product->product_name.'" pdesc="'.$product->description.'" price="'.number_format($product->price, 2).'"> add </button>';
 
                             } else {
                                 
-                                $prop.= '<button class="btn btn-primary btn-sm btn-modal" data-toggle="modal" data-target="#additemModal" style="margin-left: -7px;" pid="'.$product->id.'" pname="'.$product->product_name.'" pdesc="'.$product->description.'" price="'.number_format($product->price, 2).'"> add </button>';
-
-                                // $prop.='<button class="btn btn-primary btn-sm" style="margin-left: -7px;"  id="addToCard" pqty="1" pid="'.$product->id.'" net_amount="'.number_format($product->price, 2).'" price="'.number_format($product->price, 2).'" pname="'.$product->product_name.'">Add</button>';
+                                $prop.= '<button class="btn btn-primary text-uppercase btn-sm btn-modal" data-toggle="modal" data-target="#additemModal" style="margin-left: -7px;" pid="'.$product->id.'" pname="'.$product->product_name.'" pdesc="'.$product->description.'" price="'.number_format($product->price, 2).'"> add </button>';
                             }
                             
-                            $prop.='</div>';
-                            
-                }
+                            $prop.='</div></div></div>';
+            }
+
+
 
             return response()->json(['status'=> 303,'product'=>$prop]);
 
@@ -104,30 +100,30 @@ class FrontendController extends Controller
 
         $prop = '';
         
-            foreach ($products as $product){
-                // <!-- Single Property Start -->
-                $prop.= '<div class="col-md-9 col-xs-12">
-                            <h3 style="margin-top: 0px">'.$product->product_name.'</h3>
-                            <p>'.$product->description.'</p>
-                            <hr>
-                        </div>
-                        <div class="col-md-2 col-xs-6">£'.number_format($product->price, 2).'</div>
-                        <div class="col-md-1 col-xs-6">';
+        foreach ($products as $product){
+            // <!-- Single Property Start -->
+            $prop.= '<div class="col-md-12 box-custom mb-4 rounded-3">
+                        <div class="row">
+                            <div class="col-md-8 col-xs-12">
+                                <h4 style="margin-top: 0px" class="fw-bold text-primary">'.$product->product_name.'</h4>
+                                <p>'.$product->description.'</p>
+                            </div>
+                            <div class="col-md-2 col-xs-6">£'.number_format($product->price, 2).'</div>
 
-                            if ($product->assign == 1) {
-                                
-                                $prop.= '<button class="btn btn-primary btn-sm btn-modal" data-toggle="modal" data-target="#additemModal" style="margin-left: -7px;" pid="'.$product->id.'" pname="'.$product->product_name.'" pdesc="'.$product->description.'" price="'.number_format($product->price, 2).'"> add </button>';
 
-                            } else {
-                                
-                                $prop.= '<button class="btn btn-primary btn-sm btn-modal" data-toggle="modal" data-target="#additemModal" style="margin-left: -7px;" pid="'.$product->id.'" pname="'.$product->product_name.'" pdesc="'.$product->description.'" price="'.number_format($product->price, 2).'"> add </button>';
+                            <div class="col-md-2 col-xs-6">';
 
-                                // $prop.='<button class="btn btn-primary btn-sm" style="margin-left: -7px;"  id="addToCard" pqty="1" pid="'.$product->id.'" net_amount="'.number_format($product->price, 2).'" price="'.number_format($product->price, 2).'" pname="'.$product->product_name.'">Add</button>';
-                            }
+                        if ($product->assign == 1) {
                             
-                            $prop.='</div>';
+                            $prop.= '<button class="btn btn-primary text-uppercase btn-sm btn-modal" data-toggle="modal" data-target="#additemModal" style="margin-left: -7px;" pid="'.$product->id.'" pname="'.$product->product_name.'" pdesc="'.$product->description.'" price="'.number_format($product->price, 2).'"> add </button>';
+
+                        } else {
                             
-                }
+                            $prop.= '<button class="btn btn-primary text-uppercase btn-sm btn-modal" data-toggle="modal" data-target="#additemModal" style="margin-left: -7px;" pid="'.$product->id.'" pname="'.$product->product_name.'" pdesc="'.$product->description.'" price="'.number_format($product->price, 2).'"> add </button>';
+                        }
+                        
+                        $prop.='</div></div></div>';
+        }
 
             return response()->json(['status'=> 303,'product'=>$prop]);
 

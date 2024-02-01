@@ -193,7 +193,7 @@ class PaypalController extends Controller
             $order->street = $alldata['street'];
             $order->postcode = $alldata['postcode'];
             $order->delivery_type = $alldata['collection'];
-            $order->payment_type = $alldata['payment'];
+            $order->payment_type = "Paypal";
             if($order->save()){
                 $net_amount = 0;
                 foreach($alldata['parent_product_id'] as $key => $value)

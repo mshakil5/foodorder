@@ -19,6 +19,20 @@
         display: inline-block;
         text-align: left;
     }
+
+
+.box-custom{
+    padding: 15px;
+    box-shadow: 0px 4px 11px #0000005e;
+    transition: transform 0.3s ease-in-out;
+    margin-bottom: 15px;
+    border-radius: 4px;
+}
+.box-custom:hover{
+    transform: scale(1.02);
+
+}
+
 </style>
 
 <style>
@@ -31,43 +45,53 @@
 <div class="container mt-5">
     <div class="row">
     
-        <div class="col-md-2 col-xs-4">
+        <div class="col-md-2 col-xs-12">
             <ul class="list-group" id="get_category">
                 @foreach (\App\Models\Category::orderby('id','ASC')->get() as $cat)
                     
-                <li><button value="{{$cat->id}}" class='category list-group-item getsrchval'>{{$cat->name}}</button></li>
+                <li style="margin-bottom: 3px;"><button value="{{$cat->id}}" class='category list-group-item getsrchval'>{{$cat->name}}</button></li>
 
                 @endforeach
                 
             </ul>
         </div>
 
-        <div class="col-md-5 col-xs-8">		
-            <div class="row" id="get_product">
+        <div class="col-md-5 col-xs-12">		
+            <div class="row" id="get_product" style="padding: 15px">
                 @foreach ($products as $product)
-                    <div class='col-md-9 col-xs-12'>
-                        <h3 style='margin-top: 0px'>{{$product->product_name}}</h3>
-                        <p>{{$product->description}}</p>
-                        {{-- <input type='text' placeholder='Note' class='' style='width:100%;border:1px solid black;margin-bottom:20px;' /> --}}
-                        <hr>
+                
+                <div class="col-md-12 box-custom mb-4 rounded-3">
+                    <div class="row">
+                        <div class='col-md-8 col-xs-12'>
+                            <h4 style='margin-top: 0px' class='fw-bold text-primary'>{{$product->product_name}}</h4>
+                            <p>{{$product->description}}</p>
+                            {{-- <input type='text' placeholder='Note' class='' style='width:100%;border:1px solid black;margin-bottom:20px;' /> --}}
+                            
+                        </div>
+                        <div class='col-md-2 col-xs-6'>£{{ number_format($product->price, 2) }}</div>
+                        <div class='col-md-2 col-xs-6'>
+                            @if ($product->assign == 1)
+                                <button class="btn btn-primary text-uppercase btn-sm btn-modal" data-toggle="modal" data-target="#additemModal" style="margin-left: -7px;" pid="{{$product->id}}" pname="{{$product->product_name}}" pdesc="{{$product->description}}" price="{{ number_format($product->price, 2) }}">
+                                    add
+                                </button>
+                            @else
+    
+                                <button class="btn btn-primary text-uppercase btn-sm btn-modal" data-toggle="modal" data-target="#additemModal" style="margin-left: -7px;" pid="{{$product->id}}" pname="{{$product->product_name}}" pdesc="{{$product->description}}" price="{{ number_format($product->price, 2) }}">
+                                    add
+                                </button>
+    
+
+                            @endif
+                        </div>
                     </div>
-                    <div class='col-md-2 col-xs-6'>£{{ number_format($product->price, 2) }}</div>
-                    <div class='col-md-1 col-xs-6'>
-                        @if ($product->assign == 1)
-                            <button class="btn btn-primary btn-sm btn-modal" data-toggle="modal" data-target="#additemModal" style="margin-left: -7px;" pid="{{$product->id}}" pname="{{$product->product_name}}" pdesc="{{$product->description}}" price="{{ number_format($product->price, 2) }}">
-                                add
-                            </button>
-                        @else
+                    
+                    
+                    
+                </div>
+                
 
-                            <button class="btn btn-primary btn-sm btn-modal" data-toggle="modal" data-target="#additemModal" style="margin-left: -7px;" pid="{{$product->id}}" pname="{{$product->product_name}}" pdesc="{{$product->description}}" price="{{ number_format($product->price, 2) }}">
-                                add
-                            </button>
-
-
-                            {{-- <button class="btn btn-primary btn-sm" style="margin-left: -7px;"  id="addToCard" pqty="1" pid="{{$product->id}}" net_amount="{{ number_format($product->price, 2) }}" price="{{ number_format($product->price, 2) }}" pname="{{$product->product_name}}">Add</button> --}}
-                        @endif
-                    </div>
                 @endforeach
+
                 
             </div>	
         </div>
@@ -76,7 +100,7 @@
 
         <div class="col-md-5 col-xs-12"> 
     
-            <div id="cart_checkout">
+            <div id="cart_checkout" style="margin-top: 10px">
                 <form action="{{route('paypalpayment')}}" method="POST">
                 @csrf
 
@@ -302,7 +326,7 @@
                                         </div> 
                                         <div class="form-group"> 
                                             <label for="uemail">Mail</label> 
-                                            <input type="text" class="form-control" id="uemail" name="uemail" placeholder="example@mail.com" value="{{ old('uemail') }}"> 
+                                            <input type="text" class="form-control" id="uemail" name="email" placeholder="example@mail.com" value="{{ old('uemail') }}"> 
                                         </div> 
                                         <div class="form-group"> 
                                             <label for="phone">Contact No</label> 
@@ -1150,6 +1174,11 @@ $(document).ready(function() {
             event.preventDefault();
             var row = $(this).parent().parent();
             var quantity = row.find('.parent_product_qty').val();
+
+            if (quantity < 1) {
+                var quantity = 1;
+            }
+
             var parent_product_price = row.find('.parent_product_price').val();
             var net_amount_with_child_item = row.find('.net_amount_with_child_item').val();
             var child_items_total_amnt = row.find('.child_items_total_amnt').val();
@@ -1164,7 +1193,7 @@ $(document).ready(function() {
             // var amount = quantity * rate;
             row.find('.net_amount_with_child_item').val(new_net_amount_with_child_item);
             row.find('.parent_product_total_price_div').html(new_net_amount_with_child_item.toFixed(2));
-            row.find('.parent_product_price').val(parent_product_total_amount);
+            // row.find('.parent_product_price').val(parent_product_total_amount);
             net_total();
         })
         // unit price calculation end
