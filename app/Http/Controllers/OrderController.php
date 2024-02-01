@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\OrderConfirmMail;
 use App\Models\AdditionalItem;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\OrderAdditionalItem;
 use App\Models\Order;
 use App\Models\OrderDetail;
+use Mail;
 use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
@@ -120,10 +122,38 @@ class OrderController extends Controller
             }
             
         $order->net_amount = $net_amount;
-        $order->save();
-            
+        if ($order->save()) {
+
+
+                $adminmail = "kmushakil71@gmail.com";
+                $contactmail = $request->email;
+                $ccEmails = "kmushakil93@gmail.com";
+                $msg = "Thank you for your order.";
+                
+                if (isset($msg)) {
+                    $array['name'] = $request->name;
+                    $array['email'] = $request->email;
+                    $array['subject'] = "Order Booking Confirmation";
+                    $array['message'] = $msg;
+                    $array['contactmail'] = $contactmail;
+        
+                    Mail::to($contactmail)
+                        ->cc($ccEmails)
+                        ->send(new OrderConfirmMail($array));
+        
+                }
+
             $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Thank you for this order.</b></div>";
             return response()->json(['status'=> 300,'message'=>$message,'id'=>$order->id]);
+
+
+        } else {
+            $message ="<div class='alert alert-danger'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Server Error!!.</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message,'id'=>$order->id]);
+        }
+        
+            
+            
         }
 
 

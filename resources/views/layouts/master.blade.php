@@ -39,6 +39,12 @@
                 border: 1px solid #337ab7 !important;
                 }
 
+			.modal-header{
+				color: #ffffff;
+				background-color: #337ab7;
+				border-color: #337ab7;
+			}
+
 
 
 		</style>

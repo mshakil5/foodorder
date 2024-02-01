@@ -7,6 +7,8 @@ use App\Models\OrderAdditionalItem;
 use App\Models\AdditionalItem;
 use App\Models\Order;
 use App\Models\OrderDetail;
+use App\Mail\OrderConfirmMail;
+use Mail;
 use Illuminate\Http\RedirectResponse;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
 
@@ -68,18 +70,6 @@ class PaypalController extends Controller
     public function payment(Request $request): RedirectResponse
     {
 
-
-        // $rules = [
-        //     'house' => 'required',
-        //     'net_total_value' => 'required',
-        // ];
-        // $customMessages = [
-        //     'required' => 'The :attribute field is required.',
-        //     'net_total_value.required' => 'Please select a product.'
-        // ];
-        // $this->validate($request, $rules, $customMessages);
-
-        // dd($request->all());
 
         if ($request->collection == "Delivery") {
             $validatedData = $request->validate([
@@ -231,7 +221,26 @@ class PaypalController extends Controller
                     $net_amount = $net_amount + $orderDtl->total_price;
                 }
             $order->net_amount = $net_amount;
-            $order->save();
+
+                if ($order->save()) {
+                    $adminmail = "kmushakil71@gmail.com";
+                    $contactmail = $request->email;
+                    $ccEmails = "kmushakil93@gmail.com";
+                    $msg = "Thank you for your order.";
+                    
+                    if (isset($msg)) {
+                        $array['name'] = $request->name;
+                        $array['email'] = $request->email;
+                        $array['subject'] = "Order Booking Confirmation";
+                        $array['message'] = $msg;
+                        $array['contactmail'] = $contactmail;
+            
+                        Mail::to($contactmail)
+                            ->cc($ccEmails)
+                            ->send(new OrderConfirmMail($array));
+            
+                    }
+                }
             }
             // data store end
             
@@ -249,198 +258,4 @@ class PaypalController extends Controller
 
 
 
-
-    // private $gateway;
-
-    // public function __construct() {
-    //     $this->gateway = Omnipay::create('PayPal_Rest');
-    //     $this->gateway->setClientId(env('PAYPAL_CLIENT_ID'));
-    //     $this->gateway->setSecret(env('PAYPAL_CLIENT_SECRET'));
-    //     $this->gateway->setTestMode(true);
-    // }
-
-
-    // public function pay(Request $request)
-    // {
-    //     // dd($request->all());
-    //     session(['charity_id' => $request->charity_id]);
-    //     session(['paypalcommission' => $request->paypalcommission]);
-    //     if (Auth::user()) {
-    //     } else {
-    //         session(['guest_name' => $request->guest_name]);
-    //         session(['guest_email' => $request->guest_email]);
-    //         session(['guest_phone' => $request->guest_phone]);
-    //     }
-        
-    //     // dd($request->charity_id);
-
-
-    //     try {
-    //         $response = $this->gateway->purchase(array(
-    //             'amount' => $request->amount,
-    //             'currency' => env('PAYPAL_CURRENCY'),
-    //             'returnUrl' => url('charity-success'),
-    //             'cancelUrl' => url('charity-error')
-    //         ))->send();
-
-    //         if ($response->isRedirect()) {
-    //             $response->redirect();
-    //         }
-    //         else{
-    //             return $response->getMessage();
-    //         }
-
-    //     } catch (\Throwable $th) {
-    //         $msg = $th->getMessage();
-    //         return redirect()->back()->with('error', $msg);
-    //     }
-    // }
-
-    // public function success(Request $request)
-    // {
-    //     if ($request->input('paymentId') && $request->input('PayerID')) {
-    //         $transaction = $this->gateway->completePurchase(array(
-    //             'payer_id' => $request->input('PayerID'),
-    //             'transactionReference' => $request->input('paymentId')
-    //         ));
-
-    //         $charity_id = session('charity_id');
-    //         $paypalcommission = session('paypalcommission');
-
-    //         $request->session()->forget('charity_id');
-    //         $request->session()->forget('paypalcommission');
-
-    //         if (Auth::user()) {
-    //         } else {
-    //             $guest_name = session('guest_name');
-    //             $guest_email = session('guest_email');
-    //             $guest_phone = session('guest_phone');
-    //             $request->session()->forget('guest_name');
-    //             $request->session()->forget('guest_email');
-    //             $request->session()->forget('guest_phone');
-    //         }
-
-    //         // check user by email
-    //         $chkuser = User::where('email', $guest_email)->first();
-    //         // check user by email end
-
-    //         $response = $transaction->send();
-
-    //         if ($response->isSuccessful()) {
-    //             $arr = $response->getData();
-    //             $amount = $arr['transactions'][0]['amount']['total'];
-
-    //             $payment = new Payment();
-    //             $payment->charity_id = $charity_id;
-    //             if (Auth::user()) {
-    //                 $payment->user_id = Auth::user()->id;
-    //             } elseif (isset($chkuser)) {
-    //                 $payment->user_id = $chkuser->id;
-    //                 $payment->guest_name = $guest_name;
-    //                 $payment->guest_email = $guest_email;
-    //                 $payment->guest_phone = $guest_phone;
-    //             } else {
-    //                 $payment->guest_name = $guest_name;
-    //                 $payment->guest_email = $guest_email;
-    //                 $payment->guest_phone = $guest_phone;
-    //             }
-    //             $payment->payment_id = $arr['id'];
-    //             $payment->payer_id = $arr['payer']['payer_info']['payer_id'];
-    //             $payment->payer_email = $arr['payer']['payer_info']['email'];
-    //             $payment->amount = $arr['transactions'][0]['amount']['total'];
-    //             $payment->currency = env('PAYPAL_CURRENCY');
-    //             $payment->payment_status = $arr['state'];
-    //             $payment->save();
-
-
-    //             $stripetopup = new Transaction();
-    //             $stripetopup->date = date('Y-m-d');
-    //             $stripetopup->tran_no = date('his');
-    //             $stripetopup->tran_type = "In";
-    //             if (Auth::user()) {
-    //                 $stripetopup->user_id = Auth::user()->id;
-    //             } elseif (isset($chkuser)) {
-    //                 $stripetopup->user_id = $chkuser->id;
-    //                 $stripetopup->guest_name = $guest_name;
-    //                 $stripetopup->guest_email = $guest_email;
-    //                 $stripetopup->guest_phone = $guest_phone;
-    //             } else {
-    //                 $stripetopup->guest_name = $guest_name;
-    //                 $stripetopup->guest_email = $guest_email;
-    //                 $stripetopup->guest_phone = $guest_phone;
-    //             }
-    //             $stripetopup->charity_id = $charity_id;
-    //             $stripetopup->commission = $paypalcommission;
-    //             $stripetopup->amount = $amount - $paypalcommission;
-    //             $stripetopup->total_amount = $amount;
-    //             $stripetopup->token = time();
-    //             $stripetopup->donation_type = "Charity";
-    //             $stripetopup->description = "Charity Donation";
-    //             $stripetopup->payment_type = "Paypal";
-    //             $stripetopup->notification = "0";
-    //             $stripetopup->status = "0";
-    //             $stripetopup->save();
-
-    //             // charity balance update
-    //                 $fundraiser = User::find($charity_id);
-    //                 $fundraiser->balance =  $fundraiser->balance + $amount - $paypalcommission;
-    //                 $fundraiser->save();
-    //             // charity balance update end
-
-
-    //             $adminmail = ContactMail::where('id', 1)->first()->email;
-    //             if (Auth::user()) {
-    //                 $contactmail = Auth::user()->email;
-    //             } else {
-    //                 $contactmail = $guest_email;
-    //             }
-                
-
-    //             $ccEmails = [$adminmail];
-                
-    //             $getcharitydtl = User::where('id',$charity_id)->first();
-    //             $msg = EmailContent::where('title','=','charity_donation_email_message')->first()->description;
-    //             if (isset($msg)) {
-    //                 if (Auth::user()) {
-    //                     $array['name'] = Auth::user()->name;
-    //                     $array['email'] = Auth::user()->email;
-    //                 } else {
-    //                     $array['name'] = $guest_name;
-    //                     $array['email'] = $guest_email;
-    //                 }
-
-    //                 $array['subject'] = "Charity Payment confirmation";
-    //                 $array['message'] = $msg;
-    //                 $array['contactmail'] = $contactmail;
-
-    //                 $array['message'] = str_replace(
-    //                     ['{{title}}','{{user_name}}','{{date}}','{{amount}}','{{payment_method}}'],
-    //                     [$getcharitydtl->name, $getcharitydtl->r_name,$stripetopup->date,$amount,$stripetopup->payment_type],
-    //                     $msg
-    //                 );
-    //                 Mail::to($contactmail)
-    //                     ->cc($ccEmails)
-    //                     ->send(new EventPaymentMail($array));
-
-    //             }
-                
-
-    //             $tranid = $arr['id'];
-    //             return view('frontend.paypalsuccess', compact('tranid'));
-
-    //         }
-    //         else{
-    //             return $response->getMessage();
-    //         }
-    //     }
-    //     else{
-    //         return view('frontend.paypalerror');
-    //     }
-    // }
-
-    // public function error()
-    // { 
-        
-    //     return view('frontend.paypaldecline');  
-    // }
 }

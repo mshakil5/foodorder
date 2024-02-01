@@ -115,6 +115,12 @@
                     </div>
                 @endif
 
+                @if(session()->has('success'))
+                    <div class="alert alert-success">
+                        {{ session()->get('success') }}
+                    </div>
+                @endif
+
                 {{-- card checkout card start  --}}
                 <div class="row">
                     <div class="col-md-12 col-xs-12">
@@ -191,7 +197,7 @@
                             </div> 
                             <div class="panel-body"> 
                                 <div class="row"> 
-                                    <div class="col-md-6 col-xs-12">
+                                    <div class="col-md-6 col-xs-6">
                                         <b>
                                         <div class="radio"> 
                                             <label for="clnChkNo" class="rmvDiv">
@@ -199,18 +205,18 @@
                                         </div>
                                         </b>
                                     </div> 
-                                    <div class="col-md-6 col-xs-12"><b>
+                                    <div class="col-md-6 col-xs-6"><b>
                                         <div class="radio"> 
                                             <label for="clnChkYes">
                                             <input type="radio" name="collection" value="Delivery" id="clnChkYes" onclick="ShowHideDivforCln()" {{ old('collection') !== null && old('collection') == "Delivery" ? 'checked' : '' }}>Delivery</label> <p>Within 60 Minutes</p> 
                                         </div></b>
                                     </div>
 
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-xs-6">
                                         <label for="delivery">Collection/Delivery Date</label><input type="date" class="date-picker form-control hasDatepicker" name="date" id="date" value="{{date('Y-m-d')}}" placeholder="Select date" required>
                                     </div>
 
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-xs-6">
                                         <label for="delivery">Collection/Delivery Time</label> 
                                         <select id="timeslot" class="form-control"  name="timeslot">					
                                         <option value="0">Delivery/Collection time</option>
@@ -316,6 +322,40 @@
                                     </div>
                                 @endif
 
+                                @if(session()->has('success'))
+                                    <div class="alert alert-success">
+                                        {{ session()->get('success') }}
+                                    </div>
+                                @endif
+
+                                
+
+                                {{-- @if (isset($message))
+                                <div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>{{ $message }}
+                                    <strong>Paypal success msg2</strong></b></div>
+                                @endif
+
+                                @if (isset($error))
+                                <div class='alert alert-danger'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>{{ $error }}
+                                    <strong>Paypal error msg2</strong></b></div>
+                                @endif
+
+                                @if ($message = Session::get('error'))
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                    <strong>Paypal error msg</strong>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                @endif
+
+                                @if ($message = Session::get('success'))
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                    <strong>Paypal success msg</strong>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                @endif --}}
+
 
                                 <div class="ermsg"></div>
                                 <div class="row"> 
@@ -381,23 +421,23 @@
                             </div> 
                             <div class="panel-body"> 
                                 <div class="row"> 
-                                    <div class="col-md-6 col-xs-12">
+                                    <div class="col-md-6 col-xs-6">
                                         {{-- <b>
                                             <div class="radio"> 
                                                 <label><input type="radio" name="payment" value="Cash" checked >Cash</label>
                                             </div>
                                         </b> --}}
-                                        <button type="submit" class="btn btn-info btn-lg">Pay with Paypal</button>
+                                        <button type="submit" class="btn btn-primary btn-lg">Pay with Paypal</button>
                                     </div> 
                                     </form>
                                     
-                                    <div class="col-md-6 col-xs-12">
+                                    <div class="col-md-6 col-xs-6">
                                         {{-- <b>
                                             <div class="radio"> 
                                                 <label><input type="radio" name="payment" value="Paypal" {{ old('payment') !== null && old('payment') == "Paypal" ? 'checked' : '' }}>Paypal</label>
                                             </div> 
                                         </b> --}}
-                                        <input type="button" id="orderCreateBtn" style="float:left;" name="orderCreateBtn" class="btn btn-info btn-lg" value="Pay with Cash">
+                                        <input type="button" id="orderCreateBtn" style="float:left;" name="orderCreateBtn" class="btn btn-primary btn-lg" value="Pay with Cash">
                                     </div> 
                                     
                                 </div> 
@@ -424,7 +464,7 @@
   
     <div class="modal-dialog modal-dialog-scrollable ">
         <div class="modal-content">
-            <div class="modal-header alert alert-success" style="text-align: left;">
+            <div class="modal-header alert modal-header" style="text-align: left;">
                 <div>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h4 class="modal-title" id="pnameshow"></h4>
@@ -534,11 +574,14 @@
 
                 <div class="modal-footer">
                     <div class="center-form">
+
                         <button>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus add" viewBox="0 0 16 16">
-                                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-                            </svg> 
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-dash minus" viewBox="0 0 16 16">
+                                <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
+                            </svg>
                         </button>
+
+
                         
                         {{-- <input type="button" value="+" id="add1" class="add" /> --}}
                         <input type="hidden" id="productid" value="" class="productid" />
@@ -552,10 +595,11 @@
                           <b> <span style="font-size: 22px;" id="pShow"></span>   </b>
                           <input type="hidden" id="unitprice" name="unitprice" value="">
         
+                    
                         <button>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-dash minus" viewBox="0 0 16 16">
-                                <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
-                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus add" viewBox="0 0 16 16">
+                                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                            </svg> 
                         </button>
         
                     </div><br>
@@ -564,7 +608,7 @@
                         <div class="col-sm-12">
                             <div class="row">
                                 
-                                <button type="submit" id="addToCard" pqty="" pid="" child_item_total="" net_amount="" price="" pname="" additionalitem="[]" class="btn btn-success btn-lg btn-block orderBtn">
+                                <button type="submit" id="addToCard" pqty="" pid="" child_item_total="" net_amount="" price="" pname="" additionalitem="[]" class="btn btn-primary text-uppercase btn-lg btn-block orderBtn">
                                     Add to order
                                 </button>
 
