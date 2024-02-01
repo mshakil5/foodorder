@@ -721,7 +721,6 @@ $(document).ready(function() {
             $('.orderBtn').attr('pname', pname);
             $('.orderBtn').attr('pqty', 1);
 
-            
             // loop start
             $.ajax({
                     url: urlbr,
@@ -943,9 +942,6 @@ $(document).ready(function() {
                 var parent_item_total_price = parseFloat(parent_item_price) + parseFloat(total_add_item_amnt);
                 $("#pShow").html("£"+ parent_item_total_price.toFixed(2));
                 $("#additemtamnt").val(total_add_item_amnt.toFixed(2));
-
-                $("#addebreaditems").attr('data-count', 0);
-                $("#addebreaditems").val(0);
             }
         });
 
@@ -1028,10 +1024,7 @@ $(document).ready(function() {
                 }
                 
             });
-
-            // var bcounts = $("#addebreaditems").data('count');
-            // var bitemid = $("#addebreaditems").data('itemid');
-            // console.log( bcounts );
+            // console.log( allextraaItems );
 
             pqty = $(this).attr('pqty');
             pid = $(this).attr('pid');
@@ -1071,26 +1064,7 @@ $(document).ready(function() {
                 var additmshowcard = $("#childitems"+pid);
                 // additmshowcard.empty();
                 $.each(allextraaItems, function (a, b) {
-                    console.log(b);
-                    chk_child_item_id = $("#child_product_id"+pid+b.id).val();
-
-                    if (chk_child_item_id) {
-
-                        chk_child_product_qty = $("#child_product_qty"+pid+b.id).val();
-                        chk_child_product_total_price = $("#child_product_total_price"+pid+b.id).val();
-
-                        new_child_qty = parseFloat(chk_child_product_qty) + parseFloat(b.count);
-                        new_child_t_price = parseFloat(chk_child_product_total_price) + parseFloat(b.price);
-
-                        $("#child_product_total_price"+pid+b.id).val(new_parent_product_total_price.toFixed(2));
-                        $("#child_product_total_qty_div"+pid+b.id).html(new_child_qty);
-                        
-                    } else {
-
-                        additmshowcard.append('<div><input type="hidden" id="related_parent_id" name="related_parent_id[]" value="'+pid+'"><input type="hidden" id="child_product_id'+pid+b.id+'" name="child_product_id[]" value="'+b.id+'"><input type="hidden" id="child_product_qty'+pid+b.id+'" name="child_product_qty[]" value="'+b.count+'"><input type="hidden" id="child_product_name" name="child_product_name[]" value="'+b.itemname+'"><input type="hidden" id="child_product_total_price'+pid+b.id+'" name="child_product_total_price[]" value="'+b.price+'">'+b.itemname+': <span>price:'+b.price/b.count+'</span> X <span id="child_product_total_qty_div'+pid+b.id+'">qty:'+b.count+'</span></div>');
-                    }
-
-                    
+                    additmshowcard.append('<div><input type="hidden" id="related_parent_id" name="related_parent_id[]" value="'+pid+'"><input type="hidden" id="child_product_id" name="child_product_id[]" value="'+b.id+'"><input type="hidden" id="child_product_qty" name="child_product_qty[]" value="'+b.count+'"><input type="hidden" id="child_product_name" name="child_product_name[]" value="'+b.itemname+'"><input type="hidden" id="child_product_total_price" name="child_product_total_price[]" value="'+b.price+'">'+b.itemname+': <span>'+b.price/b.count+'</span> X <span>'+b.count+'</span></div>'); 
                 });
 
                 net_total();
@@ -1099,15 +1073,17 @@ $(document).ready(function() {
                 return;
             }
 
-            var markup = '<tr><td style="text-align: center; border:0px"><div style="color: white;  user-select:none;  padding: 5px;    background: red;    width: 35px;    display: flex;    align-items: center; margin-right:5px;   justify-content: center;    border-radius: 4px;   left: 4px;    top: 81px;" onclick="removeRow(event)" >X</div></td><td style="text-align: left; border:0px; width:65%" colspan="2">'+pname+'<input type="hidden" id="parent_product_name" name="parent_product_name[]" value="'+pname+'" class="form-control"><input type="hidden" id="parent_product_id'+pid+'" name="parent_product_id[]" value="'+pid+'" class="form-control"><div class="childitems'+pid+'" id="childitems'+pid+'"><span></span></div></td><td style="text-align: center; border:0px"><input type="number" id="parent_product_qty'+pid+'" name="parent_product_qty[]" value="'+pqty+'" class="form-control parent_product_qty"></td><td style="text-align: center; border:0px"><div id="parent_product_total_price_div'+pid+'" class="parent_product_total_price_div">'+net_amount_with_child_item.toFixed(2)+'</div><input type="hidden" id="parent_product_price'+pid+'" name="parent_product_price[]" step="any" value="'+price+'" class="form-control parent_product_price" readonly><input type="hidden" id="parent_product_total_price'+pid+'" name="parent_product_total_price[]" step="any" value="'+net_amount_with_child_item.toFixed(2)+'" class="form-control net_amount_with_child_item" readonly><input type="hidden" id="child_items_total_amnt'+pid+'" name="child_items_total_amnt[]" step="any" value="'+child_item_total+'" class="form-control child_items_total_amnt" readonly></td></tr>';
+            
+
+            var markup = '<tr><td style="text-align: center; border:0px"><div style="color: white;  user-select:none;  padding: 5px;    background: red;    width: 35px;    display: flex;    align-items: center; margin-right:5px;   justify-content: center;    border-radius: 4px;   left: 4px;    top: 81px;" onclick="removeRow(event)" >X</div></td><td style="text-align: left; border:0px; width:65%" colspan="2">'+pname+'<input type="hidden" id="parent_product_name" name="parent_product_name[]" value="'+pname+'" class="form-control"><input type="hidden" id="parent_product_id'+pid+'" name="parent_product_id[]" value="'+pid+'" class="form-control"><div class="childitems'+pid+'" id="childitems'+pid+'"><span></span></div></td><td style="text-align: center; border:0px"><div style="color: white;  user-select:none;  padding: 5px;    background: rgb(60, 123, 41);    width: 45px;    display: flex;    align-items: center; margin-right:5px;   justify-content: center;    border-radius: 4px;   left: 4px;    top: 81px;">'+pqty+'</div><input type="number" id="parent_product_qty'+pid+'" name="parent_product_qty[]" value="'+pqty+'" class="form-control"></td><td style="text-align: center; border:0px"><div id="parent_product_total_price_div'+pid+'">'+net_amount_with_child_item.toFixed(2)+'</div><input type="hidden" id="parent_product_price'+pid+'" name="parent_product_price[]" step="any" value="'+price+'" class="form-control" readonly><input type="hidden" id="parent_product_total_price'+pid+'" name="parent_product_total_price[]" step="any" value="'+net_amount_with_child_item.toFixed(2)+'" class="form-control net_amount_with_child_item" readonly></td></tr>';
             $("table #cardinner ").append(markup);
 
             var additmshowcard = $("#childitems"+pid);
             additmshowcard.empty();
             $.each(allextraaItems, function (a, b) {
 
-                additmshowcard.append('<div><input type="hidden" id="related_parent_id" name="related_parent_id[]" value="'+pid+'"><input type="hidden" id="child_product_id'+pid+b.id+'" name="child_product_id[]" value="'+b.id+'"><input type="hidden" id="child_product_qty'+pid+b.id+'" name="child_product_qty[]" value="'+b.count+'"><input type="hidden" id="child_product_name" name="child_product_name[]" value="'+b.itemname+'"><input type="hidden" id="child_product_total_price'+pid+b.id+'" name="child_product_total_price[]" class="child_product_total_price" value="'+b.price+'">'+b.itemname+': <span>price:'+b.price/b.count+'</span> X <span id="child_product_total_qty_div'+pid+b.id+'">qty:'+b.count+'</span></div>'); 
-
+                
+                additmshowcard.append('<div><input type="hidden" id="related_parent_id" name="related_parent_id[]" value="'+pid+'"><input type="hidden" id="child_product_id" name="child_product_id[]" value="'+b.id+'"><input type="hidden" id="child_product_qty" name="child_product_qty[]" value="'+b.count+'"><input type="hidden" id="child_product_name" name="child_product_name[]" value="'+b.itemname+'"><input type="hidden" id="child_product_total_price" name="child_product_total_price[]" value="'+b.price+'">'+b.itemname+': <span>'+b.price/b.count+'</span> X <span>'+b.count+'</span></div>'); 
             });
             // console.log(additmshowcard);
             net_total();
@@ -1117,16 +1093,6 @@ $(document).ready(function() {
             $("#parent_item_uprice").val('');
             $("#additemtunitamnt").val('0');
             $("#additemtamnt").val('0');
-
-            // bread item null value 
-            
-            $('#additemModal').find('.modal-body #addebreaditems').val();
-            $('#additemModal').find('.modal-body #addebreaditems').attr('data-count', 0);
-            $('#additemModal').find('.modal-body #addebreaditems').attr('data-itemid', '');
-            $('#additemModal').find('.modal-body #addebreaditems').attr('data-itemname', '');
-            $('#additemModal').find('.modal-body #addebreaditems').attr('value', '');
-
-            // console.log( allextraaItems );
 
             $('#additemModal').modal('hide');
 
@@ -1143,34 +1109,6 @@ $(document).ready(function() {
             $("#net_total_amount").html(totalamount.toFixed(2));
         }
         // net total calculation
-
-
-        // unit price calculation
-        $("body").delegate(".parent_product_qty","keyup",function(event){
-            event.preventDefault();
-            var row = $(this).parent().parent();
-            var quantity = row.find('.parent_product_qty').val();
-            var parent_product_price = row.find('.parent_product_price').val();
-            var net_amount_with_child_item = row.find('.net_amount_with_child_item').val();
-            var child_items_total_amnt = row.find('.child_items_total_amnt').val();
-
-
-            var parent_product_total_amount =  parseFloat(parent_product_price) * parseFloat(quantity);
-            var new_net_amount_with_child_item =  parseFloat(parent_product_total_amount) + parseFloat(child_items_total_amnt);
-
-
-            
-            console.log(quantity, parent_product_price, net_amount_with_child_item, child_items_total_amnt, parent_product_total_amount, new_net_amount_with_child_item.toFixed(2));
-            // var amount = quantity * rate;
-            row.find('.net_amount_with_child_item').val(new_net_amount_with_child_item);
-            row.find('.parent_product_total_price_div').html(new_net_amount_with_child_item.toFixed(2));
-            row.find('.parent_product_price').val(parent_product_total_amount);
-            net_total();
-        })
-        // unit price calculation end
-
-
-
 
         // submit to purchase 
 
@@ -1253,5 +1191,8 @@ $(document).ready(function() {
     });
 </script>
 
+<script>
 
+</script>
+    
 @endsection

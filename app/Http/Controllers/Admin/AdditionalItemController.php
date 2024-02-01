@@ -46,7 +46,12 @@ class AdditionalItemController extends Controller
         $data->item_status = $request->item_status;
         $data->item_name = $request->item_name;
         $data->description = $request->description;
-        $data->amount = $request->amount;
+        if (empty($request->amount)) {
+            $data->amount = "0.00";
+        } else {
+            $data->amount = $request->amount;
+        }
+        
         $data->created_by = Auth::user()->id;
         if ($data->save()) {
             $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Data Create Successfully.</b></div>";
@@ -94,7 +99,11 @@ class AdditionalItemController extends Controller
         $data->item_status = $request->item_status;
         $data->item_name = $request->item_name;
         $data->description = $request->description;
-        $data->amount = $request->amount;
+        if (empty($request->amount)) {
+            $data->amount = "0.00";
+        } else {
+            $data->amount = $request->amount;
+        }
         $data->updated_by = Auth::user()->id;
         if ($data->save()) {
             $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Data Updated Successfully.</b></div>";
