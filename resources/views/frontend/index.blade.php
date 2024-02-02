@@ -148,7 +148,7 @@
 
                                             {{-- {!! session('add_to_card_item') !!} --}}
 
-                                            @if(isset($add_to_card_items))
+                                            {{-- @if(isset($add_to_card_items))
                                                 <ul>
                                                     @foreach($add_to_card_items as $item)
                                                         <li>{!! $item !!}</li>
@@ -156,7 +156,7 @@
                                                 </ul>
                                             @else
                                                 <p style="text-align: center">Card is empty.</p>
-                                            @endif
+                                            @endif --}}
 
                                             {{-- @if (isset())
                                                 
