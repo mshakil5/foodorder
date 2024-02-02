@@ -213,11 +213,11 @@
                                     </div>
 
                                     <div class="col-md-6 col-xs-6">
-                                        <label for="delivery">Collection/Delivery Date</label><input type="date" class="date-picker form-control hasDatepicker" name="date" id="date" value="{{date('Y-m-d')}}" placeholder="Select date" required>
+                                        <label for="date">Collection/Delivery Date</label><input type="date" class="date-picker form-control hasDatepicker" name="date" id="date" value="{{date('Y-m-d')}}" placeholder="Select date" required>
                                     </div>
 
                                     <div class="col-md-6 col-xs-6">
-                                        <label for="delivery">Collection/Delivery Time</label> 
+                                        <label for="timeslot">Collection/Delivery Time</label> 
                                         <select id="timeslot" class="form-control"  name="timeslot">					
                                         <option value="0">Delivery/Collection time</option>
                                         <option value="11:00am - 11:10am">11:00am - 11:10am</option>
@@ -366,7 +366,7 @@
                                         </div> 
                                         <div class="form-group"> 
                                             <label for="uemail">Mail</label> 
-                                            <input type="text" class="form-control" id="uemail" name="email" placeholder="example@mail.com" value="{{ old('uemail') }}"> 
+                                            <input type="text" class="form-control" id="uemail" name="email" placeholder="example@mail.com" value="{{ old('email') }}"> 
                                         </div> 
                                         <div class="form-group"> 
                                             <label for="phone">Contact No</label> 

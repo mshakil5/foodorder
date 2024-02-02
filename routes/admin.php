@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\TimeSlotController;
 use App\Http\Controllers\Admin\AdditionalItemController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\LocationController;
 
 
 /*------------------------------------------
@@ -78,6 +79,18 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     // order
     Route::get('/order', [OrderController::class, 'getAllOrder'])->name('admin.order');
     Route::get('/order/{id}', [OrderController::class, 'getOrderDetails'])->name('admin.orderDeatils');
+
+    
+    // location
+    Route::get('/location', [LocationController::class, 'index'])->name('admin.location');
+    Route::post('/location', [LocationController::class, 'store']);
+    Route::get('/location/{id}/edit', [LocationController::class, 'edit']);
+    Route::post('/location-update', [LocationController::class, 'update']);
+    Route::get('/location/{id}', [LocationController::class, 'delete']);
+
+
+
+
 
 });
   

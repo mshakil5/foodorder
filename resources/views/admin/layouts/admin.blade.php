@@ -107,6 +107,7 @@
                 
                 
 
+                <li><a href="{{route('admin.location')}}" class="nav-link {{ (request()->is('admin/location*')) ? 'current' : '' }}">Post Code</a></li>
                 
 
                 

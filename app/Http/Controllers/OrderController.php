@@ -35,6 +35,12 @@ class OrderController extends Controller
             exit();
         }
 
+        if(empty($request->timeslot)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please Select a \"Delivery time field\" field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
+
         if ($request->delivery_type == "Delivery") {
             if(empty($request->house)){
                 $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please Select a \"house\" field..!</b></div>";

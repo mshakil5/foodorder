@@ -75,6 +75,7 @@ class PaypalController extends Controller
             $validatedData = $request->validate([
                 'name' => 'required',
                 'collection' => 'required',
+                'timeslot' => 'required',
                 'phone' => 'required',
                 'house' => 'required',
                 'street' => 'required',
@@ -83,16 +84,19 @@ class PaypalController extends Controller
                 'parent_product_id' => 'required'
             ], [
                 'name.required' => 'Name field is required.',
+                'timeslot.required' => 'Delivery time field is required.',
                 'parent_product_id.required' => 'Please, choose a product.'
             ]);
         } else {
             $validatedData = $request->validate([
                 'name' => 'required',
                 'collection' => 'required',
+                'timeslot' => 'required',
                 'phone' => 'required',
                 'parent_product_id' => 'required'
             ], [
                 'name.required' => 'Name field is required.',
+                'timeslot.required' => 'Delivery time field is required.',
                 'parent_product_id.required' => 'Please, choose a product.'
             ]);
         }
