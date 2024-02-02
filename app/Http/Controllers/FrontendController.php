@@ -26,6 +26,8 @@ class FrontendController extends Controller
 
         $add_to_card_items = session('add_to_card_item', []);
 
+        // dd($add_to_card_items);
+
         // $products = Product::with('assignproduct')->get();
         return view('frontend.index', compact('products','add_to_card_items'));
     }

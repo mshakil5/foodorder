@@ -16,6 +16,15 @@ class OrderController extends Controller
 {
     public function orderStore(Request $request){
 
+        
+        session(['name' => $request->name]);
+        session(['email' => $request->email]);
+        session(['phone' => $request->phone]);
+        session(['house' => $request->house]);
+        session(['street' => $request->street]);
+        session(['city' => $request->city]);
+        session(['postcode' => $request->postcode]);
+
         $productIDs = $request->input('parent_product_id');
         if($productIDs == "" ){
             $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill Product field.</b></div>";
@@ -35,8 +44,14 @@ class OrderController extends Controller
             exit();
         }
 
-        if(empty($request->timeslot)){
+        if(empty($request->collection_time)){
             $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please Select a \"Delivery time field\" field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
+
+        if(empty($request->delivery_type)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please Select a \"Collection or Delivery\" field..!</b></div>";
             return response()->json(['status'=> 303,'message'=>$message]);
             exit();
         }
@@ -130,6 +145,9 @@ class OrderController extends Controller
         $order->net_amount = $net_amount;
         if ($order->save()) {
 
+            $keysToClear = ['add_to_card_item'];
+            session()->forget($keysToClear);
+
 
                 $adminmail = "kmushakil71@gmail.com";
                 $contactmail = $request->email;
@@ -169,14 +187,18 @@ class OrderController extends Controller
 
     public function storeDataInSession(Request $request)
     {
-        $data[] = $request->input('markup');
+        $arrayData = session('add_to_card_item', []);
+
+
+        $newElement = $request->input('markup');
+        $arrayData[] = $newElement;
 
         // Store data in the session
         // $request->session()->put('add_to_card_item', $data);
 
-        session(['add_to_card_item' => $data]);
+        session(['add_to_card_item' => $arrayData]);
 
-        return response()->json(['message' => 'Data stored in session successfully','data'=>$data]);
+        return response()->json(['message' => 'Data stored in session successfully','arrayData'=>$arrayData]);
     }
 
 

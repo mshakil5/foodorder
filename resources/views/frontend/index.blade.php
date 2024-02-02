@@ -33,6 +33,26 @@
 
 }
 
+    /*loader css*/
+    #loading {
+        position: fixed;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        opacity: 0.7;
+        background-color: #fff;
+        z-index: 99;
+    }
+
+    #loading-image {
+        z-index: 100;
+    }
+    
+
 </style>
 
 <style>
@@ -41,6 +61,11 @@
       height: 25px;
     }
   </style>
+
+   <!-- Image loader -->
+   <div id='loading' style='display:none ;'>
+        <img src="{{ asset('loader.gif') }}" id="loading-image" alt="Loading..." style="height: 225px;" />
+    </div>
 
 <div class="container mt-5">
     <div class="row">
@@ -148,15 +173,13 @@
 
                                             {{-- {!! session('add_to_card_item') !!} --}}
 
-                                            {{-- @if(isset($add_to_card_items))
-                                                <ul>
+                                            @if(isset($add_to_card_items))
                                                     @foreach($add_to_card_items as $item)
-                                                        <li>{!! $item !!}</li>
+                                                        {!! $item !!}
                                                     @endforeach
-                                                </ul>
                                             @else
                                                 <p style="text-align: center">Card is empty.</p>
-                                            @endif --}}
+                                            @endif
 
                                             {{-- @if (isset())
                                                 
@@ -1049,6 +1072,7 @@ $(document).ready(function() {
         $("body").delegate("#orderCreateBtn","click",function(event){
             event.preventDefault();
 
+            $("#loading").show();
             // alert('btn work');
             
             var collection_date = $("#date").val();
@@ -1107,13 +1131,16 @@ $(document).ready(function() {
 
                 success: function (d) {
                     if (d.status == 303) {
+                        $("#loading").hide();
                         $(".ermsg").html(d.message);
                     }else if(d.status == 300){
+                        $("#loading").hide();
                         $(".ermsg").html(d.message);
                         window.setTimeout(function(){location.reload()},2000)
                     }
                 },
                 error: function (d) {
+                    $("#loading").hide();
                     console.log(d);
                 }
             });

@@ -70,6 +70,11 @@ class PaypalController extends Controller
     public function payment(Request $request): RedirectResponse
     {
 
+        $validatedData = $request->validate([
+            'collection' => 'required'
+        ], [
+            'collection.required' => 'Collection field is required.'
+        ]);
 
         if ($request->collection == "Delivery") {
             $validatedData = $request->validate([
@@ -100,6 +105,14 @@ class PaypalController extends Controller
                 'parent_product_id.required' => 'Please, choose a product.'
             ]);
         }
+
+        session(['name' => $request->name]);
+        session(['email' => $request->email]);
+        session(['phone' => $request->phone]);
+        session(['house' => $request->house]);
+        session(['street' => $request->street]);
+        session(['city' => $request->city]);
+        session(['postcode' => $request->postcode]);
         
 
         
@@ -227,6 +240,13 @@ class PaypalController extends Controller
             $order->net_amount = $net_amount;
 
                 if ($order->save()) {
+
+                    // clear session items
+                    $keysToClear = ['add_to_card_item'];
+                    session()->forget($keysToClear);
+
+
+
                     $adminmail = "kmushakil71@gmail.com";
                     $contactmail = $request->email;
                     $ccEmails = "kmushakil93@gmail.com";
