@@ -301,115 +301,7 @@
 
                 
 
-                <div class="row"> 
-                    <div class="col-md-12"> 
-                        <div class="panel panel-primary"> 
-                            <div class="panel-heading"> 
-                                <div class="row"> 
-                                    <div class="col-md-4">Your Details</div> 
-                                </div> 
-                            </div> 
-                            <div class="panel-body"> 
-                                
-
-                                @if ($errors->any())
-                                    <div class="alert alert-danger">
-                                        <ul>
-                                            @foreach ($errors->all() as $error)
-                                                <li>{{ $error }}</li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
-                                @endif
-
-                                @if(session()->has('success'))
-                                    <div class="alert alert-success">
-                                        {{ session()->get('success') }}
-                                    </div>
-                                @endif
-
-                                
-
-                                {{-- @if (isset($message))
-                                <div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>{{ $message }}
-                                    <strong>Paypal success msg2</strong></b></div>
-                                @endif
-
-                                @if (isset($error))
-                                <div class='alert alert-danger'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>{{ $error }}
-                                    <strong>Paypal error msg2</strong></b></div>
-                                @endif
-
-                                @if ($message = Session::get('error'))
-                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                    <strong>Paypal error msg</strong>
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                    </div>
-                                @endif
-
-                                @if ($message = Session::get('success'))
-                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                    <strong>Paypal success msg</strong>
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                    </div>
-                                @endif --}}
-
-
-                                <div class="ermsg"></div>
-                                <div class="row"> 
-                                    <div class="col-md-12 col-xs-12"> 
-                                        <div class="form-group"> 
-                                            <label for="name">Name</label> 
-                                            <input type="text" class="form-control" id="name" name="name" placeholder="John" value="{{ old('name') }}"> 
-                                        </div> 
-                                        <div class="form-group"> 
-                                            <label for="uemail">Mail</label> 
-                                            <input type="text" class="form-control" id="uemail" name="email" placeholder="example@mail.com" value="{{ old('email') }}"> 
-                                        </div> 
-                                        <div class="form-group"> 
-                                            <label for="phone">Contact No</label> 
-                                            <input type="text" class="form-control" id="phone" name="phone" placeholder="phone" value="{{ old('phone') }}"> 
-                                        </div>
-
-                                        <div class="row" id="addressDiv">
-                                            <div class="col-sm-6">
-                                              <div class="form-group">
-                                                <label>House Number</label>
-                                                <input type="text" class="form-control" id="house" name="house" value="{{ old('house') }}">
-                                              </div>
-                                            </div>
-                        
-                                            <div class="col-sm-6">
-                                              <div class="form-group">
-                                                <label>Street</label>
-                                                <input type="text" class="form-control" id="street" name="street" value="{{ old('street') }}">
-                                              </div>
-                                            </div>
-
-                                            <div class="col-sm-6">
-                                                <div class="form-group">
-                                                  <label>City</label>
-                                                  <input type="text" class="form-control" id="city" name="city" value="{{ old('city') }}">
-                                                </div>
-                                            </div>
-
-                                            <div class="col-sm-6">
-                                                <div class="form-group">
-                                                  <label>Postcode</label>
-                                                  <input type="text" class="form-control" id="postcode" name="postcode" value="{{ old('postcode') }}">
-                                                </div>
-                                                <div class="perrmsg"></div>
-                                            </div>
-                                        </div>
-
-                                    </div> 
-                                </div> 
-                            </div> 
-                        </div> 
-                    </div> 
-                </div>
+                @include('frontend.customerinfo')
 
 
                 <div class="row" id="submitDiv">
@@ -460,168 +352,7 @@
     </div>
 </div>
 
-<!----------------------------additemModal ------------------------->
-<div class="modal fade" id="additemModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  
-    <div class="modal-dialog modal-dialog-scrollable ">
-        <div class="modal-content">
-            <div class="modal-header alert modal-header" style="text-align: left;">
-                <div>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="pnameshow"></h4>
-                </div>
-            </div>
-            <div class="modal-body transferProduct">
-                
-                <div class="row text-left tValues">
-                    <div class="col-sm-8 col-sm-offset-2">
-                        <div class="row">
-                            
-                            <p align="center"> <b><span id="priceShow"></span></b> </p>
-                            <p align="center"><span id="descShow"></span></p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row text-left tValues addons" style="display: none">
-                    <div class="col-sm-12">
-                        <div class="row">
-                            <div class="title-section">
-                                <div class="mx-2">Add-ons </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <table class="table table-striped table-hover addonsitem" style="width: 100%">
-                    <tbody>
-                    </tbody>
-                </table>
-
-                <div class="row text-left tValues breads" style="display: none">
-                    <div class="col-sm-12">
-                        <div class="row">
-                            <div class="title-section">
-                                <div class="mx-2">Choose Bread </div>
-                                <input type='hidden' id='addebreaditems' data-itemid='' name='additionalitm' data-count='' value='' data-itemname='' class='extraaitem'> 
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <table class="table table-striped table-hover breadsitem" style="width: 100%">
-                    <tbody>
-                    </tbody>
-                </table>
-
-                <div class="row text-left tValues cheese" style="display: none">
-                    <div class="col-sm-12">
-                        <div class="row">
-                            <div class="title-section">
-                                <div class="mx-2">Choose Cheese </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <table class="table table-striped table-hover cheeseitem" style="width: 100%">
-                    <tbody>
-                    </tbody>
-                </table>
-
-                <div class="row text-left tValues chutney" style="display: none">
-                    <div class="col-sm-12">
-                        <div class="row">
-                            <div class="title-section">
-                                <div class="mx-2">Chutney and Sauces </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <table class="table table-striped table-hover chutneyitem" style="width: 100%">
-                    <tbody>
-                    </tbody>
-                </table>
-
-                <div class="row text-left tValues toppings" style="display: none">
-                    <div class="col-sm-12">
-                        <div class="row">
-                            <div class="title-section">
-                                <div class="mx-2">Optional Toppings </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <table class="table table-striped table-hover toppingsitem" style="width: 100%">
-                    <tbody>
-                    </tbody>
-                </table>
-
-
-                <div class="row text-left tValues extoppings" style="display: none">
-                    <div class="col-sm-12">
-                        <div class="row">
-                            <div class="title-section">
-                                <div class="mx-2">Extra Toppings </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <table class="table table-striped table-hover extoppingsitem" style="width: 100%">
-                    <tbody>
-                    </tbody>
-                </table>
-
-                
-                
-
-                <div class="modal-footer">
-                    <div class="center-form">
-
-                        <button>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-dash minus" viewBox="0 0 16 16">
-                                <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
-                            </svg>
-                        </button>
-
-
-                        
-                        {{-- <input type="button" value="+" id="add1" class="add" /> --}}
-                        <input type="hidden" id="productid" value="" class="productid" />
-                        <input type="hidden" id="qty" value="1" min="1" class="qty" />
-                        <input type="hidden" id="tamount" value=""  class="tamount" />
-                        <input type="hidden" id="parent_item_uprice" value=""  class="parent_item_uprice" />
-                        <input type="hidden" id="additemtamnt" value="0"  class="additemtamnt" />
-                        <input type="hidden" id="additemtunitamnt" value=""  class="additemtunitamnt" />
-                        {{-- <input type="button" value="-" id="minus1" class="minus" /> --}}
-        
-                          <b> <span style="font-size: 22px;" id="pShow"></span>   </b>
-                          <input type="hidden" id="unitprice" name="unitprice" value="">
-        
-                    
-                        <button>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus add" viewBox="0 0 16 16">
-                                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-                            </svg> 
-                        </button>
-        
-                    </div><br>
-
-                    <div class="row text-left tValues">
-                        <div class="col-sm-12">
-                            <div class="row">
-                                
-                                <button type="submit" id="addToCard" pqty="" pid="" child_item_total="" net_amount="" price="" pname="" additionalitem="[]" class="btn btn-primary text-uppercase btn-lg btn-block orderBtn">
-                                    Add to order
-                                </button>
-
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-</div>
+@include('frontend.modal')
 
 
 
@@ -1241,6 +972,36 @@ $(document).ready(function() {
             // row.find('.parent_product_price').val(parent_product_total_amount);
             net_total();
         })
+
+
+        $("body").delegate(".parent_product_qty","click",function(event){
+            event.preventDefault();
+            var row = $(this).parent().parent();
+            var quantity = row.find('.parent_product_qty').val();
+
+            if (quantity < 1) {
+                var quantity = 1;
+            }
+
+            var parent_product_price = row.find('.parent_product_price').val();
+            var net_amount_with_child_item = row.find('.net_amount_with_child_item').val();
+            var child_items_total_amnt = row.find('.child_items_total_amnt').val();
+
+
+            var parent_product_total_amount =  parseFloat(parent_product_price) * parseFloat(quantity);
+            var new_net_amount_with_child_item =  parseFloat(parent_product_total_amount) + parseFloat(child_items_total_amnt);
+
+
+            
+            console.log(quantity, parent_product_price, net_amount_with_child_item, child_items_total_amnt, parent_product_total_amount, new_net_amount_with_child_item.toFixed(2));
+            // var amount = quantity * rate;
+            row.find('.net_amount_with_child_item').val(new_net_amount_with_child_item);
+            row.find('.parent_product_total_price_div').html(new_net_amount_with_child_item.toFixed(2));
+            // row.find('.parent_product_price').val(parent_product_total_amount);
+            net_total();
+        })
+
+
         // unit price calculation end
 
 
