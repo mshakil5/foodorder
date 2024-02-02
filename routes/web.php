@@ -36,6 +36,7 @@ Auth::routes();
 Route::get('/', [FrontendController::class, 'index'])->name('homepage');
 Route::post('get-additional-product', [FrontendController::class, 'getAdditionalProduct']);
 
+Route::post('/check-post-code', [FrontendController::class, 'checkPostCode']);
 
 //search
 Route::post('/getcatproduct', [FrontendController::class, 'searchproduct']);

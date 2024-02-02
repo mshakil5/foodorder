@@ -400,6 +400,7 @@
                                                   <label>Postcode</label>
                                                   <input type="text" class="form-control" id="postcode" name="postcode" value="{{ old('postcode') }}">
                                                 </div>
+                                                <div class="perrmsg"></div>
                                             </div>
                                         </div>
 
@@ -411,7 +412,7 @@
                 </div>
 
 
-                <div class="row">
+                <div class="row" id="submitDiv">
                     <div class="col-md-12">
                         <div class="panel panel-primary">
                             <div class="panel-heading">
@@ -1321,6 +1322,46 @@ $(document).ready(function() {
 
         });
         // submit to purchase end
+
+          //check post code start 
+      var postcodeurl = "{{URL::to('/check-post-code')}}";
+        $("#postcode").keyup(function(){
+            var length =  $(this).val().length;
+
+            var postcode = $("#postcode").val();
+            var delivery_type = $('input[name="collection"]:checked').val();
+
+            if (delivery_type == "Delivery") {
+                if (length > 2) {
+                    $.ajax({
+                        url: postcodeurl,
+                        method: "POST",
+                        data: {postcode},
+
+                        success: function (d) {
+                            if (d.status == 303) {
+                                $(".perrmsg").html(d.message);
+                                $('#submitDiv').hide();
+                            }else if(d.status == 300){
+                                $(".perrmsg").html(d.message);
+                                $('#submitDiv').show();
+                            }
+                        },
+                        error: function (d) {
+                            console.log(d);
+                        }
+                    }); 
+                }else{
+                    $(".perrmsg").html("");
+                    $('#submitDiv').show();
+                }
+            }
+            
+            
+
+            
+        });
+        //check post code end 
         
 
     });

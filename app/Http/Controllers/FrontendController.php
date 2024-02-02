@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\AdditionalItemTitle;
 use Illuminate\Http\Request;
 use DB;
+use App\Models\Location;
 
 class FrontendController extends Controller
 {
@@ -132,5 +133,23 @@ class FrontendController extends Controller
     // search by name end
 
 
+
+    public function checkPostCode(Request $request)
+    {
+
+        $searchdata = substr($request->postcode, 0, 3);
+
+        $data = Location::where('postcode', 'like', '%'.$request->postcode.'%')->orWhere('postcode', 'like', '%'.$searchdata.'%')->first();
+
+        if (isset($data) ) {
+            $message ="<b style='color: green'>Available</b>";
+            return response()->json(['status'=> 300,'data'=>$data,'message'=>$message]);
+        } else {
+            $message ="<b style='color: red'>This location is out of our service.</b>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+        }
+        
+
+    }
 
 }
