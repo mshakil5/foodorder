@@ -145,6 +145,22 @@
                                             </tr>
                                         </thead> --}}
                                         <tbody id="cardinner">
+
+                                            {{-- {!! session('add_to_card_item') !!} --}}
+
+                                            @if(isset($add_to_card_items))
+                                                <ul>
+                                                    @foreach($add_to_card_items as $item)
+                                                        <li>{!! $item !!}</li>
+                                                    @endforeach
+                                                </ul>
+                                            @else
+                                                <p style="text-align: center">Card is empty.</p>
+                                            @endif
+
+                                            {{-- @if (isset())
+                                                
+                                            @endif --}}
                                             
 
                                             {{-- <tr>
@@ -929,6 +945,27 @@ $(document).ready(function() {
             // console.log( allextraaItems );
 
             $('#additemModal').modal('hide');
+            var addtocardurl = "{{URL::to('/add-to-session-card-item')}}";
+            $.ajax({
+                url: addtocardurl,
+                method: "POST",
+                data: {markup},
+
+                success: function (d) {
+                    if (d.status == 303) {
+
+                    }else if(d.status == 300){
+                        
+                    }
+                },
+                error: function (d) {
+                    console.log(d);
+                }
+            });
+
+
+
+
 
         });
         // add to card end

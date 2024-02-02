@@ -22,10 +22,12 @@ class FrontendController extends Controller
         // $products = Product::with('additionalItems.additionalItemTitle')->get();
         $products = Product::with('additionalItems.additionalItemTitle')->orderby('id','DESC')->limit(10)->get();
         $additems = AdditionalItemTitle::with('assignproduct')->get();
-        // dd($additems);
+        
+
+        $add_to_card_items = session('add_to_card_item', []);
 
         // $products = Product::with('assignproduct')->get();
-        return view('frontend.index', compact('products'));
+        return view('frontend.index', compact('products','add_to_card_items'));
     }
 
     public function getAdditionalProduct(Request $request)
@@ -37,6 +39,8 @@ class FrontendController extends Controller
                 ->where('assign_products.product_id',$request->productid)
                 ->get();
         $products = Product::with('additionalItems.additionalItemTitle')->where('id',$request->productid)->get();
+
+
         return response()->json(['status'=> 300,'items'=>$items,'products'=>$products]);
     }
 

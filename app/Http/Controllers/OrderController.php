@@ -164,4 +164,20 @@ class OrderController extends Controller
 
 
     }
+
+
+
+    public function storeDataInSession(Request $request)
+    {
+        $data[] = $request->input('markup');
+
+        // Store data in the session
+        // $request->session()->put('add_to_card_item', $data);
+
+        session(['add_to_card_item' => $data]);
+
+        return response()->json(['message' => 'Data stored in session successfully','data'=>$data]);
+    }
+
+
 }
