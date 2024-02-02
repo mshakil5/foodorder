@@ -401,9 +401,32 @@
 <script type="text/javascript">
     net_total();
     function removeRow(event) {
-        event.target.parentElement.parentElement.remove();
-        net_total();
-        }
+
+        var data = ($(event.target).parents('tr').html());
+
+        var clearsessionurl = "{{URL::to('/clear-session-data')}}";
+            $.ajax({
+                url: clearsessionurl,
+                method: "POST",
+                data: {data},
+
+                success: function (d) {
+                    event.target.parentElement.parentElement.remove();
+                    net_total();
+                    console.log(d);
+                    if (d.status == 303) {
+
+                    }else if(d.status == 300){
+                        
+                    }
+                },
+                error: function (d) {
+                    console.log(d);
+                }
+            });
+    
+        // console.log(row);
+    }
 
         // net total calculation
         function net_total(){

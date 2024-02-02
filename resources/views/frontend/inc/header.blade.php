@@ -7,7 +7,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="{{ route('homepage')}}" class="navbar-brand"><img src="{{ asset('slogo.png')}}" width="224px" height="auto" style="margin-top: -60px"></a>
+            <a href="{{ route('homepage')}}" class="navbar-brand"><img src="{{ asset('logo2.jpg')}}" width="224px" height="auto" style="margin-top: -40px"></a>
         </div>
         <div class="collapse navbar-collapse" id="collapse">
             <ul class="nav navbar-nav">

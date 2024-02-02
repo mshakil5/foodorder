@@ -201,5 +201,23 @@ class OrderController extends Controller
         return response()->json(['message' => 'Data stored in session successfully','arrayData'=>$arrayData]);
     }
 
+    public function clearSpecificSessionData(Request $request)
+    {
+        $data = $request->input('data');
+
+        $sessionData = session()->get('add_to_card_item', []);
+
+        // Check if the item you want to remove exists in the session array
+        if (isset($sessionData['0'])) {
+            // Remove the item from the array
+            unset($sessionData['0']);
+
+            // Save the modified array back to the session
+            session(['add_to_card_item' => $sessionData]);
+        }
+
+        return response()->json(['message' => 'Specific session data cleared','data'=>$sessionData]);
+    }
+
 
 }

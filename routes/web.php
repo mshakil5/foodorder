@@ -45,6 +45,7 @@ Route::post('/search-product', [FrontendController::class, 'searchProductbyName'
 // order
 Route::post('/order-store', [OrderController::class, 'orderStore']);
 Route::post('/add-to-session-card-item', [OrderController::class, 'storeDataInSession']);
+Route::post('/clear-session-data', [OrderController::class, 'clearSpecificSessionData']);
 
 
 
