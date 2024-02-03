@@ -34,7 +34,7 @@
                         </div> 
                         <div class="form-group"> 
                             <label for="uemail">Mail</label> 
-                            <input type="text" class="form-control" id="uemail" name="email" placeholder="example@mail.com" value="@if (session('email') !== 'Null') {{session('email')}} @else {{ old('email') }} @endif"> 
+                            <input type="text" class="form-control" id="uemail" name="email" placeholder="example@mail.com" value="@if (session('email') !== 'Null') {{session('email')}} @else {{ old('email') }} @endif" required> 
                         </div> 
                         <div class="form-group"> 
                             <label for="phone">Contact No</label> 

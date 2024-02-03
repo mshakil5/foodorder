@@ -63,7 +63,7 @@
 
 
 
-<center><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2347.4356877614537!2d-1.0835028244357812!3d53.95953042866852!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487931af517f817b%3A0x6007d198d80d50db!2s10%20Newgate%2C%20York%20YO1%207LA%2C%20UK!5e0!3m2!1sen!2sbd!4v1695314548804!5m2!1sen!2sbd" width="700" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+<center><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2347.4356877614537!2d-1.0835028244357812!3d53.95953042866852!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487931af517f817b%3A0x6007d198d80d50db!2s10%20Newgate%2C%20York%20YO1%207LA%2C%20UK!5e0!3m2!1sen!2sbd!4v1695314548804!5m2!1sen!2sbd" width="100%" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
     
 
 </center>

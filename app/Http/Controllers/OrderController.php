@@ -38,6 +38,12 @@ class OrderController extends Controller
             exit();
         }
 
+        if(empty($request->email)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please Select a \"Email\" field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
+
         if(empty($request->phone)){
             $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please Select a \"contact number\" field..!</b></div>";
             return response()->json(['status'=> 303,'message'=>$message]);

@@ -35,7 +35,7 @@
                     </tbody>
                 </table>
 
-                {{-- <div class="row text-left tValues breads" style="display: none">
+                <div class="row text-left tValues breads" style="display: none">
                     <div class="col-sm-12">
                         <div class="row">
                             <div class="title-section">
@@ -48,7 +48,7 @@
                 <table class="table table-striped table-hover breadsitem" style="width: 100%">
                     <tbody>
                     </tbody>
-                </table> --}}
+                </table>
 
                 <div class="row text-left tValues cheese" style="display: none">
                     <div class="col-sm-12">
