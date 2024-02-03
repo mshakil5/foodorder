@@ -3,9 +3,9 @@
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapse" aria-expanded="false">
                 <span class="sr-only"> navigation toggle</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
+                <span class="icon-bar" style="background-color: #000"></span>
+                <span class="icon-bar" style="background-color: #000"></span>
+                <span class="icon-bar" style="background-color: #000"></span>
             </button>
             <a href="{{ route('homepage')}}" class="navbar-brand"><img src="{{ asset('logo2.jpg')}}" width="224px" height="auto" style="margin-top: -40px"></a>
         </div>

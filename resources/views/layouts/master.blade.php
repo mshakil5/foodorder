@@ -29,7 +29,7 @@
             .navheight{
                 height: 100px;
                 padding-top: 26px;
-                background-color: black;
+                background-color: #ffffff;
             }
             .list-group-item{
                 position: relative;
