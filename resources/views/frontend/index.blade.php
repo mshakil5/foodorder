@@ -1187,6 +1187,7 @@ $(document).ready(function() {
                         data: {postcode},
 
                         success: function (d) {
+                            console.log(d);
                             if (d.status == 303) {
                                 $(".perrmsg").html(d.message);
                                 $('#submitDiv').hide();
