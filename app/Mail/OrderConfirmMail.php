@@ -34,7 +34,7 @@ class OrderConfirmMail extends Mailable
 
     public function build()
     {
-        return $this->from('do-not-reply@gogiving.co.uk', 'Gogiving')
+        return $this->from('do-not-reply@shambleskorner.co.uk', 'Shambleskorner')
                     ->subject($this->array['subject'])
                     ->markdown('emails.orderconfirm');
     }
