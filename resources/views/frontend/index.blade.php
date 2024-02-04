@@ -298,7 +298,7 @@
                                     <div class="col-md-6 col-xs-6">
                                         <label for="timeslot">Collection/Delivery Time</label> 
                                         <select id="timeslot" class="form-control"  name="timeslot">					
-                                        <option value="0">Delivery/Collection time</option>
+                                        <option value="">Delivery/Collection time</option>
 
                                             @foreach (\App\Models\TimeSlot::all() as $time)
                                                 <option value="{{date('h:i A', strtotime($time->start_time))}} - {{date('h:i A', strtotime($time->end_time))}}">{{date('h:i A', strtotime($time->start_time))}} - {{date('h:i A', strtotime($time->end_time))}}</option>
