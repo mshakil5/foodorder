@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\AdditionalItemController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\LocationController;
+use App\Http\Controllers\CouponController;
 
 
 /*------------------------------------------
@@ -87,6 +88,14 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::get('/location/{id}/edit', [LocationController::class, 'edit']);
     Route::post('/location-update', [LocationController::class, 'update']);
     Route::get('/location/{id}', [LocationController::class, 'delete']);
+
+    
+    // coupon
+    Route::get('/coupon', [CouponController::class, 'index'])->name('admin.coupon');
+    Route::post('/coupon', [CouponController::class, 'store']);
+    Route::get('/coupon/{id}/edit', [CouponController::class, 'edit']);
+    Route::post('/coupon-update', [CouponController::class, 'update']);
+    Route::get('/coupon/{id}', [CouponController::class, 'delete']);
 
 
 

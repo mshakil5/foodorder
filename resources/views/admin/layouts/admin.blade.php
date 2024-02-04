@@ -108,6 +108,9 @@
                 
 
                 <li><a href="{{route('admin.location')}}" class="nav-link {{ (request()->is('admin/location*')) ? 'current' : '' }}">Post Code</a></li>
+
+                
+                <li><a href="{{route('admin.coupon')}}" class="nav-link {{ (request()->is('admin/coupon*')) ? 'current' : '' }}">Coupon</a></li>
                 
 
                 
