@@ -1,122 +1,200 @@
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shambleskorner</title>
-</head>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Shambleskorner</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 
-<body style="margin: 0; padding: 0;">
 
+        <style>
+            table tr td {padding:10px;}
+        </style>
+    </head>
+<body>
+    
     <style>
-        @media (max-width: 768px) {
-            tr {
-                display: flex;
-                flex-direction: column;
-                text-align: left;
-                align-items: flex-start;
-                text-align: left;
-            }
-            tr td {
-                width: 100%;
-                text-align: unset !important;
-                background: none !important;
-            }
-            tr td:before {
-                content: attr(data-label);
-                font-weight: bold;
-                float: left;
-                display: block;
-                width: 100%;
-            }
-            thead tr {
-                display: none;
-            }
+
+        .invoice-title h2, .invoice-title h3 {
+            display: inline-block;
         }
+
+        .table > tbody > tr > .no-line {
+            border-top: none;
+        }
+
+        .table > thead > tr > .no-line {
+            border-bottom: none;
+        }
+
+        .table > tbody > tr > .thick-line {
+            border-top: 2px solid;
+        }
+
+
     </style>
 
-    <div style="  margin:0 auto; padding: 25px;    font-family: system-ui; ">
-        <div style="background-color: #F6FBFB;padding: 25px;">
-
-            <p>Dear {{$array['name']}},</p>
-
-            <p>Congratulations! We confirm your order. Here is your order details:</p>
-
-            <h3>Invoice</h3>
-            <p>Order No: {{$array['invoiceno']}}</p>
-            <hr>
-            <p><b>Bill To: {{$array['name']}}</b>    </p>
-            <p><b>Contact Information: </b>    </p>
-            <p>Mail: {{$array['email']}}</p>
-            <p>Mobile: {{$array['phone']}}</p>
-            <p><b>Payment Method: {{$array['payment_type']}}</b>    </p>
-            <p><b>Order Date: </b>     {{$array['date']}}</p>
-            <p><b>Delivery/Collection Details: </b>    </p>
-            <p><b>Type: {{$array['delivery_type']}} </b>    </p>
-            <p><b>Time: {{$array['collection_time']}} </b>    </p>
-
-            
-            <h3>Order Summery: </h3>
-
-            <table width="100%" style="border-collapse: collapse; margin-bottom: 10px;">
-                <tr style="font-weight: bold;">
-                  <td style="border:1px solid; padding:5px; font-size: 12px;">Item</td>
-                  <td style="border:1px solid; padding:5px; font-size: 12px;">Additional Item</td>
-                  <td style="border:1px solid; padding:5px; font-size: 12px;">Price</td>
-                  <td style="border:1px solid; padding:5px; font-size: 12px;">Quantity</td>
-                  <td style="border:1px solid; padding:5px; font-size: 12px;">Total</td>
-                </tr>
-
-                @foreach ($array['orderDtls'] as $item)
-                    <tr>
-                        <td style="border:1px solid; padding:5px; font-size: 12px;">{{$item->product_name}} </td>
-                        <td style="border:1px solid; padding:5px; font-size: 12px;">
-                        @foreach ($item->orderadditionalitem as $additms)
-                            {{$additms->item_name}},
-                        @endforeach
-                        </td>
-                        <td style="border:1px solid; padding:5px; font-size: 12px;">{{$item->price_per_unit}}</td>
-                        <td style="border:1px solid; padding:5px; font-size: 12px;">{{$item->quantity}}</td>
-                        <td style="border:1px solid; padding:5px; font-size: 12px;">{{$item->total_price}}</td>
-                    </tr>
-                @endforeach
-
-                <tr style="font-weight: bold;">
-                    <td style="border:1px solid; padding:5px; font-size: 12px;"></td>
-                    <td style="border:1px solid; padding:5px; font-size: 12px;"></td>
-                    <td style="border:1px solid; padding:5px; font-size: 12px;"></td>
-                    <td style="border:1px solid; padding:5px; font-size: 12px;">Subtotal</td>
-                    <td style="border:1px solid; padding:5px; font-size: 12px;">{{$array['net_amount']}}</td>
-                </tr>
-
-                <tr style="font-weight: bold;">
-                    <td style="border:1px solid; padding:5px; font-size: 12px;"></td>
-                    <td style="border:1px solid; padding:5px; font-size: 12px;"></td>
-                    <td style="border:1px solid; padding:5px; font-size: 12px;"></td>
-                    <td style="border:1px solid; padding:5px; font-size: 12px;">Delivery Charge</td>
-                    <td style="border:1px solid; padding:5px; font-size: 12px;"></td>
-                </tr>
-
-                <tr style="font-weight: bold;">
-                    <td style="border:1px solid; padding:5px; font-size: 12px;"></td>
-                    <td style="border:1px solid; padding:5px; font-size: 12px;"></td>
-                    <td style="border:1px solid; padding:5px; font-size: 12px;"></td>
-                    <td style="border:1px solid; padding:5px; font-size: 12px;">Total</td>
-                    <td style="border:1px solid; padding:5px; font-size: 12px;">{{$array['net_amount']}}</td>
-                </tr>
-
-                
-
-            </table>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="invoice-title">
+                    <h2>Invoice</h2><h3 class="pull-right">Order #{{$array['invoiceno']}}</h3>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <address>
+                        <strong>Billed To:</strong><br>
+                            {{$array['name']}}<br>
+                            {{$array['house']}}<br>
+                            {{$array['street']}}<br>
+                            {{$array['city']}}<br>
+                            {{$array['postcode']}}<br>
+                        </address>
+                    </div>
+                    <div class="col-xs-6 text-right">
+                        <address>
+                            <strong>Contact Info:</strong><br>
+                                Mail:   {{$array['email']}}<br>
+                                Mobile:   {{$array['phone']}}<br>
+                        </address>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <address>
+                            <strong>Payment Method:</strong><br>
+                            {{$array['payment_type']}}<br>
+                        </address>
+                    </div>
+                    <div class="col-xs-6 text-right">
+                        <address>
+                            <strong>Order Date:</strong><br>
+                            {{$array['date']}}<br>
+                        </address>
+                    </div>
+                </div>
 
 
+                <div class="row">
+                    <div class="col-xs-6">
+                        <address>
+                        <strong>Delivery/Collection Details:</strong><br>
+                        Type: {{$array['delivery_type']}}<br>
+                        Date: {{$array['collection_date']}}<br>
+                        Time: {{$array['collection_time']}}<br>
+                        </address>
+                    </div>
+                    <div class="col-xs-6 text-right">
+                        <address>
+                        <strong>Order Time:</strong><br>
+                        Time: {{date("h:i a")}}<br>
+                        </address>
+                    </div>
+                </div>
+
+            </div>
         </div>
-        <div style="text-align:center; background:  #f3f3f3;padding: 15px; margin-top: 5px;">
-            <span style="color: #143157;">&copy; Shambleskorner, all right reserved 2024</span>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                    <h3 class="panel-title"><strong>Order summary</strong></h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table class="table table-condensed">
+                                <thead>
+                                    <tr>
+                                        <td><strong>Item</strong></td>
+                                        <td class="text-center"><strong>Additional Item</strong></td>
+                                        <td class="text-center"><strong>Note</strong></td>
+                                        <td class="text-center"><strong>Price</strong></td>
+                                        <td class="text-center"><strong>Quantity</strong></td>
+                                        <td class="text-right"><strong>Totals</strong></td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($array['orderDtls'] as $item)
+                                    
+                                        <tr>
+                                            <td>{{$item->product_name}}</td>
+                                            <td class="text-center">
+                                                @foreach ($item->orderadditionalitem as $additms)
+                                                    {{$additms->item_name}},
+                                                @endforeach
+                                            </td>
+                                            <td class="text-center"></td>
+                                            <td class="text-center">{{$item->price_per_unit}}</td>
+                                            <td class="text-center">{{$item->quantity}}</td>
+                                            <td class="text-right">{{$item->total_price}}</td>
+                                        </tr> 
+
+                                    @endforeach
+
+                                    <tr>
+                                        <td class="thick-line"></td>
+                                        <td class="thick-line"></td>
+                                        <td class="thick-line"></td>
+                                        <td class="thick-line"></td>
+                                        <td class="thick-line text-center"><strong>Subtotal</strong></td>
+                                        <td class="thick-line text-right">{{$array['net_amount']}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="no-line"></td>
+                                        <td class="no-line"></td>
+                                        <td class="no-line"></td>
+                                        <td class="no-line"></td>
+                                        <td class="thick-line text-center"><strong>Discout Amount</strong></td>
+                                        <td class="thick-line text-right"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="no-line"></td>
+                                        <td class="no-line"></td>
+                                        <td class="no-line"></td>
+                                        <td class="no-line"></td>
+                                        <td class="no-line text-center"><strong>Delivery Charge</strong></td>
+                                        <td class="no-line text-right"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="no-line"></td>
+                                        <td class="no-line"></td>
+                                        <td class="no-line"></td>
+                                        <td class="no-line"></td>
+                                        <td class="no-line text-center"><strong>Total</strong></td>
+                                        <td class="no-line text-right">{{$array['net_amount']}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-       
     </div>
 
-</body>
 
+
+</body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

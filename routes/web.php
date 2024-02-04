@@ -49,6 +49,7 @@ Route::post('/add-to-session-card-item', [OrderController::class, 'storeDataInSe
 Route::post('/clear-session-data', [OrderController::class, 'clearSpecificSessionData']);
 
 
+Route::get('/order-confirmation/{id}', [OrderController::class, 'orderConfirmation'])->name('confirmorder');
 
 Route::post('payment', [PaypalController::class, 'payment'])->name('paypalpayment');
 Route::get('success', [PaypalController::class, 'success'])->name('paypal.payment.success');

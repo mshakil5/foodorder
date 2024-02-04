@@ -166,10 +166,15 @@ class OrderController extends Controller
                     $array['name'] = $request->name;
                     $array['email'] = $request->email;
                     $array['phone'] = $request->phone;
+                    $array['house'] = $request->house;
+                    $array['city'] = $request->city;
+                    $array['street'] = $request->street;
+                    $array['postcode'] = $request->postcode;
                     $array['invoiceno'] = $order->invoiceno;
                     $array['payment_type'] = $order->payment_type;
                     $array['delivery_type'] = $order->delivery_type;
                     $array['collection_time'] = $order->collection_time;
+                    $array['collection_date'] = $order->collection_date;
                     $array['orderDtls'] = $orderDtls;
                     $array['date'] = $order->date;
                     $array['net_amount'] = $order->net_amount;
@@ -233,6 +238,19 @@ class OrderController extends Controller
         }
 
         return response()->json(['message' => 'Specific session data cleared','data'=>$sessionData]);
+    }
+
+
+    public function orderConfirmation($id)
+    {
+        
+        $data = Order::with('orderdetail')->where('id', $id)->first();
+
+        $orderdetails = OrderDetail::with('orderadditionalitem')->where('order_id', $id)->get();
+        
+
+        // $products = Product::with('assignproduct')->get();
+        return view('frontend.orderconfirmation', compact('data','orderdetails'));
     }
 
 
