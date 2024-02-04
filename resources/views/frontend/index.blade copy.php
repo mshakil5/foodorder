@@ -115,7 +115,16 @@
                                             </tr>
                                         </thead> --}}
                                         <tbody id="cardinner">
-                                            
+                                        {{-- {!! session('add_to_card_item') !!} --}}
+
+                                                {{-- @if(isset($add_to_card_items))
+                                                        @foreach($add_to_card_items as $item)
+                                                            {!! $item->product_items !!}
+                                                        @endforeach
+                                                @else
+                                                    <p style="text-align: center">Card is empty.</p>
+                                                @endif --}}
+
 
                                             {{-- <tr>
                                                 <td style="text-align: center">

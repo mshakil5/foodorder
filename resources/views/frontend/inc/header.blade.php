@@ -1,5 +1,5 @@
 <div class="navbar navbar-inverse navbar-fixed-top navheight">
-    <div class="container-fluid">	
+    <div class="container">	
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapse" aria-expanded="false">
                 <span class="sr-only"> navigation toggle</span>
@@ -13,8 +13,14 @@
             <ul class="nav navbar-nav">
                 <li><a href="{{ route('homepage')}}"><span class="glyphicon glyphicon-home"></span>Home</a></li>
                 
+            </ul>
+            
+            <ul class="nav navbar-nav navbar-right">
+                
                 <li style="width:300px;left:10px;top:10px;"><input type="text" class="form-control" id="search"></li>
                 <li style="top:10px;left:20px;"><button class="btn btn-primary" id="search_btn">Search</button></li>
+                
+                
             </ul>
             <ul class="nav navbar-nav navbar-right" style="display: none">
                 <li><a href="customer_registration.php?register=1" ><span class="glyphicon glyphicon-user"></span> Register</a></li>	

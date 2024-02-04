@@ -25,7 +25,7 @@ class FrontendController extends Controller
         $additems = AdditionalItemTitle::with('assignproduct')->get();
         
 
-        $add_to_card_items = session('add_to_card_item', []);
+        $add_to_card_items = session('cart', []);
 
         // dd($add_to_card_items);
 

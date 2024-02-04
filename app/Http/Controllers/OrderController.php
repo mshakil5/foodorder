@@ -211,36 +211,47 @@ class OrderController extends Controller
 
     public function storeDataInSession(Request $request)
     {
-        $arrayData = session('add_to_card_item', []);
 
+        $cart = session()->get('cart', []);
+        if(isset($cart[$request->pid])) {
+            
+        }  else {
+            $cart[$request->pid] = [
+                "product_items" => $request->sessionData
+            ];
+        }
+ 
+        session()->put('cart', $cart);
 
-        $newElement = $request->input('markup');
-        $arrayData[] = $newElement;
-
-        // Store data in the session
-        // $request->session()->put('add_to_card_item', $data);
-
-        session(['add_to_card_item' => $arrayData]);
-
-        return response()->json(['message' => 'Data stored in session successfully','arrayData'=>$arrayData]);
+        // $arrayData = session('add_to_card_item', []);
+        // $newElement = $request->input('sessionData');
+        // $arrayData[] = $newElement;
+        // // Store data in the session
+        // session(['add_to_card_item' => $arrayData]);
+        return response()->json(['message' => 'Data stored successfully','arrayData'=>$cart]);
     }
 
     public function clearSpecificSessionData(Request $request)
     {
-        $data = $request->input('data');
+        session()->flush();
+        session()->regenerate();
 
-        $sessionData = session()->get('add_to_card_item', []);
+        session()->flush();
+        session()->regenerate();
 
-        // Check if the item you want to remove exists in the session array
-        if (isset($sessionData['0'])) {
-            // Remove the item from the array
-            unset($sessionData['0']);
 
-            // Save the modified array back to the session
-            session(['add_to_card_item' => $sessionData]);
+        $cart = session()->get('cart', []);
+        if(isset($cart[$request->pid])) {
+            
+        }  else {
+            $cart[$request->pid] = [
+                "product_items" => $request->data
+            ];
         }
+ 
+        session()->put('cart', $cart);
 
-        return response()->json(['message' => 'Specific session data cleared','data'=>$sessionData]);
+        return response()->json(['message' => 'Specific session data cleared','data'=>$cart]);
     }
 
 

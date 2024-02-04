@@ -189,40 +189,16 @@
                                         </thead> --}}
                                         <tbody id="cardinner">
 
-                                            {{-- {!! session('add_to_card_item') !!} --}}
-
-                                            @if(isset($add_to_card_items))
-                                                    @foreach($add_to_card_items as $item)
-                                                        {!! $item !!}
+                                            @if(session('cart'))
+                                                @foreach(session('cart') as $id => $items)
+                                                    @foreach ($items as $item)
+                                                        
+                                                    {!! $item !!}
                                                     @endforeach
-                                            @else
-                                                <p style="text-align: center">Card is empty.</p>
+                                                @endforeach
                                             @endif
-
-                                            {{-- @if (isset())
-                                                
-                                            @endif --}}
                                             
 
-                                            {{-- <tr>
-                                                <td style="text-align: center">
-                                                    <div style="color: white;  user-select:none;  padding: 5px;    background: red;    width: 45px;    display: flex;    align-items: center; margin-right:5px;   justify-content: center;    border-radius: 4px;   left: 4px;    top: 81px;" onclick="removeRow(event)" >X</div>
-                                                </td>
-                                                <td style="text-align: center">
-                                                    <input type="text" id="parent_product_name" name="parent_product_name[]" value="'+pname+'" class="form-control">
-                                                    <input type="hidden" id="parent_product_id" name="parent_product_id[]" value="'+pid+'" class="form-control">
-                                                </td>
-                                                <td style="text-align: center">
-                                                    <input type="number" id="parent_product_qty" name="parent_product_qty[]" value="'+pqty+'" class="form-control">
-                                                </td>
-                                                <td style="text-align: center">
-                                                    <input type="number" id="parent_product_price" name="parent_product_price[]" step="any" value="'+price+'" class="form-control" readonly>
-                                                </td>
-                                                <td style="text-align: center">
-                                                    <input type="number" id="parent_product_total_price" name="parent_product_total_price[]" step="any" value="'+net_amount+'" class="form-control" readonly>
-                                                </td>
-                                            </tr> --}}
-                                            
                                         </tbody>
                                         <tfoot id="cardfooter">
                                             <tr>
@@ -385,7 +361,11 @@
     net_total();
     function removeRow(event) {
 
-        var data = ($(event.target).parents('tr').html());
+        // var data = ($(event.target).parents('tr').html());
+        
+        event.target.parentElement.parentElement.remove();
+        net_total();
+        var data = $("#cardinner").html();
 
         var clearsessionurl = "{{URL::to('/clear-session-data')}}";
             $.ajax({
@@ -394,7 +374,6 @@
                 data: {data},
 
                 success: function (d) {
-                    event.target.parentElement.parentElement.remove();
                     net_total();
                     console.log(d);
                     if (d.status == 303) {
@@ -780,7 +759,6 @@ $(document).ready(function() {
         $("body").delegate(".breadsingleitem","click",function () {
             
             var id = $(this).attr('value');
-            console.log(id);
 
             var price = $(this).attr('price');
             var breadname = $(this).attr('breadname');
@@ -1072,22 +1050,19 @@ $(document).ready(function() {
             $("#parent_item_uprice").val('');
             $("#additemtunitamnt").val('0');
             $("#additemtamnt").val('0');
-
-
             $('#brdDiv').html('');
             
-            // $("#addebreaditems").removeAttr("data-count");
-            // $("#addebreaditems").removeAttr("data-itemid");
-            // $("#addebreaditems").removeAttr("class");
-            // $("#addebreaditems").removeAttr("itemname");
-            // $("#addebreaditems").removeAttr("value");
-
             $('#additemModal').modal('hide');
+
+            sessionData = markup;
+            // sessionData = $("#cardinner").html();
+
             var addtocardurl = "{{URL::to('/add-to-session-card-item')}}";
+            console.log(pid);
             $.ajax({
                 url: addtocardurl,
                 method: "POST",
-                data: {markup},
+                data: {sessionData, pid},
 
                 success: function (d) {
                     if (d.status == 303) {
