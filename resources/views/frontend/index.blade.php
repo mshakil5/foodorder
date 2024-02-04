@@ -1176,7 +1176,8 @@ $(document).ready(function() {
                         $("#loading").hide();
                         $(".ermsg").html(d.message);
                         // window.setTimeout(function(){location.reload()},2000)
-                        window.open(`https://www.localhost/laravel/foodorder/order-confirmation/${d.id}`);
+                        window.open(`https://click.shambleskorner.co.uk/order-confirmation/${d.id}`);
+                        // window.open(`https://www.localhost/laravel/foodorder/order-confirmation/${d.id}`);
                         
                     }
                 },
