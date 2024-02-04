@@ -268,6 +268,7 @@ class PaypalController extends Controller
                         $array['collection_date'] = $order->collection_date;
                         $array['orderDtls'] = $orderDtls;
                         $array['date'] = $order->date;
+                        $array['discount'] = $order->discount;
                         $array['net_amount'] = $order->net_amount;
                         $array['subject'] = "Order Booking Confirmation";
                         $array['message'] = $msg;
