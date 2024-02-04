@@ -259,77 +259,12 @@
                                         <label for="timeslot">Collection/Delivery Time</label> 
                                         <select id="timeslot" class="form-control"  name="timeslot">					
                                         <option value="0">Delivery/Collection time</option>
-                                        <option value="11:00am - 11:10am">11:00am - 11:10am</option>
-                                        <option value="11:10am - 11:20am">11:10am - 11:20am</option>
-                                        <option value="11:20am - :1130am">11:20am - :1130am</option>
-                                        <option value="11:30am - 11:40am">11:30am - 11:40am</option>
-                                        <option value="11:40am - 11:50am">11:40am - 11:50am</option>
-                                        <option value="11:50am - 12:00pm">11:50am - 12:00pm</option>
-                                        <option value="12:00pm - 12:10pm">12:00pm - 12:10pm</option>
-                                        <option value="12:10pm - 12:20pm">12:10pm - 12:20pm</option>
-                                        <option value="12:20pm - 12:30pm">12:20pm - 12:30pm</option>
-                                        <option value="12:30pm - 12:40pm">12:30pm - 12:40pm</option>
-                                        <option value="12:40pm - 12:50pm">12:40pm - 12:50pm</option>
-                                        <option value="1:00pm - 1:10pm">1:00pm - 1:10pm</option>
-                                        <option value="1:10pm - 1:20pm">1:10pm - 1:20pm</option>
-                                        <option value="1:20pm - 1:30pm">1:20pm - 1:30pm</option>
-                                        <option value="1:30pm - 1:40pm">1:30pm - 1:40pm</option>
-                                        <option value="1:40pm - 1:50pm">1:40pm - 1:50pm</option>
-                                        <option value="1:50pm - 2:00pm">1:50pm - 2:00pm</option>
-                                        <option value="2:00pm - 2:10pm">2:00pm - 2:10pm</option>
-                                        <option value="2:10pm - 2:20pm">2:10pm - 2:20pm</option>
-                                        <option value="2:20pm - 2:30pm">2:20pm - 2:30pm</option>
-                                        <option value="2:30pm - 2:40pm">2:30pm - 2:40pm</option>
-                                        <option value="2:40pm - 2:50pm">2:40pm - 2:50pm</option>
-                                        <option value="2:50pm - 3:00pm">2:50pm - 3:00pm</option>
-                                        <option value="3:00pm - 3:10pm">3:00pm - 3:10pm</option>
-                                        <option value="3:10pm - 3:20pm">3:10pm - 3:20pm</option>
-                                        <option value="3:20pm - 3:30pm">3:20pm - 3:30pm</option>
-                                        <option value="3:30pm - 3:40pm">3:30pm - 3:40pm</option>
-                                        <option value="3:40pm - 3:50pm">3:40pm - 3:50pm</option>
-                                        <option value="3:50pm - 4:00pm">3:50pm - 4:00pm</option>
-                                        <option value="4:00pm - 4:10pm">4:00pm - 4:10pm</option>
-                                        <option value="4:10pm - 4:20pm">4:10pm - 4:20pm</option>
-                                        <option value="4:20pm - 4:30pm">4:20pm - 4:30pm</option>
-                                        <option value="4:30pm - 4:40pm">4:30pm - 4:40pm</option>
-                                        <option value="4:40pm - 4:50pm">4:40pm - 4:50pm</option>
-                                        <option value="4:50pm - 5:00pm">4:50pm - 5:00pm</option>
-                                        <option value="5:00pm - 5:10pm">5:00pm - 5:10pm</option>
-                                        <option value="5:10pm - 5:20pm">5:10pm - 5:20pm</option>
-                                        <option value="5:20pm - 5:30pm">5:20pm - 5:30pm</option>
-                                        <option value="5:30pm - 5:40pm">5:30pm - 5:40pm</option>
-                                        <option value="5:40pm - 5:50pm">5:40pm - 5:50pm</option>
-                                        <option value="5:50pm - 6:00pm">5:50pm - 6:00pm</option>
-                                        <option value="6:00pm - 6:10pm">6:00pm - 6:10pm</option>
-                                        <option value="6:10pm - 6:20pm">6:10pm - 6:20pm</option>
-                                        <option value="6:20pm - 6:30pm">6:20pm - 6:30pm</option>
-                                        <option value="6:30pm - 6:40pm">6:30pm - 6:40pm</option>
-                                        <option value="6:40pm - 6:50pm">6:40pm - 6:50pm</option>
-                                        <option value="6:50pm - 7:00pm">6:50pm - 7:00pm</option>
-                                        <option value="7:00pm - 7:10pm">7:00pm - 7:10pm</option>
-                                        <option value="7:10pm - 7:20pm">7:10pm - 7:20pm</option>
-                                        <option value="7:20pm - 7:30pm">7:20pm - 7:30pm</option>
-                                        <option value="7:30pm - 7:40pm">7:30pm - 7:40pm</option>
-                                        <option value="7:40pm - 7:50pm">7:40pm - 7:50pm</option>
-                                        <option value="7:50pm - 8:00pm">7:50pm - 8:00pm</option>
-                                        <option value="8:00pm - 8:10pm">8:00pm - 8:10pm</option>
-                                        <option value="8:10pm - 8:20pm">8:10pm - 8:20pm</option>
-                                        <option value="8:20pm - 8:30pm">8:20pm - 8:30pm</option>
-                                        <option value="8:30pm - 8:40pm">8:30pm - 8:40pm</option>
-                                        <option value="8:40pm - 8:50pm">8:40pm - 8:50pm</option>
-                                        <option value="8:50pm - 9:00pm">8:50pm - 9:00pm</option>
-                                        <option value="9:00pm - 9:10pm">9:00pm - 9:10pm</option>
-                                        <option value="9:10pm - 9:20pm">9:10pm - 9:20pm</option>
-                                        <option value="9:20pm - 9:30pm">9:20pm - 9:30pm</option>
-                                        <option value="9:30pm - 9:40pm">9:30pm - 9:40pm</option>
-                                        <option value="9:40pm - 9:50pm">9:40pm - 9:50pm</option>
-                                        <option value="9:50pm - 10:00pm">9:50pm - 10:00pm</option>
-                                        <option value="10:00pm - 10:10pm">10:00pm - 10:10pm</option>
-                                        <option value="10:10pm - 10:20pm">10:10pm - 10:20pm</option>
-                                        <option value="10:20pm - 10:30pm">10:20pm - 10:30pm</option>
-                                        <option value="10:30pm - 10:40pm">10:30pm - 10:40pm</option>
-                                        <option value="10:40pm - 10:50pm">10:40pm - 10:50pm</option>
-                                        <option value="10:50pm - 11:00pm">10:50pm - 11:00pm</option>
+
+                                            @foreach (\App\Models\TimeSlot::all() as $time)
+                                                <option value="{{date('h:i A', strtotime($time->start_time))}} - {{date('h:i A', strtotime($time->end_time))}}">{{date('h:i A', strtotime($time->start_time))}} - {{date('h:i A', strtotime($time->end_time))}}</option>
+                                            @endforeach
+                                        
+                                        
                                         </select>
                                     </div>
                                 </div>

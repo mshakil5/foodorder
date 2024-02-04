@@ -49,9 +49,8 @@
             <p><b>Contact Information: </b>    </p>
             <p>Mail: {{$array['email']}}</p>
             <p>Mobile: {{$array['phone']}}</p>
-            <p><b>Payment Method: </b>    </p>
-            <p>{{$array['payment_type']}}</p>
-            <p><b>Order Date: </b>     {{$array['payment_type']}}</p>
+            <p><b>Payment Method: {{$array['payment_type']}}</b>    </p>
+            <p><b>Order Date: </b>     {{$array['date']}}</p>
             <p><b>Delivery/Collection Details: </b>    </p>
             <p><b>Type: {{$array['delivery_type']}} </b>    </p>
             <p><b>Time: {{$array['collection_time']}} </b>    </p>

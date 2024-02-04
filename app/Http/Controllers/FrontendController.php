@@ -158,4 +158,29 @@ class FrontendController extends Controller
 
     }
 
+    public function clearAllSessionData()
+    {
+        $items = DB::table('assign_products')
+                    ->join('products', 'assign_products.product_id', '=', 'products.id')
+                    ->join('additional_items', 'assign_products.additional_item_id', '=', 'additional_items.id')
+                    ->select('assign_products.*', 'products.product_name', 'products.id as pid', 'additional_items.id as addid', 'additional_items.item_name')
+                    ->where('assign_products.product_id','1')
+                    ->get();
+        
+        // $products = Product::with('additionalItems.additionalItemTitle')->get();
+        $products = Product::with('additionalItems.additionalItemTitle')->orderby('id','DESC')->limit(10)->get();
+        $additems = AdditionalItemTitle::with('assignproduct')->get();
+        
+
+        $add_to_card_items = session('add_to_card_item', []);
+
+        // dd($add_to_card_items);
+
+        session()->flush();
+        session()->regenerate();
+
+        // $products = Product::with('assignproduct')->get();
+        return view('frontend.index', compact('products','add_to_card_items'));
+    }
+
 }

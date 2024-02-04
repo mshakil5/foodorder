@@ -35,6 +35,7 @@ Route::get('/clear', function() {
 Auth::routes();
 Route::get('/', [FrontendController::class, 'index'])->name('homepage');
 Route::post('get-additional-product', [FrontendController::class, 'getAdditionalProduct']);
+Route::get('/clear-session', [FrontendController::class, 'clearAllSessionData'])->name('clearSessionData');
 
 Route::post('/check-post-code', [FrontendController::class, 'checkPostCode']);
 

@@ -6,7 +6,7 @@
   <!-- content area -->
   <div class="content">
       <div class="row ">
-          <div class="col-lg-6">
+          <div class="col-lg-6" style="display:none">
               <div class="row my-2">
                 
                   <div class="col-lg-12 mt-4">
