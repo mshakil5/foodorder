@@ -567,6 +567,11 @@ $(document).ready(function() {
             pname = $(this).attr('pname');
             price = $(this).attr('price');
             
+            $('#additemModal').find('.modal-body #brdDiv').html('<div class="title-section"><div class="mx-2">Choose Bread </div><input type="hidden" id="addebreaditems" data-itemid="0" name="additionalitm" data-count="0" value="" data-itemname="" class="extraaitem"></div>');
+
+
+
+
             $('#additemModal').find('.modal-body #productname').val(pname);
             $('#additemModal').find('.modal-body #productid').val(productid);
             $('#additemModal').find('.modal-body #pdesc').val(pdesc);
@@ -636,7 +641,9 @@ $(document).ready(function() {
 
                                     // breadsitems.append("<tr><td style='width: 10%; text-align:center'><input type='radio' name='bread' value='"+b.additional_item_id+"'  id='bread"+b.additional_item_id+"' class='largerCheckbox breadsingleitem' breadname='" + b.item_name + "' price='"+b.price+"'>  </td><td style='width: 70%'>" + b.item_name + "</td>" + "<td style='width: 20%; text-align:right'>"+ (b.price > 0 ? "£"+b.price.toFixed(2) : '')+"</td></tr>"); 
 
-                                    breadsitems.append("<tr><td style='width: 10%; text-align:center'><input type='checkbox' class='largerRadiobox breadsingleitem' id='breads"+b.additional_item_id+"' name='breads' value='"+b.additional_item_id+"' price='"+b.price+"'><input type='hidden' id='addbreadsitems"+b.additional_item_id+"' data-itemid='' name='additionalitm' data-count='' value='"+b.price+"' data-itemname='" + b.item_name + "' class='extraaitem'></td><td style='width: 70%'>" + b.item_name + "</td>" + "<td style='width: 20%; text-align:right'>"+ (b.price > 0 ? "£"+b.price.toFixed(2) : '')+"</td></tr>"); 
+                                    
+
+                                    breadsitems.append("<tr><td style='width: 10%; text-align:center'><input type='checkbox' class='largerRadiobox breadsingleitem' id='breads"+b.additional_item_id+"' name='breads' breadname='" + b.item_name + "' value='"+b.additional_item_id+"' price='"+b.price+"'><input type='hidden' id='addbreadsitems"+b.additional_item_id+"' data-itemid='' name='additionalitm' data-count='' value='"+b.price+"' data-itemname='" + b.item_name + "' class='extraaitembread'></td><td style='width: 70%'>" + b.item_name + "</td>" + "<td style='width: 20%; text-align:right'>"+ (b.price > 0 ? "£"+b.price.toFixed(2) : '')+"</td></tr>"); 
 
                                     
                                 }
@@ -773,10 +780,39 @@ $(document).ready(function() {
         $("body").delegate(".breadsingleitem","click",function () {
             
             var id = $(this).attr('value');
+            console.log(id);
+
+            var price = $(this).attr('price');
+            var breadname = $(this).attr('breadname');
+            var parent_item_price = $("#tamount").val();
+            var additemtamnt = $("#additemtamnt").val();
+            var additemtamntint = parseFloat(price);
             
+            if(this.checked){
+                var total_add_item_amnt = parseFloat(additemtamnt) + parseFloat(price);
+                var parent_item_total_price = parseFloat(parent_item_price) + parseFloat(total_add_item_amnt);
+                $("#pShow").html("£"+ parent_item_total_price.toFixed(2));
+                $("#additemtamnt").val(total_add_item_amnt.toFixed(2));
+
+                $("#addebreaditems").val(additemtamntint);
+                $("#addebreaditems").attr('data-count', 1);
+                $("#addebreaditems").attr('data-itemid', id);
+                $("#addebreaditems").attr('data-itemname', breadname);
+                $("#addebreaditems").attr('value', price);
+            } else {
+                var total_add_item_amnt = parseFloat(additemtamnt) - parseFloat(price);
+                var parent_item_total_price = parseFloat(parent_item_price) + parseFloat(total_add_item_amnt);
+                $("#pShow").html("£"+ parent_item_total_price.toFixed(2));
+                $("#additemtamnt").val(total_add_item_amnt.toFixed(2));
+
+                $("#addebreaditems").attr('data-count', 0);
+                $("#addebreaditems").val(0);
+            }
+
             if ($(this).prop("checked")) {
                 // Uncheck all other checkboxes
                 $(".breadsingleitem").not(this).prop("checked", false);
+
             }
         });
 
@@ -1038,6 +1074,7 @@ $(document).ready(function() {
             $("#additemtamnt").val('0');
 
 
+            $('#brdDiv').html('');
             
             // $("#addebreaditems").removeAttr("data-count");
             // $("#addebreaditems").removeAttr("data-itemid");

@@ -37,10 +37,10 @@
 
                 <div class="row text-left tValues breads" style="display: none">
                     <div class="col-sm-12">
-                        <div class="row">
+                        <div class="row" id="brdDiv">
                             <div class="title-section">
                                 <div class="mx-2">Choose Bread </div>
-                                {{-- <input type='hidden' id='addebreaditems' data-itemid='0' name='additionalitm' data-count='0' value='' data-itemname='' class='extraaitem'>  --}}
+                                <input type='hidden' id='addebreaditems' data-itemid='0' name='additionalitm' data-count='0' value='' data-itemname='' class='extraaitem'> 
                             </div>
                         </div>
                     </div>
