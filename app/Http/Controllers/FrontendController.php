@@ -163,7 +163,7 @@ class FrontendController extends Controller
     {
 
 
-        $data = Coupon::where('name', 'like', '%'.$request->coupon.'%')->first();
+        $data = Coupon::where('name', '=', $request->coupon)->first();
 
         if (isset($data) ) {
             $message ="<b style='color: green'>Available</b>";

@@ -202,11 +202,10 @@
                                         </tbody>
                                         <tfoot id="cardfooter">
                                             <tr>
-                                                <th style="text-align: center; border:0px"><div id="childitemsxx"></div></th>
-                                                <th style="text-align: center; border:0px"></th>
-                                                <th style="text-align: center; border:0px"></th>
-                                                <th style="text-align: center; border:0px">Grand Amount</th>
-                                                <th style="text-align: center; border:0px">
+                                                <th style="padding:0px;text-align: center; border:0px"><div id="childitemsxx"></div></th>
+                                                <th style="padding:0px;text-align: center; border:0px"></th>
+                                                <th style="padding:0px;text-align: right; border:0px" colspan="2">Grand Amount:</th>
+                                                <th style="padding:0px;text-align: center; border:0px">
                                                     <div class="grand_total_amount" id="grand_total_amount"></div>
                                                     <input type="hidden" name="grand_total_value" id="grand_total_value">
                                                     
@@ -214,21 +213,19 @@
                                             </tr>
 
                                             <tr>
-                                                <th style="text-align: center; border:0px"><div id="childitemsxx"></div></th>
-                                                <th style="text-align: center; border:0px"></th>
-                                                <th style="text-align: center; border:0px"></th>
-                                                <th style="text-align: center; border:0px">Discount</th>
-                                                <th style="text-align: center; border:0px"><div class="discount_div" id="discount_div">0.00</div>
+                                                <th style="padding:0px;text-align: center; border:0px"><div id="childitemsxx"></div></th>
+                                                <th style="padding:0px;text-align: center; border:0px"></th>
+                                                <th style="padding:0px;text-align: right; border:0px" colspan="2">Discount:</th>
+                                                <th style="padding:0px;text-align: center; border:0px"><div class="discount_div" id="discount_div">0.00</div>
                                                     <input type="hidden" name="discount_percent" id="discount_percent" value="0">
                                                 </th>
                                             </tr>
 
                                             <tr>
-                                                <th style="text-align: center; border:0px"><div id="childitemsxx"></div></th>
-                                                <th style="text-align: center; border:0px"></th>
-                                                <th style="text-align: center; border:0px"></th>
-                                                <th style="text-align: center; border:0px">Total Amount</th>
-                                                <th style="text-align: center; border:0px"><div class="net_total_amount" id="net_total_amount"></div>
+                                                <th style="padding:0px;text-align: center; border:0px"><div id="childitemsxx"></div></th>
+                                                <th style="padding:0px;text-align: center; border:0px"></th>
+                                                <th style="padding:0px;text-align: right; border:0px" colspan="2">Total Amount:</th>
+                                                <th style="padding:0px;text-align: center; border:0px"><div class="net_total_amount" id="net_total_amount"></div>
                                                     <input type="hidden" name="discount_amount" id="discount_amount" value="0">
                                                     <input type="hidden" name="net_total_value" id="net_total_value">
                                                 </th>
@@ -374,13 +371,9 @@
                 data: {data},
 
                 success: function (d) {
+                    window.setTimeout(function(){location.reload()},200)
                     net_total();
                     console.log(d);
-                    if (d.status == 303) {
-
-                    }else if(d.status == 300){
-                        
-                    }
                 },
                 error: function (d) {
                     console.log(d);
@@ -1032,7 +1025,7 @@ $(document).ready(function() {
                 return;
             }
 
-            var markup = '<tr><td style="text-align: center; border:0px"><div style="color: white;  user-select:none;  padding: 5px;    background: red;    width: 35px;    display: flex;    align-items: center; margin-right:5px;   justify-content: center;    border-radius: 4px;   left: 4px;    top: 81px;" onclick="removeRow(event)" >X</div></td><td style="text-align: left; border:0px; width:65%" colspan="2">'+pname+'<input type="hidden" id="parent_product_name" name="parent_product_name[]" value="'+pname+'" class="form-control"><input type="hidden" id="parent_product_id'+pid+'" name="parent_product_id[]" value="'+pid+'" class="form-control"><div class="childitems'+pid+'" id="childitems'+pid+'"><span></span></div></td><td style="text-align: center; border:0px"><input type="number" id="parent_product_qty'+pid+'" name="parent_product_qty[]" min="1" value="'+pqty+'" class="form-control parent_product_qty"></td><td style="text-align: center; border:0px"><div id="parent_product_total_price_div'+pid+'" class="parent_product_total_price_div">'+net_amount_with_child_item.toFixed(2)+'</div><input type="hidden" id="parent_product_price'+pid+'" name="parent_product_price[]" step="any" value="'+price+'" class="form-control parent_product_price" readonly><input type="hidden" id="parent_product_total_price'+pid+'" name="parent_product_total_price[]" step="any" value="'+net_amount_with_child_item.toFixed(2)+'" class="form-control net_amount_with_child_item" readonly><input type="hidden" id="child_items_total_amnt'+pid+'" name="child_items_total_amnt[]" step="any" value="'+child_item_total+'" class="form-control child_items_total_amnt" readonly></td></tr>';
+            var markup = '<tr><td style="text-align: center; border:0px"><div style="color: white;  user-select:none;  padding: 5px;    background: red;    width: 35px;    display: flex;    align-items: center; margin-right:5px;   justify-content: center;    border-radius: 4px;   left: 4px;    top: 81px;" onclick="removeRow(event)" >X</div></td><td style="text-align: left; border:0px; width:60%" colspan="2">'+pname+'<input type="hidden" id="parent_product_name" name="parent_product_name[]" value="'+pname+'" class="form-control"><input type="hidden" id="parent_product_id'+pid+'" name="parent_product_id[]" value="'+pid+'" class="form-control"><div class="childitems'+pid+'" id="childitems'+pid+'"><span></span></div></td><td style="text-align: center; border:0px"><input type="number" id="parent_product_qty'+pid+'" name="parent_product_qty[]" min="1" value="'+pqty+'" class="form-control parent_product_qty"></td><td style="text-align: center; border:0px"><div id="parent_product_total_price_div'+pid+'" class="parent_product_total_price_div">'+net_amount_with_child_item.toFixed(2)+'</div><input type="hidden" id="parent_product_price'+pid+'" name="parent_product_price[]" step="any" value="'+price+'" class="form-control parent_product_price" readonly><input type="hidden" id="parent_product_total_price'+pid+'" name="parent_product_total_price[]" step="any" value="'+net_amount_with_child_item.toFixed(2)+'" class="form-control net_amount_with_child_item" readonly><input type="hidden" id="child_items_total_amnt'+pid+'" name="child_items_total_amnt[]" step="any" value="'+child_item_total+'" class="form-control child_items_total_amnt" readonly></td></tr>';
             $("table #cardinner ").append(markup);
 
             var additmshowcard = $("#childitems"+pid);
@@ -1324,6 +1317,10 @@ $(document).ready(function() {
                         console.log(d);
                         if (d.status == 303) {
                             $(".couponerrmsg").html(d.message);
+                            $("#discount_percent").val(0);
+                            $("#discount_amount").val(0);
+                            $("#discount_div").html("0.00");
+                            net_total();
 
                         }else if(d.status == 300){
                             $(".couponerrmsg").html(d.message);
