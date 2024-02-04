@@ -63,47 +63,6 @@
 
                                                             @include('admin.order.modal')
 
-
-
-                                                            {{-- <div class="row px-3 mb-2">
-                                                                <!-- loop -->
-                                                                <table class="table table-bordered table-hover">
-                                                                    <thead>
-                                                                    <tr>
-                                                                        <th style="text-align: center">Product name</th>
-                                                                        <th style="text-align: center">Additional Item</th>
-                                                                        <th style="text-align: center">Quantity</th>
-                                                                        <th style="text-align: center">Price per unit</th>
-                                                                        <th style="text-align: center">Total price</th>
-                                                                    </tr>
-                                                                    </thead>
-                                                                    @php
-                                                                        $orders = \App\Models\OrderDetail::with('orderadditionalitem')->where('order_id', $data->id)->get();
-                                                                    @endphp
-                                                                    <tbody>
-                                                                        @foreach ($orders as $order)
-                                                                            
-                                                                        <tr>
-                                                                            <td style="text-align: center">
-                                                                                {{$order->product_name}}
-                                                                            </td>
-                                                                            <td style="text-align: center">
-                                                                                @foreach ($order->orderadditionalitem as $item)
-                                                                                    <p><b>{{$item->item_name}}</b>, Qty: {{$item->quantity}}</p>
-                                                                                @endforeach
-                                                                            </td>
-                                                                            <td style="text-align: center">{{$order->quantity}}</td>
-                                                                            <td style="text-align: center">{{$order->price_per_unit}}</td>
-                                                                            <td style="text-align: center">{{$order->total_price}}</td>
-                                                                        </tr>
-
-                                                                        @endforeach
-                                                                    </tbody>
-                                                                </table>
-                                                            </div>  --}}
-
-
-
                                                             
                                                         </div>
                                                     </div>
