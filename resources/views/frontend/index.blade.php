@@ -60,6 +60,24 @@
       width: 25px;
       height: 25px;
     }
+
+    input.largerRadiobox {
+        width: 25px;
+        height: 25px;
+        background-color: white;
+        border-radius: 50%;
+        vertical-align: middle;
+        border: 1px solid #9c9999;
+        appearance: none;
+        -webkit-appearance: none;
+        outline: none;
+        cursor: pointer;
+    }
+
+    .largerRadiobox:checked {
+        background-color: #193d5b;
+    }
+
   </style>
 
    <!-- Image loader -->
@@ -614,7 +632,11 @@ $(document).ready(function() {
                             $.each(d.items, function (a, b) {
                                 if (b.additional_item_title_id == 5) {
                                     $(".breads").show(100);
-                                    breadsitems.append("<tr><td style='width: 10%; text-align:center'><input type='radio' name='bread' value='"+b.additional_item_id+"'  id='bread"+b.additional_item_id+"' class='largerCheckbox breadsingleitem' breadname='" + b.item_name + "' price='"+b.price+"'>  </td><td style='width: 70%'>" + b.item_name + "</td>" + "<td style='width: 20%; text-align:right'>"+ (b.price > 0 ? "£"+b.price.toFixed(2) : '')+"</td></tr>"); 
+
+
+                                    // breadsitems.append("<tr><td style='width: 10%; text-align:center'><input type='radio' name='bread' value='"+b.additional_item_id+"'  id='bread"+b.additional_item_id+"' class='largerCheckbox breadsingleitem' breadname='" + b.item_name + "' price='"+b.price+"'>  </td><td style='width: 70%'>" + b.item_name + "</td>" + "<td style='width: 20%; text-align:right'>"+ (b.price > 0 ? "£"+b.price.toFixed(2) : '')+"</td></tr>"); 
+
+                                    breadsitems.append("<tr><td style='width: 10%; text-align:center'><input type='checkbox' class='largerRadiobox breadsingleitem' id='breads"+b.additional_item_id+"' name='breads' value='"+b.additional_item_id+"' price='"+b.price+"'><input type='hidden' id='addbreadsitems"+b.additional_item_id+"' data-itemid='' name='additionalitm' data-count='' value='"+b.price+"' data-itemname='" + b.item_name + "' class='extraaitem'></td><td style='width: 70%'>" + b.item_name + "</td>" + "<td style='width: 20%; text-align:right'>"+ (b.price > 0 ? "£"+b.price.toFixed(2) : '')+"</td></tr>"); 
 
                                     
                                 }
@@ -748,14 +770,13 @@ $(document).ready(function() {
 
 
         // enable disable checkbox item start
-        $("body").delegate(".cheeseitem","click",function () {
+        $("body").delegate(".breadsingleitem","click",function () {
+            
             var id = $(this).attr('value');
-            var check = $(this).find('input[type="checkbox"]:checked').length;
-            if (check>1) {
-                    $(this).find('input[type="checkbox"]').prop('disabled', true);
-                    $(this).find('input[type="checkbox"]:checked').prop('disabled', false);
-            } else {
-                $(this).find('input[type="checkbox"]').prop('disabled', false);
+            
+            if ($(this).prop("checked")) {
+                // Uncheck all other checkboxes
+                $(".breadsingleitem").not(this).prop("checked", false);
             }
         });
 
@@ -771,37 +792,81 @@ $(document).ready(function() {
         });
         // enable disable checkbox item end
 
+        // bread item check and uncheck start
+        $("body").delegate(".cheeseitem","click",function () {
+            var id = $(this).attr('value');
+            
+            var check = $(this).find('input[type="checkbox"]:checked').length;
+            if (check>1) {
+                    $(this).find('input[type="checkbox"]').prop('disabled', true);
+                    $(this).find('input[type="checkbox"]:checked').prop('disabled', false);
+            } else {
+                $(this).find('input[type="checkbox"]').prop('disabled', false);
+            }
+        });
+        // bread item check and uncheck end
+
 
         // child checkbox item calculation start
-        $("body").delegate(".breadsingleitem","change",function () {
+        // $("body").delegate(".breadsingleitem","change",function () {
             
+        //     var id = $(this).attr('value');
+        //     var price = $(this).attr('price');
+        //     var breadname = $(this).attr('breadname');
+        //     var parent_item_price = $("#tamount").val();
+        //     var additemtamnt = $("#additemtamnt").val();
+        //     var additemtamntint = parseFloat(price);
+            
+        //     if(this.checked){
+        //         var total_add_item_amnt = parseFloat(additemtamnt) + parseFloat(price);
+        //         var parent_item_total_price = parseFloat(parent_item_price) + parseFloat(total_add_item_amnt);
+        //         $("#pShow").html("£"+ parent_item_total_price.toFixed(2));
+        //         $("#additemtamnt").val(total_add_item_amnt.toFixed(2));
+
+        //         $("#addebreaditems").val(additemtamntint);
+        //         $("#addebreaditems").attr('data-count', 1);
+        //         $("#addebreaditems").attr('data-itemid', id);
+        //         $("#addebreaditems").attr('data-itemname', breadname);
+        //         $("#addebreaditems").attr('value', price);
+        //     } else {
+        //         var total_add_item_amnt = parseFloat(additemtamnt) - parseFloat(price);
+        //         var parent_item_total_price = parseFloat(parent_item_price) + parseFloat(total_add_item_amnt);
+        //         $("#pShow").html("£"+ parent_item_total_price.toFixed(2));
+        //         $("#additemtamnt").val(total_add_item_amnt.toFixed(2));
+
+        //         $("#addebreaditems").attr('data-count', 0);
+        //         $("#addebreaditems").val(0);
+        //     }
+        // });
+
+        $("body").delegate(".breadsingleitem","click",function () {
             var id = $(this).attr('value');
             var price = $(this).attr('price');
-            var breadname = $(this).attr('breadname');
             var parent_item_price = $("#tamount").val();
             var additemtamnt = $("#additemtamnt").val();
             var additemtamntint = parseFloat(price);
             
+
             if(this.checked){
                 var total_add_item_amnt = parseFloat(additemtamnt) + parseFloat(price);
                 var parent_item_total_price = parseFloat(parent_item_price) + parseFloat(total_add_item_amnt);
                 $("#pShow").html("£"+ parent_item_total_price.toFixed(2));
                 $("#additemtamnt").val(total_add_item_amnt.toFixed(2));
 
-                $("#addebreaditems").val(additemtamntint);
-                $("#addebreaditems").attr('data-count', 1);
-                $("#addebreaditems").attr('data-itemid', id);
-                $("#addebreaditems").attr('data-itemname', breadname);
-                $("#addebreaditems").attr('value', price);
+                $("#addbreadsitems"+id).val(additemtamntint);
+                $("#addbreadsitems"+id).attr('data-count', 1);
+                $("#addbreadsitems"+id).attr('data-itemid', id);
             } else {
                 var total_add_item_amnt = parseFloat(additemtamnt) - parseFloat(price);
                 var parent_item_total_price = parseFloat(parent_item_price) + parseFloat(total_add_item_amnt);
                 $("#pShow").html("£"+ parent_item_total_price.toFixed(2));
                 $("#additemtamnt").val(total_add_item_amnt.toFixed(2));
 
-                $("#addebreaditems").attr('data-count', 0);
-                $("#addebreaditems").val(0);
+                $("#addbreadsitems"+id).val();
+                $("#addbreadsitems"+id).attr('data-count', '');
+                $("#addbreadsitems"+id).attr('data-itemid', '');
             }
+
         });
 
         $("body").delegate(".cheesesingleitem","click",function () {
@@ -887,18 +952,17 @@ $(document).ready(function() {
             });
 
             
-            // console.log( bcounts );
+            
 
             pqty = $(this).attr('pqty');
             pid = $(this).attr('pid');
             price = $(this).attr('price');
             pname = $(this).attr('pname');
             net_amount = price*pqty;
-            // net_amount = $(this).attr('net_amount');
+            
             child_item_total = $("#additemtamnt").val();
             net_amount_with_child_item = parseFloat(net_amount) + parseFloat(child_item_total);
 
-            // console.log(child_item_total, net_amount, net_amount_with_child_item);
 
             var card_product_id = $("input[name='parent_product_id[]']")
                         .map(function(){return $(this).val();}).get();
@@ -912,9 +976,6 @@ $(document).ready(function() {
                 parent_product_price = $("#parent_product_price"+pid).val();
                 parent_product_total_price = $("#parent_product_total_price"+pid).val();
 
-                // console.log(parent_product_id,parent_product_qty,parent_product_price,parent_product_total_price);
-                // console.log(pid,pqty,price,net_amount_with_child_item);
-
                 new_parent_product_qty = parseFloat(parent_product_qty) + parseFloat(pqty); 
                 new_parent_product_total_price = parseFloat(parent_product_total_price) + parseFloat(net_amount_with_child_item); 
 
@@ -927,7 +988,9 @@ $(document).ready(function() {
                 var additmshowcard = $("#childitems"+pid);
                 // additmshowcard.empty();
                 $.each(allextraaItems, function (a, b) {
-                    console.log(b);
+                    
+
+
                     chk_child_item_id = $("#child_product_id"+pid+b.id).val();
 
                     if (chk_child_item_id) {
