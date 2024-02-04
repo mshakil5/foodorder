@@ -30,6 +30,7 @@
                                 <th style="text-align: center">Name</th>
                                 <th style="text-align: center">Phone</th>
                                 <th style="text-align: center">Email</th>
+                                <th style="text-align: center">Payment Method</th>
                                 <th style="text-align: center">Total Amount</th>
                                 <th style="text-align: center">Action</th>
                             </tr>
@@ -42,6 +43,7 @@
                                         <td style="text-align: center">{{$data->name}}</td>
                                         <td style="text-align: center">{{$data->phone}}</td>
                                         <td style="text-align: center">{{$data->email}}</td>
+                                        <td style="text-align: center">{{$data->payment_type}}</td>
                                         <td style="text-align: center">{{$data->net_amount}}</td>
                                         <td style="text-align: center">
                                             {{-- <a href="{{route('admin.orderDeatils', $data->id)}}"> <i class="fa fa-eye" style="color: #2196f3;font-size:16px;"> </i></a> --}}
