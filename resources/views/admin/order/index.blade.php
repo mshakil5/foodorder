@@ -55,11 +55,17 @@
                                                 <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
                                                     <div class="modal-content">
                                                         <div class="modal-header py-2 bg-primary">
-                                                            <h4 class="modal-title fw-bold my-1 text-white" id="exampleModalLabel">Donations</h4>
+                                                            <h4 class="modal-title fw-bold my-1 text-white" id="exampleModalLabel">Order Details</h4>
                                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
                                                         <div class="modal-body">
-                                                            <div class="row px-3 mb-2">
+
+
+                                                            @include('admin.order.modal')
+
+
+
+                                                            {{-- <div class="row px-3 mb-2">
                                                                 <!-- loop -->
                                                                 <table class="table table-bordered table-hover">
                                                                     <thead>
@@ -94,7 +100,11 @@
                                                                         @endforeach
                                                                     </tbody>
                                                                 </table>
-                                                            </div> 
+                                                            </div>  --}}
+
+
+
+                                                            
                                                         </div>
                                                     </div>
                                                 </div>

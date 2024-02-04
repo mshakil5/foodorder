@@ -1,10 +1,5 @@
 
 
-@extends('layouts.master')
-
-@section('content')
-
-
 <style>
 
     .invoice-title h2, .invoice-title h3 {
@@ -29,25 +24,25 @@
 
 </style>
 
-<div class="container">
+<div class="">
     <div class="row">
-        <div class="col-xs-12">
+        <div class="col-md-12">
             <div class="invoice-title">
                 <h2>Invoice</h2><h3 class="pull-right">Order #{{$data->invoiceno}}</h3>
             </div>
             <hr>
             <div class="row">
-                <div class="col-xs-6">
+                <div class="col-md-6">
                     <address>
                     <strong>Billed To:</strong><br>
                         {{$data->name}}<br>
-                        {{$data->house}}<br>
-                        {{$data->street}}<br>
-                        {{$data->city}}<br>
+                        {{$data->house}} 
+                        {{$data->street}}
+                        {{$data->city}}
                         {{$data->postcode}}<br>
                     </address>
                 </div>
-                <div class="col-xs-6 text-right">
+                <div class="col-md-6 text-right">
                     <address>
                         <strong>Contact Info:</strong><br>
                             Mail:   {{$data->email}}<br>
@@ -56,15 +51,15 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-6">
+                <div class="col-md-6">
                     <address>
-                        <strong>Payment Method:</strong><br>
+                        <strong>Payment Method:</strong>
                         {{$data->payment_type}}<br>
                     </address>
                 </div>
-                <div class="col-xs-6 text-right">
+                <div class="col-md-6 text-right">
                     <address>
-                        <strong>Order Date:</strong><br>
+                        <strong>Order Date:</strong>
                         {{$data->date}}<br>
                     </address>
                 </div>
@@ -72,7 +67,7 @@
 
 
             <div class="row">
-                <div class="col-xs-6">
+                <div class="col-md-6">
                     <address>
                     <strong>Delivery/Collection Details:</strong><br>
                     Type: {{$data->delivery_type}}<br>
@@ -80,9 +75,9 @@
                     Time: {{$data->collection_time}}<br>
                     </address>
                 </div>
-                <div class="col-xs-6 text-right">
+                <div class="col-md-6 text-right">
                     <address>
-                    <strong>Order Time:</strong><br>
+                    <strong>Order Time:</strong>
                     Time: {{date("h:i a")}}<br>
                     </address>
                 </div>
@@ -110,8 +105,11 @@
                                     <td class="text-right"><strong>Totals</strong></td>
                                 </tr>
                             </thead>
+                            @php
+                                $orders = \App\Models\OrderDetail::with('orderadditionalitem')->where('order_id', $data->id)->get();
+                            @endphp
                             <tbody>
-                                @foreach ($orderdetails as $item)
+                                @foreach ($orders as $item)
                                 
                                     <tr>
                                         <td>{{$item->product_name}}</td>
@@ -168,17 +166,3 @@
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-@endsection

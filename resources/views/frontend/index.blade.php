@@ -329,21 +329,11 @@
                             <div class="panel-body"> 
                                 <div class="row"> 
                                     <div class="col-md-6 col-xs-6">
-                                        {{-- <b>
-                                            <div class="radio"> 
-                                                <label><input type="radio" name="payment" value="Cash" checked >Cash</label>
-                                            </div>
-                                        </b> --}}
                                         <button type="submit" class="btn btn-primary btn-lg">Pay with Paypal</button>
                                     </div> 
                                     </form>
                                     
                                     <div class="col-md-6 col-xs-6">
-                                        {{-- <b>
-                                            <div class="radio"> 
-                                                <label><input type="radio" name="payment" value="Paypal" {{ old('payment') !== null && old('payment') == "Paypal" ? 'checked' : '' }}>Paypal</label>
-                                            </div> 
-                                        </b> --}}
                                         <input type="button" id="orderCreateBtn" style="float:left;" name="orderCreateBtn" class="btn btn-primary btn-lg" value="Pay with Cash">
                                     </div> 
                                     
@@ -577,6 +567,11 @@ $(document).ready(function() {
             $('.orderBtn').attr('pname', pname);
             $('.orderBtn').attr('pqty', 1);
 
+            // $("#addebreaditems").attr("data-count","");
+            // $("#addebreaditems").attr("data-itemid","");
+            // $("#addebreaditems").attr("class","extraaitem");
+            // $("#addebreaditems").attr("itemname","");
+            // $("#addebreaditems").attr("value","");
             
             // loop start
             $.ajax({
@@ -620,9 +615,13 @@ $(document).ready(function() {
                                 if (b.additional_item_title_id == 5) {
                                     $(".breads").show(100);
                                     breadsitems.append("<tr><td style='width: 10%; text-align:center'><input type='radio' name='bread' value='"+b.additional_item_id+"'  id='bread"+b.additional_item_id+"' class='largerCheckbox breadsingleitem' breadname='" + b.item_name + "' price='"+b.price+"'>  </td><td style='width: 70%'>" + b.item_name + "</td>" + "<td style='width: 20%; text-align:right'>"+ (b.price > 0 ? "£"+b.price.toFixed(2) : '')+"</td></tr>"); 
+
+                                    
                                 }
                             });
                             // breadsitems end
+
+                            
 
                             //cheese items start
                             var cheeseitems = $(".cheeseitem tbody");
@@ -643,7 +642,7 @@ $(document).ready(function() {
                             var chutneyitems = $(".chutneyitem tbody");
                             chutneyitems.empty();
                             $.each(d.items, function (a, b) {
-                                if (b.additional_item_title_id == 4) {
+                                if (b.additional_item_title_id == 3) {
                                     $(".chutney").show(100);
                                     chutneyitems.append("<tr><td style='width: 10%; text-align:center'><input type='checkbox' class='largerCheckbox chutneysingleitem' name='chutney' value='"+b.additional_item_id+"' price='"+b.price+"'><input type='hidden' id='addechutneyitems"+b.additional_item_id+"' data-itemid='' name='additionalitm' data-count='' value='"+b.price+"' data-itemname='" + b.item_name + "' class='extraaitem'></td><td style='width: 70%'>" + b.item_name + "</td>" + "<td style='width: 20%; text-align:right'>"+ (b.price > 0 ? "£"+b.price.toFixed(2) : '')+"</td></tr>"); 
                                     
@@ -873,6 +872,8 @@ $(document).ready(function() {
             var allextraaItems = [];
             $( '.extraaitem' ).each( function() {
                 var counts = $( this ).data('count');
+
+                // console.log(counts, allextraaItems);
                 
                 if (counts>0) {
                     allextraaItems.push( {
@@ -885,8 +886,7 @@ $(document).ready(function() {
                 
             });
 
-            // var bcounts = $("#addebreaditems").data('count');
-            // var bitemid = $("#addebreaditems").data('itemid');
+            
             // console.log( bcounts );
 
             pqty = $(this).attr('pqty');
@@ -974,15 +974,13 @@ $(document).ready(function() {
             $("#additemtunitamnt").val('0');
             $("#additemtamnt").val('0');
 
-            // bread item null value 
-            
-            $('#additemModal').find('.modal-body #addebreaditems').val();
-            $('#additemModal').find('.modal-body #addebreaditems').attr('data-count', 0);
-            $('#additemModal').find('.modal-body #addebreaditems').attr('data-itemid', '');
-            $('#additemModal').find('.modal-body #addebreaditems').attr('data-itemname', '');
-            $('#additemModal').find('.modal-body #addebreaditems').attr('value', '');
 
-            // console.log( allextraaItems );
+            
+            // $("#addebreaditems").removeAttr("data-count");
+            // $("#addebreaditems").removeAttr("data-itemid");
+            // $("#addebreaditems").removeAttr("class");
+            // $("#addebreaditems").removeAttr("itemname");
+            // $("#addebreaditems").removeAttr("value");
 
             $('#additemModal').modal('hide');
             var addtocardurl = "{{URL::to('/add-to-session-card-item')}}";
@@ -996,12 +994,14 @@ $(document).ready(function() {
 
                     }else if(d.status == 300){
                         
+                        
                     }
                 },
                 error: function (d) {
                     console.log(d);
                 }
             });
+
 
 
 

@@ -150,7 +150,7 @@
                                         <td class="no-line"></td>
                                         <td class="no-line"></td>
                                         <td class="no-line"></td>
-                                        <td class="thick-line text-center"><strong>Discout Amount</strong></td>
+                                        <td class="thick-line text-center"><strong>Discount Amount</strong></td>
                                         <td class="thick-line text-right">{{$array['discount']}}</td>
                                     </tr>
                                     <tr>
