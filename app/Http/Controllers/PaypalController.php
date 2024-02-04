@@ -114,9 +114,6 @@ class PaypalController extends Controller
         session(['city' => $request->city]);
         session(['postcode' => $request->postcode]);
         
-
-        
-
         
         session(['alldata' => $request->all()]);
         session(['net_total_value' => $request->net_total_value]);
@@ -257,10 +254,15 @@ class PaypalController extends Controller
                         $array['name'] = $request->name;
                         $array['email'] = $request->email;
                         $array['phone'] = $request->phone;
+                        $array['house'] = $request->house;
+                        $array['city'] = $request->city;
+                        $array['street'] = $request->street;
+                        $array['postcode'] = $request->postcode;
                         $array['invoiceno'] = $order->invoiceno;
                         $array['payment_type'] = $order->payment_type;
                         $array['delivery_type'] = $order->delivery_type;
                         $array['collection_time'] = $order->collection_time;
+                        $array['collection_date'] = $order->collection_date;
                         $array['orderDtls'] = $orderDtls;
                         $array['date'] = $order->date;
                         $array['net_amount'] = $order->net_amount;
@@ -280,7 +282,7 @@ class PaypalController extends Controller
             $request->session()->forget('alldata');
 
             return redirect()
-                ->route('homepage')
+                ->route('confirmorder', $order->id)
                 ->with('success', 'Thank you for this order.');
         } else {
             return redirect()

@@ -244,12 +244,10 @@ class OrderController extends Controller
     public function orderConfirmation($id)
     {
         
-        $data = Order::with('orderdetail')->where('id', $id)->first();
+        $data = Order::where('id', $id)->first();
 
         $orderdetails = OrderDetail::with('orderadditionalitem')->where('order_id', $id)->get();
         
-
-        // $products = Product::with('assignproduct')->get();
         return view('frontend.orderconfirmation', compact('data','orderdetails'));
     }
 

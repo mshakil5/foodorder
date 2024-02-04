@@ -1088,13 +1088,16 @@ $(document).ready(function() {
                 data: {collection_date,collection_time,name,email,phone,parent_product_id,parent_product_qty,parent_product_price,parent_product_total_price,parent_product_name,delivery_type,payment_type,child_product_id,child_product_qty,child_product_total_price,related_parent_id,child_product_name,house,street,city,postcode},
 
                 success: function (d) {
+                    console.log(d);
                     if (d.status == 303) {
                         $("#loading").hide();
                         $(".ermsg").html(d.message);
                     }else if(d.status == 300){
                         $("#loading").hide();
                         $(".ermsg").html(d.message);
-                        window.setTimeout(function(){location.reload()},2000)
+                        // window.setTimeout(function(){location.reload()},2000)
+                        window.open(`https://www.localhost/laravel/foodorder/order-confirmation/${d.id}`);
+                        
                     }
                 },
                 error: function (d) {
