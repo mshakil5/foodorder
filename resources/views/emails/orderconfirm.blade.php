@@ -151,7 +151,7 @@
                                         <td class="no-line"></td>
                                         <td class="no-line"></td>
                                         <td class="thick-line text-center"><strong>Discout Amount</strong></td>
-                                        <td class="thick-line text-right"></td>
+                                        <td class="thick-line text-right">{{$array['discount']}}</td>
                                     </tr>
                                     <tr>
                                         <td class="no-line"></td>
@@ -167,7 +167,7 @@
                                         <td class="no-line"></td>
                                         <td class="no-line"></td>
                                         <td class="no-line text-center"><strong>Total</strong></td>
-                                        <td class="no-line text-right">{{$array['net_amount']}}</td>
+                                        <td class="no-line text-right">{{$array['net_amount'] - $array['discount']}}</td>
                                     </tr>
                                 </tbody>
                             </table>

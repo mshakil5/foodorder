@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\AdditionalItemTitle;
+use App\Models\Coupon;
 use Illuminate\Http\Request;
 use DB;
 use App\Models\Location;
@@ -152,6 +153,23 @@ class FrontendController extends Controller
             return response()->json(['status'=> 300,'data'=>$data,'message'=>$message]);
         } else {
             $message ="<b style='color: red'>This location is out of our service.</b>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+        }
+        
+
+    }
+
+    public function checkCouponCode(Request $request)
+    {
+
+
+        $data = Coupon::where('name', 'like', '%'.$request->coupon.'%')->first();
+
+        if (isset($data) ) {
+            $message ="<b style='color: green'>Available</b>";
+            return response()->json(['status'=> 300,'percentage'=>$data->percentage,'message'=>$message]);
+        } else {
+            $message ="<b style='color: red'>No Discount available in this coupon code.</b>";
             return response()->json(['status'=> 303,'message'=>$message]);
         }
         

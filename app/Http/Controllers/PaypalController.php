@@ -197,6 +197,7 @@ class PaypalController extends Controller
             $order->street = $alldata['street'];
             $order->postcode = $alldata['postcode'];
             $order->delivery_type = $alldata['collection'];
+            $order->discount = $alldata['discount_amount'];
             $order->payment_type = "Paypal";
             if($order->save()){
                 $net_amount = 0;
@@ -234,7 +235,9 @@ class PaypalController extends Controller
                     $orderDtl->save();
                     $net_amount = $net_amount + $orderDtl->total_price;
                 }
-            $order->net_amount = $net_amount;
+                
+            $order->total_amount = $net_amount;
+            $order->net_amount = $net_amount - $alldata['discount_amount'];
 
                 if ($order->save()) {
 

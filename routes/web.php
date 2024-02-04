@@ -38,6 +38,7 @@ Route::post('get-additional-product', [FrontendController::class, 'getAdditional
 Route::get('/clear-session', [FrontendController::class, 'clearAllSessionData'])->name('clearSessionData');
 
 Route::post('/check-post-code', [FrontendController::class, 'checkPostCode']);
+Route::post('/check-coupon-code', [FrontendController::class, 'checkCouponCode']);
 
 //search
 Route::post('/getcatproduct', [FrontendController::class, 'searchproduct']);

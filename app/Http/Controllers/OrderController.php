@@ -105,6 +105,7 @@ class OrderController extends Controller
         $order->street = $request->street;
         $order->postcode = $request->postcode;
         $order->delivery_type = $request->delivery_type;
+        $order->discount = $request->discount_amount;
         $order->payment_type = "Cash";
         if($order->save()){
 
@@ -148,7 +149,8 @@ class OrderController extends Controller
                 
             }
             
-        $order->net_amount = $net_amount;
+        $order->total_amount = $net_amount;
+        $order->net_amount = $net_amount - $request->discount_amount;
         if ($order->save()) {
 
             $keysToClear = ['add_to_card_item'];
@@ -177,6 +179,7 @@ class OrderController extends Controller
                     $array['collection_date'] = $order->collection_date;
                     $array['orderDtls'] = $orderDtls;
                     $array['date'] = $order->date;
+                    $array['discount'] = $order->discount;
                     $array['net_amount'] = $order->net_amount;
                     $array['subject'] = "Order Booking Confirmation";
                     $array['message'] = $msg;

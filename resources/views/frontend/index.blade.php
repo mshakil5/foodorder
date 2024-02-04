@@ -211,11 +211,51 @@
                                                 <th style="text-align: center; border:0px"><div id="childitemsxx"></div></th>
                                                 <th style="text-align: center; border:0px"></th>
                                                 <th style="text-align: center; border:0px"></th>
+                                                <th style="text-align: center; border:0px">Grand Amount</th>
+                                                <th style="text-align: center; border:0px">
+                                                    <div class="grand_total_amount" id="grand_total_amount"></div>
+                                                    <input type="hidden" name="grand_total_value" id="grand_total_value">
+                                                    
+                                                </th>
+                                            </tr>
+
+                                            <tr>
+                                                <th style="text-align: center; border:0px"><div id="childitemsxx"></div></th>
+                                                <th style="text-align: center; border:0px"></th>
+                                                <th style="text-align: center; border:0px"></th>
+                                                <th style="text-align: center; border:0px">Discount</th>
+                                                <th style="text-align: center; border:0px"><div class="discount_div" id="discount_div">0.00</div>
+                                                    <input type="hidden" name="discount_percent" id="discount_percent" value="0">
+                                                </th>
+                                            </tr>
+
+                                            <tr>
+                                                <th style="text-align: center; border:0px"><div id="childitemsxx"></div></th>
+                                                <th style="text-align: center; border:0px"></th>
+                                                <th style="text-align: center; border:0px"></th>
                                                 <th style="text-align: center; border:0px">Total Amount</th>
-                                                <th style="text-align: center; border:0px"><div class="net_total_amount" id="net_total_amount"></div><input type="hidden" name="net_total_value" id="net_total_value"></th>
+                                                <th style="text-align: center; border:0px"><div class="net_total_amount" id="net_total_amount"></div>
+                                                    <input type="hidden" name="discount_amount" id="discount_amount" value="0">
+                                                    <input type="hidden" name="net_total_value" id="net_total_value">
+                                                </th>
                                             </tr>
                                         </tfoot>
                                     </table>
+
+                                    
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-8 col-xs-12">
+                                        <div class="form-group"> 
+                                            <label for="coupon">Coupon code:</label> 
+                                            <input type="text" class="form-control" id="coupon" name="coupon"> 
+                                        </div>
+                                        <div class="couponerrmsg"></div>
+                                    </div>
+                                    <div class="col-md-42"></div>
+
+                                    
+
+
                                 </div>
                             </div>
                         </div>
@@ -365,12 +405,31 @@
 
         // net total calculation
         function net_total(){
+            
+            var discount_percent = $("#discount_percent").val();
             var totalamount=0;
             $('.net_amount_with_child_item').each(function(){
                 totalamount += ($(this).val()-0);
             })
-            $("#net_total_value").val(totalamount.toFixed(2));
-            $("#net_total_amount").html(totalamount.toFixed(2));
+            if (discount_percent>0) {
+                var disAmount = totalamount * discount_percent/100;
+                var net_amnt = totalamount - disAmount;
+                $("#discount_amount").val(disAmount.toFixed(2));
+                $("#discount_div").html(disAmount.toFixed(2));
+                $("#net_total_value").val(net_amnt.toFixed(2));
+                $("#net_total_amount").html(net_amnt.toFixed(2));
+
+                $("#grand_total_value").val(totalamount.toFixed(2));
+                $("#grand_total_amount").html(totalamount.toFixed(2));
+
+
+            } else {
+                
+                $("#grand_total_value").val(totalamount.toFixed(2));
+                $("#grand_total_amount").html(totalamount.toFixed(2));
+                $("#net_total_value").val(totalamount.toFixed(2));
+                $("#net_total_amount").html(totalamount.toFixed(2));
+            }
         }
         // net total calculation
 </script>
@@ -953,12 +1012,31 @@ $(document).ready(function() {
 
         // net total calculation
         function net_total(){
+            
+            var discount_percent = $("#discount_percent").val();
             var totalamount=0;
             $('.net_amount_with_child_item').each(function(){
                 totalamount += ($(this).val()-0);
             })
-            $("#net_total_value").val(totalamount.toFixed(2));
-            $("#net_total_amount").html(totalamount.toFixed(2));
+            if (discount_percent>0) {
+                var disAmount = totalamount * discount_percent/100;
+                var net_amnt = totalamount - disAmount;
+                $("#discount_amount").val(disAmount.toFixed(2));
+                $("#discount_div").html(disAmount.toFixed(2));
+                $("#net_total_value").val(net_amnt.toFixed(2));
+                $("#net_total_amount").html(net_amnt.toFixed(2));
+
+                $("#grand_total_value").val(totalamount.toFixed(2));
+                $("#grand_total_amount").html(totalamount.toFixed(2));
+
+
+            } else {
+                
+                $("#grand_total_value").val(totalamount.toFixed(2));
+                $("#grand_total_amount").html(totalamount.toFixed(2));
+                $("#net_total_value").val(totalamount.toFixed(2));
+                $("#net_total_amount").html(totalamount.toFixed(2));
+            }
         }
         // net total calculation
 
@@ -1042,6 +1120,8 @@ $(document).ready(function() {
             var street = $("#street").val();
             var city = $("#city").val();
             var postcode = $("#postcode").val();
+            var discount_amount = $("#discount_amount").val();
+            var discount_percent = $("#discount_percent").val();
             var delivery_type = $('input[name="collection"]:checked').val();
             var payment_type = $('input[name="payment"]:checked').val();
 
@@ -1085,7 +1165,7 @@ $(document).ready(function() {
             $.ajax({
                 url: orderurl,
                 method: "POST",
-                data: {collection_date,collection_time,name,email,phone,parent_product_id,parent_product_qty,parent_product_price,parent_product_total_price,parent_product_name,delivery_type,payment_type,child_product_id,child_product_qty,child_product_total_price,related_parent_id,child_product_name,house,street,city,postcode},
+                data: {collection_date,collection_time,name,email,phone,parent_product_id,parent_product_qty,parent_product_price,parent_product_total_price,parent_product_name,delivery_type,payment_type,child_product_id,child_product_qty,child_product_total_price,related_parent_id,child_product_name,house,street,city,postcode,discount_percent,discount_amount},
 
                 success: function (d) {
                     console.log(d);
@@ -1149,6 +1229,42 @@ $(document).ready(function() {
             
         });
         //check post code end 
+
+
+          //check coupon code start 
+      var couponcodeurl = "{{URL::to('/check-coupon-code')}}";
+        $("#coupon").keyup(function(){
+            var length =  $(this).val().length;
+
+            var coupon = $("#coupon").val();
+
+            if (length > 2) {
+                $.ajax({
+                    url: couponcodeurl,
+                    method: "POST",
+                    data: {coupon},
+
+                    success: function (d) {
+                        console.log(d);
+                        if (d.status == 303) {
+                            $(".couponerrmsg").html(d.message);
+
+                        }else if(d.status == 300){
+                            $(".couponerrmsg").html(d.message);
+                            $("#discount_percent").val(d.percentage);
+                            net_total();
+                        }
+                    },
+                    error: function (d) {
+                        console.log(d);
+                    }
+                }); 
+            }else{
+                $(".couponerrmsg").html("");
+            }
+            
+        });
+        //check coupon code end 
         
 
     });
