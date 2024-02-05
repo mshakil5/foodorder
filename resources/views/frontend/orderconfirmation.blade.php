@@ -117,7 +117,7 @@
                                         <td>{{$item->product_name}}</td>
                                         <td class="text-center">
                                             @foreach ($item->orderadditionalitem as $additms)
-                                                {{$additms->item_name}},
+                                            {{$additms->item_name}},Qty: {{$additms->quantity}} <br>
                                             @endforeach
                                         </td>
                                         <td class="text-center"></td>
@@ -133,7 +133,7 @@
                                     <td class="thick-line"></td>
                                     <td class="thick-line"></td>
                                     <td class="thick-line"></td>
-                                    <td class="thick-line text-center"><strong>Subtotal</strong></td>
+                                    <td class="thick-line text-right"><strong>Subtotal:</strong></td>
                                     <td class="thick-line text-right">{{$data->net_amount}}</td>
                                 </tr>
                                 <tr>
@@ -141,7 +141,7 @@
                                     <td class="no-line"></td>
                                     <td class="no-line"></td>
                                     <td class="no-line"></td>
-                                    <td class="thick-line text-center"><strong>Discount Amount</strong></td>
+                                    <td class="thick-line text-right"><strong>Discount Amount:</strong></td>
                                     <td class="thick-line text-right">{{$data->discount}}</td>
                                 </tr>
                                 <tr>
@@ -149,16 +149,16 @@
                                     <td class="no-line"></td>
                                     <td class="no-line"></td>
                                     <td class="no-line"></td>
-                                    <td class="no-line text-center"><strong>Delivery Charge</strong></td>
-                                    <td class="no-line text-right"></td>
+                                    <td class="thick-line text-right"><strong>Delivery Charge:</strong></td>
+                                    <td class="thick-line text-right"></td>
                                 </tr>
                                 <tr>
                                     <td class="no-line"></td>
                                     <td class="no-line"></td>
                                     <td class="no-line"></td>
                                     <td class="no-line"></td>
-                                    <td class="no-line text-center"><strong>Total</strong></td>
-                                    <td class="no-line text-right">{{$data->net_amount - $data->discount}}</td>
+                                    <td class="thick-line text-right"><strong>Total:</strong></td>
+                                    <td class="thick-line text-right">{{$data->net_amount - $data->discount}}</td>
                                 </tr>
                             </tbody>
                         </table>

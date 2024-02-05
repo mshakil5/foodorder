@@ -242,7 +242,7 @@ class PaypalController extends Controller
                 if ($order->save()) {
 
                     // clear session items
-                    $keysToClear = ['add_to_card_item'];
+                    $keysToClear = ['cart'];
                     session()->forget($keysToClear);
 
 
@@ -251,8 +251,9 @@ class PaypalController extends Controller
                     $contactmail = $request->email;
                     $ccEmails = "kmushakil93@gmail.com";
                     $msg = "Thank you for your order.";
+
                     $orderDtls = OrderDetail::with('orderadditionalitem')->where('order_id', $order->id)->get();
-                
+                    
                     if (isset($msg)) {
                         $array['name'] = $request->name;
                         $array['email'] = $request->email;
@@ -277,17 +278,20 @@ class PaypalController extends Controller
                         Mail::to($contactmail)
                             ->cc($ccEmails)
                             ->send(new OrderConfirmMail($array));
-            
-                    }
+
+                            // this is use for paypal function
+                        $request->session()->forget('alldata');
+
+                        return redirect()
+                            ->route('confirmorder', $order->id)
+                            ->with('success', 'Thank you for this order.');
+                        
+                                }
                 }
             }
             // data store end
             
-            $request->session()->forget('alldata');
-
-            return redirect()
-                ->route('confirmorder', $order->id)
-                ->with('success', 'Thank you for this order.');
+            
         } else {
             return redirect()
                 ->route('homepage')

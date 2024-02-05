@@ -1013,7 +1013,7 @@ $(document).ready(function() {
                         
                     } else {
 
-                        additmshowcard.append('<div><input type="hidden" id="related_parent_id" name="related_parent_id[]" value="'+pid+'"><input type="hidden" id="child_product_id'+pid+b.id+'" name="child_product_id[]" value="'+b.id+'"><input type="hidden" id="child_product_qty'+pid+b.id+'" name="child_product_qty[]" value="'+b.count+'"><input type="hidden" id="child_product_name" name="child_product_name[]" value="'+b.itemname+'"><input type="hidden" id="child_product_total_price'+pid+b.id+'" name="child_product_total_price[]" value="'+b.price+'">'+b.itemname+': <span>price:'+b.price/b.count+'</span> X <span id="child_product_total_qty_div'+pid+b.id+'">qty:'+b.count+'</span></div>');
+                        additmshowcard.append('<div><input type="hidden" id="related_parent_id" name="related_parent_id[]" value="'+pid+'"><input type="hidden" id="child_product_id'+pid+b.id+'" name="child_product_id[]" value="'+b.id+'"><input type="hidden" id="child_product_qty'+pid+b.id+'" name="child_product_qty[]" value="'+b.count+'"><input type="hidden" id="child_product_name" name="child_product_name[]" value="'+b.itemname+'"><input type="hidden" id="child_product_total_price'+pid+b.id+'" name="child_product_total_price[]" value="'+b.price+'">'+b.itemname+': <span>Price:'+b.price/b.count+'</span> X <span id="child_product_total_qty_div'+pid+b.id+'">Qty:'+b.count+'</span></div>');
                     }
 
                     
@@ -1032,7 +1032,7 @@ $(document).ready(function() {
             additmshowcard.empty();
             $.each(allextraaItems, function (a, b) {
 
-                additmshowcard.append('<div><input type="hidden" id="related_parent_id" name="related_parent_id[]" value="'+pid+'"><input type="hidden" id="child_product_id'+pid+b.id+'" name="child_product_id[]" value="'+b.id+'"><input type="hidden" id="child_product_qty'+pid+b.id+'" name="child_product_qty[]" value="'+b.count+'"><input type="hidden" id="child_product_name" name="child_product_name[]" value="'+b.itemname+'"><input type="hidden" id="child_product_total_price'+pid+b.id+'" name="child_product_total_price[]" class="child_product_total_price" value="'+b.price+'">'+b.itemname+': <span>price:'+b.price/b.count+'</span> X <span id="child_product_total_qty_div'+pid+b.id+'">qty:'+b.count+'</span></div>'); 
+                additmshowcard.append('<div><input type="hidden" id="related_parent_id" name="related_parent_id[]" value="'+pid+'"><input type="hidden" id="child_product_id'+pid+b.id+'" name="child_product_id[]" value="'+b.id+'"><input type="hidden" id="child_product_qty'+pid+b.id+'" name="child_product_qty[]" value="'+b.count+'"><input type="hidden" id="child_product_name" name="child_product_name[]" value="'+b.itemname+'"><input type="hidden" id="child_product_total_price'+pid+b.id+'" name="child_product_total_price[]" class="child_product_total_price" value="'+b.price+'">'+b.itemname+': <span>Price:'+b.price/b.count+'</span> X <span id="child_product_total_qty_div'+pid+b.id+'">Qty:'+b.count+'</span></div>'); 
 
             });
             // console.log(additmshowcard);
