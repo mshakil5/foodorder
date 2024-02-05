@@ -114,8 +114,8 @@
                                         <td><strong>Item</strong></td>
                                         <td class="text-center"><strong>Additional Item</strong></td>
                                         <td class="text-center"><strong>Note</strong></td>
-                                        <td class="text-center"><strong>Price</strong></td>
                                         <td class="text-center"><strong>Quantity</strong></td>
+                                        <td class="text-center"><strong>Price</strong></td>
                                         <td class="text-right"><strong>Totals</strong></td>
                                     </tr>
                                 </thead>
@@ -124,14 +124,14 @@
                                     
                                         <tr>
                                             <td>{{$item->product_name}}</td>
-                                            <td class="text-center">
+                                            <td class="text-left">
                                                 @foreach ($item->orderadditionalitem as $additms)
                                                     {{$additms->item_name}},Qty: {{$additms->quantity}} <br>
                                                 @endforeach
                                             </td>
                                             <td class="text-center"></td>
-                                            <td class="text-center">{{$item->price_per_unit}}</td>
                                             <td class="text-center">{{$item->quantity}}</td>
+                                            <td class="text-center">{{$item->price_per_unit}}</td>
                                             <td class="text-right">{{$item->total_price}}</td>
                                         </tr> 
 
