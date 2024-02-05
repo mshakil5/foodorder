@@ -8,6 +8,7 @@ use App\Models\AdditionalItem;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Mail\OrderConfirmMail;
+use App\Models\ContactMail;
 use Mail;
 use Illuminate\Http\RedirectResponse;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
@@ -247,21 +248,21 @@ class PaypalController extends Controller
 
 
 
-                    $adminmail = "kmushakil71@gmail.com";
-                    $contactmail = $request->email;
-                    $ccEmails = "kmushakil93@gmail.com";
+                    $adminmail = ContactMail::where('id', 1)->first()->email;
+                    $contactmail = $alldata['email']; 
+                    $ccEmails = $adminmail;
                     $msg = "Thank you for your order.";
 
                     $orderDtls = OrderDetail::with('orderadditionalitem')->where('order_id', $order->id)->get();
                     
                     if (isset($msg)) {
-                        $array['name'] = $request->name;
-                        $array['email'] = $request->email;
-                        $array['phone'] = $request->phone;
-                        $array['house'] = $request->house;
-                        $array['city'] = $request->city;
-                        $array['street'] = $request->street;
-                        $array['postcode'] = $request->postcode;
+                        $array['name'] = $alldata['name'];
+                        $array['email'] = $alldata['email']; 
+                        $array['phone'] = $alldata['phone']; 
+                        $array['house'] = $alldata['house']; 
+                        $array['city'] = $alldata['city']; 
+                        $array['street'] =  $alldata['street'];
+                        $array['postcode'] = $alldata['postcode'];
                         $array['invoiceno'] = $order->invoiceno;
                         $array['payment_type'] = $order->payment_type;
                         $array['delivery_type'] = $order->delivery_type;

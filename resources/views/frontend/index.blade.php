@@ -85,6 +85,11 @@
         <img src="{{ asset('loader.gif') }}" id="loading-image" alt="Loading..." style="height: 225px;" />
     </div>
 
+    @php
+        $minimum_sale = 10;
+        $delivery_charge = 2;
+    @endphp
+
 <div class="container mt-5">
     <div class="row">
     
@@ -202,9 +207,7 @@
                                         </tbody>
                                         <tfoot id="cardfooter">
                                             <tr>
-                                                <th style="padding:0px;text-align: center; border:0px"><div id="childitemsxx"></div></th>
-                                                <th style="padding:0px;text-align: center; border:0px"></th>
-                                                <th style="padding:0px;text-align: right; border:0px" colspan="2">Grand Amount:</th>
+                                                <th style="padding:0px 15px;text-align: left; border:0px" colspan="4">Grand Amount:</th>
                                                 <th style="padding:0px;text-align: center; border:0px">
                                                     <div class="grand_total_amount" id="grand_total_amount"></div>
                                                     <input type="hidden" name="grand_total_value" id="grand_total_value">
@@ -213,18 +216,14 @@
                                             </tr>
 
                                             <tr>
-                                                <th style="padding:0px;text-align: center; border:0px"><div id="childitemsxx"></div></th>
-                                                <th style="padding:0px;text-align: center; border:0px"></th>
-                                                <th style="padding:0px;text-align: right; border:0px" colspan="2">Discount:</th>
+                                                <th style="padding:0px 15px;text-align: left; border:0px" colspan="4">Discount:</th>
                                                 <th style="padding:0px;text-align: center; border:0px"><div class="discount_div" id="discount_div">0.00</div>
                                                     <input type="hidden" name="discount_percent" id="discount_percent" value="0">
                                                 </th>
                                             </tr>
 
                                             <tr>
-                                                <th style="padding:0px;text-align: center; border:0px"><div id="childitemsxx"></div></th>
-                                                <th style="padding:0px;text-align: center; border:0px"></th>
-                                                <th style="padding:0px;text-align: right; border:0px" colspan="2">Total Amount:</th>
+                                                <th style="padding:0px 15px;text-align: left; border:0px;" colspan="4">Total Amount:</th>
                                                 <th style="padding:0px;text-align: center; border:0px"><div class="net_total_amount" id="net_total_amount"></div>
                                                     <input type="hidden" name="discount_amount" id="discount_amount" value="0">
                                                     <input type="hidden" name="net_total_value" id="net_total_value">

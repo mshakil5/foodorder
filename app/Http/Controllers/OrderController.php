@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\OrderConfirmMail;
 use App\Models\AdditionalItem;
+use App\Models\ContactMail;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\OrderAdditionalItem;
@@ -157,9 +158,9 @@ class OrderController extends Controller
             session()->forget($keysToClear);
 
 
-                $adminmail = "kmushakil71@gmail.com";
+                $adminmail = ContactMail::where('id', 1)->first()->email;
                 $contactmail = $request->email;
-                $ccEmails = "kmushakil93@gmail.com";
+                $ccEmails = $adminmail;
                 $msg = "Thank you for your order.";
 
                 $orderDtls = OrderDetail::with('orderadditionalitem')->where('order_id', $order->id)->get();
