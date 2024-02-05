@@ -237,7 +237,7 @@
                                     <div class="col-md-2"></div>
                                     <div class="col-md-8 col-xs-12">
                                         <div class="form-group"> 
-                                            <label for="coupon">Coupon code:</label> 
+                                            <label for="coupon">Use Your Coupon</label> 
                                             <input type="text" class="form-control" id="coupon" name="coupon"> 
                                         </div>
                                         <div class="couponerrmsg"></div>
