@@ -8,7 +8,62 @@
 
     </head>
 <body>
-    
+     <style>
+        * {
+                padding: 0;
+                margin: 0;
+                box-sizing: border-box;
+                position: relative;
+            }
+            
+                @font-face {
+                font-family: "Roboto-Regular";
+                src: url(../fonts/Roboto-Regular.ttf);
+                }
+                @font-face {
+                font-family: "Roboto-Bold";
+                src: url(../fonts/Roboto-Bold.ttf);
+                }
+                @font-face {
+                font-family: "Roboto-Light";
+                src: url(../fonts/Roboto-Light.ttf);
+                }
+                @font-face {
+                font-family: "DarkerGrotesque-regular";
+                src: url(../fonts/DarkerGrotesque-Regular.ttf);
+                }
+                @font-face {
+                font-family: "DarkerGrotesque-medium";
+                src: url(../fonts/DarkerGrotesque-Medium.ttf);
+                }
+                @font-face {
+                font-family: "DarkerGrotesque-bold";
+                src: url(../fonts/DarkerGrotesque-Bold.ttf);
+                }
+                @font-face {
+                font-family: "DarkerGrotesque-black";
+                src: url(../fonts/DarkerGrotesque-Black.ttf);
+                }
+                @font-face {
+                font-family: "DarkerGrotesque-Light";
+                src: url(../fonts/DarkerGrotesque-Light.ttf);
+                }
+                @font-face {
+                font-family: "DarkerGrotesque-semibold";
+                src: url(../fonts/DarkerGrotesque-SemiBold.ttf);
+                }
+
+                a {
+                text-decoration: none;
+                }
+
+                body {
+                    font-family: "darkerGrotesque-semibold";
+                    overflow-x:hidden;
+                    color: #74787E;
+                    }
+
+     </style>
 
 
     <div class="container">
@@ -19,50 +74,38 @@
                     <h3 class="pull-right">Order #{{$array['invoiceno']}}</h3>
                 </div>
                 <hr>
-                <div class="row">
+                <div class="row" style="color: #74787E">
                     <div class="col-xs-6">
-                        <address>
                         <strong>Billed To:</strong><br>
                             {{$array['name']}}<br>
                             {{$array['house']}}  {{$array['street']}} {{$array['city']}} {{$array['postcode']}}<br>
-                        </address>
                     </div>
-                    <div class="col-xs-6 text-right">
-                        <address>
+                    <div class="col-xs-6 text-right" style="text-decoration: none;">
                             <strong>Contact Info:</strong><br>
-                                Mail:   {{$array['email']}}<br>
+                                Mail:   <span style="text-decoration: none;">{{$array['email']}}</span><br>
                                 Mobile:   {{$array['phone']}}<br>
-                        </address>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-xs-6">
-                        <address>
+                <div class="row" style="color: #74787E">
+                    <div class="col-xs-6" style="color: #74787E">
                             <strong>Payment Method:</strong> {{$array['payment_type']}}<br>
-                        </address>
                     </div>
-                    <div class="col-xs-6 text-right">
-                        <address>
+                    <div class="col-xs-6 text-right" style="color: #74787E">
                             <strong>Order Date:</strong> {{$array['date']}}<br>
-                        </address>
+                    </div>
+                    
+                    <div class="col-xs-6 text-right">
+                        <strong>Order Time:</strong>  {{date("h:i a")}}<br>
                     </div>
                 </div>
 
 
-                <div class="row">
+                <div class="row" style="color: #74787E">
                     <div class="col-xs-6 text-right">
-                        <address>
                         <strong>Delivery/Collection Details:</strong><br>
                         Type: {{$array['delivery_type']}}<br>
                         Date: {{$array['collection_date']}}<br>
                         Time: {{$array['collection_time']}}<br>
-                        </address>
-                    </div>
-                    <div class="col-xs-6 text-right">
-                        <address>
-                        <strong>Order Time:</strong><br>
-                        Time: {{date("h:i a")}}<br>
-                        </address>
                     </div>
                 </div>
 
@@ -72,7 +115,7 @@
         <div class="row">
             <div class="col-md-12">
                 
-                <h3 class="panel-title"><strong>Order summary</strong></h3>
+                <h3 class="panel-title"><strong>Order summary:</strong></h3>
             </div>
             <div class="col-md-12">
 
