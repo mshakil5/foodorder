@@ -128,7 +128,7 @@
                                 <td class="text-center"><strong>Note</strong></td>
                                 <td class="text-center"><strong>Quantity</strong></td>
                                 <td class="text-center"><strong>Price</strong></td>
-                                <td class="text-right"><strong>Totals</strong></td>
+                                <td class="text-right" style="text-align: right"><strong>Totals</strong></td>
                             </tr>
                         </thead>
                         <tbody>
@@ -144,7 +144,7 @@
                                     <td class="text-center"></td>
                                     <td class="text-center">{{$item->quantity}}</td>
                                     <td class="text-center">{{$item->price_per_unit}}</td>
-                                    <td class="text-right">{{$item->total_price}}</td>
+                                    <td class="text-right" style="text-align: right">{{$item->total_price}}</td>
                                 </tr> 
 
                             @endforeach
@@ -155,7 +155,7 @@
                                 <td class="thick-line"></td>
                                 <td class="thick-line"></td>
                                 <td class="thick-line text-left"><strong>Subtotal:</strong></td>
-                                <td class="thick-line text-right">{{$array['net_amount']}}</td>
+                                <td class="thick-line text-right" style="text-align: right">{{ number_format($array['net_amount'], 2) }}</td>
                             </tr>
 
                             @if ($array['discount'] > 0)
@@ -165,7 +165,7 @@
                                 <td class="no-line"></td>
                                 <td class="no-line"></td>
                                 <td class="thick-line text-left"><strong>Discount:</strong></td>
-                                <td class="thick-line text-right">{{$array['discount']}}</td>
+                                <td class="thick-line text-right" style="text-align: right">{{ number_format($array['discount'], 2) }}</td>
                             </tr>
                             @endif
                             
@@ -180,6 +180,9 @@
                                 <td class="thick-line text-right"></td>
                             </tr> --}}
 
+                            @php
+                                $namnt = $array['net_amount'] - $array['discount'];
+                            @endphp
 
                             <tr>
                                 <td class="no-line"></td>
@@ -187,7 +190,7 @@
                                 <td class="no-line"></td>
                                 <td class="no-line"></td>
                                 <td class="thick-line text-left"><strong>Total:</strong></td>
-                                <td class="thick-line text-right">{{$array['net_amount'] - $array['discount']}}</td>
+                                <td class="thick-line text-right" style="text-align: right">{{number_format($namnt, 2)}}</td>
                             </tr>
                         </tbody>
                     </table>
