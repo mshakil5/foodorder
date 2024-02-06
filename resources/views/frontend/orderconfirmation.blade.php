@@ -141,7 +141,7 @@
                                     <td class="no-line"></td>
                                     <td class="no-line"></td>
                                     <td class="no-line"></td>
-                                    <td class="thick-line text-right"><strong>Discount Amount:</strong></td>
+                                    <td class="thick-line text-right"><strong>Discount:</strong></td>
                                     <td class="thick-line text-right">{{$data->discount}}</td>
                                 </tr>
                                 <tr>

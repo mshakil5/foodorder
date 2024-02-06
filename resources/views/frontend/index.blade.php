@@ -207,7 +207,7 @@
                                         </tbody>
                                         <tfoot id="cardfooter">
                                             <tr>
-                                                <th style="padding:0px 15px;text-align: left; border:0px" colspan="4">Grand Amount:</th>
+                                                <th style="padding:0px 15px;text-align: left; border:0px" colspan="4">Subtotal:</th>
                                                 <th style="padding:0px;text-align: center; border:0px">
                                                     <div class="grand_total_amount" id="grand_total_amount"></div>
                                                     <input type="hidden" name="grand_total_value" id="grand_total_value">
@@ -215,7 +215,7 @@
                                                 </th>
                                             </tr>
 
-                                            <tr>
+                                            <tr id="dis_div">
                                                 <th style="padding:0px 15px;text-align: left; border:0px" colspan="4">Discount:</th>
                                                 <th style="padding:0px;text-align: center; border:0px"><div class="discount_div" id="discount_div">0.00</div>
                                                     <input type="hidden" name="discount_percent" id="discount_percent" value="0">
@@ -223,7 +223,7 @@
                                             </tr>
 
                                             <tr>
-                                                <th style="padding:0px 15px;text-align: left; border:0px;" colspan="4">Total Amount:</th>
+                                                <th style="padding:0px 15px;text-align: left; border:0px;" colspan="4">Total:</th>
                                                 <th style="padding:0px;text-align: center; border:0px"><div class="net_total_amount" id="net_total_amount"></div>
                                                     <input type="hidden" name="discount_amount" id="discount_amount" value="0">
                                                     <input type="hidden" name="net_total_value" id="net_total_value">
@@ -265,16 +265,20 @@
                                 </div> 
                             </div> 
                             <div class="panel-body"> 
+                                @php
+                                    $mytime = Carbon\Carbon::now();
+                                    // echo $mytime->toDateTimeString();
+                                @endphp
                                 <div class="row"> 
-                                    <div class="col-md-6 col-xs-6">
+                                    <div class="col-md-12 col-xs-6">
                                         <b>
                                         <div class="radio"> 
                                             <label for="clnChkNo" class="rmvDiv">
-                                            <input type="radio" name="collection" value="Collection" class="rmvDiv" id="clnChkNo" onclick="ShowHideDivforCln()" {{ old('collection') !== null && old('collection') == "Collection" ? 'checked' : '' }}>Collection</label> <p>Within 20 Minutes</p> 
+                                            <input type="radio" name="collection" value="Collection" class="rmvDiv" id="clnChkNo" onclick="ShowHideDivforCln()" {{ old('collection') !== null && old('collection') == "Collection" ? 'checked' : '' }} checked>Collection</label> <p>Within 20 Minutes</p> 
                                         </div>
                                         </b>
-                                    </div> 
-                                    <div class="col-md-6 col-xs-6"><b>
+                                    </div>
+                                    <div class="col-md-6 col-xs-6" style="display: none"><b>
                                         <div class="radio"> 
                                             <label for="clnChkYes">
                                             <input type="radio" name="collection" value="Delivery" id="clnChkYes" onclick="ShowHideDivforCln()" {{ old('collection') !== null && old('collection') == "Delivery" ? 'checked' : '' }}>Delivery</label> <p>Within 60 Minutes</p> 
@@ -291,7 +295,11 @@
                                         <option value="">Delivery/Collection time</option>
 
                                             @foreach (\App\Models\TimeSlot::all() as $time)
+
+                                            @if (date('H:i:s') < $time->start_time)
                                                 <option value="{{date('h:i A', strtotime($time->start_time))}} - {{date('h:i A', strtotime($time->end_time))}}">{{date('h:i A', strtotime($time->start_time))}} - {{date('h:i A', strtotime($time->end_time))}}</option>
+                                            @endif
+                                                
                                             @endforeach
                                         
                                         
@@ -332,13 +340,6 @@
                         </div> 
                     </div> 
                 </div> 
-
-                <div id="ppdiv" style="display: none">
-                    
-                </div>
-
-                <div id="cashdiv">
-                </div>
 
             </div>
         </div>
@@ -400,6 +401,7 @@
 
                 $("#grand_total_value").val(totalamount.toFixed(2));
                 $("#grand_total_amount").html(totalamount.toFixed(2));
+                $("#dis_div").show();
 
 
             } else {
@@ -408,6 +410,13 @@
                 $("#grand_total_amount").html(totalamount.toFixed(2));
                 $("#net_total_value").val(totalamount.toFixed(2));
                 $("#net_total_amount").html(totalamount.toFixed(2));
+                $("#dis_div").hide();
+            }
+
+            if (totalamount > 0) {
+                $("#cart_checkout").show();
+            } else {
+                $("#cart_checkout").hide();
             }
         }
         // net total calculation
@@ -1095,6 +1104,7 @@ $(document).ready(function() {
 
                 $("#grand_total_value").val(totalamount.toFixed(2));
                 $("#grand_total_amount").html(totalamount.toFixed(2));
+                $("#dis_div").show();
 
 
             } else {
@@ -1103,6 +1113,13 @@ $(document).ready(function() {
                 $("#grand_total_amount").html(totalamount.toFixed(2));
                 $("#net_total_value").val(totalamount.toFixed(2));
                 $("#net_total_amount").html(totalamount.toFixed(2));
+                $("#dis_div").hide();
+            }
+
+            if (totalamount > 0) {
+                $("#cart_checkout").show();
+            } else {
+                $("#cart_checkout").hide();
             }
         }
         // net total calculation

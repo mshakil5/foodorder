@@ -41,7 +41,7 @@
                             <input type="text" class="form-control" id="phone" name="phone" placeholder="phone" value="@if (session('phone') !== 'Null') {{session('phone')}} @else {{ old('phone') }} @endif"> 
                         </div>
 
-                        <div class="row" id="addressDiv">
+                        <div class="row" id="addressDiv" style="display: none">
                             <div class="col-sm-6">
                               <div class="form-group">
                                 <label>House Number</label>
