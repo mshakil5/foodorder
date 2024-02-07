@@ -136,6 +136,8 @@
                                     <td class="thick-line text-right"><strong>Subtotal:</strong></td>
                                     <td class="thick-line text-right">{{$data->net_amount}}</td>
                                 </tr>
+                                @if ($data->discount > 0)
+                                    
                                 <tr>
                                     <td class="no-line"></td>
                                     <td class="no-line"></td>
@@ -152,6 +154,8 @@
                                     <td class="thick-line text-right"><strong>Delivery Charge:</strong></td>
                                     <td class="thick-line text-right"></td>
                                 </tr>
+                                @endif
+                                
                                 <tr>
                                     <td class="no-line"></td>
                                     <td class="no-line"></td>
