@@ -421,9 +421,9 @@
             }
 
             if (totalamount > 0) {
-                $("#cart_checkout").show();
+                $("#cardfooter").show();
             } else {
-                $("#cart_checkout").hide();
+                $("#cardfooter").hide();
             }
         }
         // net total calculation
@@ -1124,9 +1124,9 @@ $(document).ready(function() {
             }
 
             if (totalamount > 0) {
-                $("#cart_checkout").show();
+                $("#cardfooter").show();
             } else {
-                $("#cart_checkout").hide();
+                $("#cardfooter").hide();
             }
         }
         // net total calculation
