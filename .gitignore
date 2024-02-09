@@ -7,6 +7,7 @@
 /public/.htaccess
 /storage/*.key
 /vendor
+.htaccess
 app/Http/Controllers/PaypalController.php
 app/Http/Controllers/PaypalController2.php
 .env

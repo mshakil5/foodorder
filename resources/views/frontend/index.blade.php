@@ -328,12 +328,12 @@
                             </div> 
                             <div class="panel-body"> 
                                 <div class="row"> 
-                                    <div class="col-md-6 col-xs-6">
+                                    <div class="col-md-7 col-xs-6">
                                         <button type="submit" class="btn btn-primary btn-lg">Pay with CARD or Paypal</button>
                                     </div> 
                                     </form>
                                     
-                                    <div class="col-md-6 col-xs-6">
+                                    <div class="col-md-3 col-xs-6">
                                         <input type="button" id="orderCreateBtn" style="float:left;" name="orderCreateBtn" class="btn btn-primary btn-lg" value="Pay with Cash">
                                     </div> 
                                     
