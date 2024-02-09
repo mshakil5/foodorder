@@ -329,7 +329,7 @@
                             <div class="panel-body"> 
                                 <div class="row"> 
                                     <div class="col-md-6 col-xs-6">
-                                        <button type="submit" class="btn btn-primary btn-lg">Pay with Paypal</button>
+                                        <button type="submit" class="btn btn-primary btn-lg">Pay with CARD or Paypal</button>
                                     </div> 
                                     </form>
                                     
