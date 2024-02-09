@@ -292,14 +292,16 @@
                                     <div class="col-md-6 col-xs-6">
                                         <label for="timeslot">Collection/Delivery Time</label> 
                                         <select id="timeslot" class="form-control"  name="timeslot">					
-                                        <option value="">Delivery/Collection time</option>
+                                        <option value="">Delivery/Collection Time </option>
 
                                             @foreach (\App\Models\TimeSlot::all() as $time)
 
-                                            @if (date('H:i:s') < $time->start_time)
+                                                {{-- @if (date('H:i:s') < $time->start_time)
+                                                    <option value="{{date('h:i A', strtotime($time->start_time))}} - {{date('h:i A', strtotime($time->end_time))}}">{{date('h:i A', strtotime($time->start_time))}} - {{date('h:i A', strtotime($time->end_time))}}</option>
+                                                @endif --}}
+
                                                 <option value="{{date('h:i A', strtotime($time->start_time))}} - {{date('h:i A', strtotime($time->end_time))}}">{{date('h:i A', strtotime($time->start_time))}} - {{date('h:i A', strtotime($time->end_time))}}</option>
-                                            @endif
-                                                
+
                                             @endforeach
                                         
                                         
@@ -382,6 +384,11 @@
     
         // console.log(row);
     }
+    $('#date').change(function() { 
+        
+        var collection_date = $("#date").val();
+
+    });
 
         // net total calculation
         function net_total(){

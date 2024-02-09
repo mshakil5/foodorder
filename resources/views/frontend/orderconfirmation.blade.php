@@ -134,7 +134,7 @@
                                     <td class="thick-line"></td>
                                     <td class="thick-line"></td>
                                     <td class="thick-line text-right"><strong>Subtotal:</strong></td>
-                                    <td class="thick-line text-right">{{$data->net_amount}}</td>
+                                    <td class="thick-line text-right">{{$data->net_amount + $data->discount}}</td>
                                 </tr>
                                 @if ($data->discount > 0)
                                     
@@ -146,14 +146,14 @@
                                     <td class="thick-line text-right"><strong>Discount:</strong></td>
                                     <td class="thick-line text-right">{{$data->discount}}</td>
                                 </tr>
-                                <tr>
+                                {{-- <tr>
                                     <td class="no-line"></td>
                                     <td class="no-line"></td>
                                     <td class="no-line"></td>
                                     <td class="no-line"></td>
                                     <td class="thick-line text-right"><strong>Delivery Charge:</strong></td>
                                     <td class="thick-line text-right"></td>
-                                </tr>
+                                </tr> --}}
                                 @endif
                                 
                                 <tr>
@@ -162,7 +162,7 @@
                                     <td class="no-line"></td>
                                     <td class="no-line"></td>
                                     <td class="thick-line text-right"><strong>Total:</strong></td>
-                                    <td class="thick-line text-right">{{$data->net_amount - $data->discount}}</td>
+                                    <td class="thick-line text-right">{{$data->net_amount}}</td>
                                 </tr>
                             </tbody>
                         </table>
