@@ -327,14 +327,14 @@
                                 </div> 
                             </div> 
                             <div class="panel-body"> 
-                                <div class="row"> 
-                                    <div class="col-md-7 col-xs-6">
-                                        <button type="submit" class="btn btn-primary btn-lg">Pay with CARD or Paypal</button>
+                                <div class="row text-center"> 
+                                    <div class="col-md-7 col-xs-12" style="margin-bottom: 2px">
+                                        <button type="submit" class="btn btn-primary d-md-inline-block w-100">Pay with CARD or Paypal</button>
                                     </div> 
                                     </form>
                                     
-                                    <div class="col-md-3 col-xs-6">
-                                        <input type="button" id="orderCreateBtn" style="float:left;" name="orderCreateBtn" class="btn btn-primary btn-lg" value="Pay with Cash">
+                                    <div class="col-md-3 col-xs-12">
+                                        <input type="button" id="orderCreateBtn" name="orderCreateBtn" class="btn btn-primary d-md-inline-block w-100" value="Pay with Cash">
                                     </div> 
                                     
                                 </div> 
