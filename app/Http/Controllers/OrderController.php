@@ -155,7 +155,7 @@ class OrderController extends Controller
         $order->net_amount = $net_amount - $request->discount_amount;
         if ($order->save()) {
 
-            $keysToClear = ['add_to_card_item'];
+            $keysToClear = ['cart'];
             session()->forget($keysToClear);
 
 
