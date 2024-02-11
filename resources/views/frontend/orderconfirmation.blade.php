@@ -104,7 +104,6 @@
                                 <tr>
                                     <td><strong>Item</strong></td>
                                     <td class="text-center"><strong>Additional Item</strong></td>
-                                    <td class="text-center"><strong>Note</strong></td>
                                     <td class="text-center"><strong>Price</strong></td>
                                     <td class="text-center"><strong>QTY</strong></td>
                                     <td class="text-right"><strong>Totals</strong></td>
@@ -120,7 +119,6 @@
                                             {{$additms->item_name}},Qty: {{$additms->quantity}} <br>
                                             @endforeach
                                         </td>
-                                        <td class="text-center">{{$item->note}}</td>
                                         <td class="text-center">{{$item->price_per_unit}}</td>
                                         <td class="text-center">{{$item->quantity}}</td>
                                         <td class="text-right">{{number_format($item->total_price, 2)}}</td>
@@ -132,14 +130,12 @@
                                     <td class="thick-line"></td>
                                     <td class="thick-line"></td>
                                     <td class="thick-line"></td>
-                                    <td class="thick-line"></td>
                                     <td class="thick-line text-right"><strong>Subtotal:</strong></td>
                                     <td class="thick-line text-right">{{$data->net_amount + $data->discount}}</td>
                                 </tr>
                                 @if ($data->discount > 0)
                                     
                                 <tr>
-                                    <td class="no-line"></td>
                                     <td class="no-line"></td>
                                     <td class="no-line"></td>
                                     <td class="no-line"></td>
@@ -157,7 +153,7 @@
                                 @endif
                                 
                                 <tr>
-                                    <td class="no-line text-left" colspan="4">{{$data->note}}</td>
+                                    <td class="no-line text-left" colspan="3">{{$data->note}}</td>
                                     <td class="thick-line text-right"><strong>Total:</strong></td>
                                     <td class="thick-line text-right">{{number_format($data->net_amount, 2)}}</td>
                                 </tr>
