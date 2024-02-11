@@ -292,7 +292,7 @@
                                     <div class="col-md-6 col-xs-6" style="display: none">
                                         <label for="timeslot">Collection/Delivery Time</label> 
                                         <select id="timeslot" class="form-control"  name="timeslot">					
-                                        <option value="0">Delivery/Collection Time </option>
+                                        <option value="time">Delivery/Collection Time </option>
 
                                             @foreach (\App\Models\TimeSlot::all() as $time)
 
