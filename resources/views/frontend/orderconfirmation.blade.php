@@ -157,10 +157,7 @@
                                 @endif
                                 
                                 <tr>
-                                    <td class="no-line"></td>
-                                    <td class="no-line"></td>
-                                    <td class="no-line"></td>
-                                    <td class="no-line"></td>
+                                    <td class="no-line text-left" colspan="4">{{$data->note}}</td>
                                     <td class="thick-line text-right"><strong>Total:</strong></td>
                                     <td class="thick-line text-right">{{$data->net_amount}}</td>
                                 </tr>

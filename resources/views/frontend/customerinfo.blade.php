@@ -41,6 +41,11 @@
                             <input type="text" class="form-control" id="phone" name="phone" placeholder="phone" value="@if (session('phone') !== 'Null') {{session('phone')}} @else {{ old('phone') }} @endif"> 
                         </div>
 
+                        <div class="form-group"> 
+                            <label for="note">Note</label> 
+                            <input type="text" class="form-control" id="note" name="note" placeholder="" value="@if (session('note') !== 'Null') {{session('note')}} @else {{ old('note') }} @endif" maxlength="300"> 
+                        </div> 
+
                         <div class="row" id="addressDiv" style="display: none">
                             <div class="col-sm-6">
                               <div class="form-group">

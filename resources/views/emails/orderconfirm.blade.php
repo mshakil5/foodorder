@@ -185,10 +185,7 @@
                             @endphp
 
                             <tr>
-                                <td class="no-line"></td>
-                                <td class="no-line"></td>
-                                <td class="no-line"></td>
-                                <td class="no-line"></td>
+                                <td class="no-line text-left" colspan="4"><strong>Note:</strong>{{$array['note']}}</td>
                                 <td class="thick-line text-left"><strong>Total:</strong></td>
                                 <td class="thick-line text-right" style="text-align: right">{{number_format($namnt, 2)}}</td>
                             </tr>

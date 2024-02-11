@@ -103,6 +103,7 @@ class OrderController extends Controller
         $order->phone = $request->phone;
         $order->house = $request->house;
         $order->city = $request->city;
+        $order->note = $request->note;
         $order->street = $request->street;
         $order->postcode = $request->postcode;
         $order->delivery_type = $request->delivery_type;
@@ -115,7 +116,6 @@ class OrderController extends Controller
             {
                 $orderDtl = new OrderDetail();
                 $orderDtl->order_id = $order->id;
-                $orderDtl->note = $request->get('note')[$key];
                 $orderDtl->product_id = $request->get('parent_product_id')[$key];
                 $orderDtl->product_name = $request->get('parent_product_name')[$key];
                 $orderDtl->quantity = $request->get('parent_product_qty')[$key];
@@ -174,6 +174,7 @@ class OrderController extends Controller
                     $array['city'] = $request->city;
                     $array['street'] = $request->street;
                     $array['postcode'] = $request->postcode;
+                    $array['note'] = $request->note;
                     $array['invoiceno'] = $order->invoiceno;
                     $array['payment_type'] = $order->payment_type;
                     $array['delivery_type'] = $order->delivery_type;
