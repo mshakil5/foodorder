@@ -34,7 +34,7 @@
                     <tbody>
                     </tbody>
                 </table>
-
+                
                 <div class="row text-left tValues breads" style="display: none">
                     <div class="col-sm-12">
                         <div class="row" id="brdDiv">

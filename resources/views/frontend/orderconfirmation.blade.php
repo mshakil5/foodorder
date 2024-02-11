@@ -120,7 +120,7 @@
                                             {{$additms->item_name}},Qty: {{$additms->quantity}} <br>
                                             @endforeach
                                         </td>
-                                        <td class="text-center"></td>
+                                        <td class="text-center">{{$item->note}}</td>
                                         <td class="text-center">{{$item->price_per_unit}}</td>
                                         <td class="text-center">{{$item->quantity}}</td>
                                         <td class="text-right">{{$item->total_price}}</td>

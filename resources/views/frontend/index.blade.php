@@ -286,19 +286,21 @@
                                     </div>
 
                                     <div class="col-md-6 col-xs-6">
-                                        <label for="date">Collection/Delivery Date</label><input type="date" class="date-picker form-control hasDatepicker" name="date" id="date" value="{{date('Y-m-d')}}" placeholder="Select date" required>
+                                        <label for="date">Collection/Delivery Date</label><input type="text" class="date-picker form-control hasDatepicker" name="date" id="date" value="{{date('Y-m-d')}}" placeholder="Select date" required>
                                     </div>
 
-                                    <div class="col-md-6 col-xs-6">
+                                    <div class="col-md-6 col-xs-6" style="display: none">
                                         <label for="timeslot">Collection/Delivery Time</label> 
                                         <select id="timeslot" class="form-control"  name="timeslot">					
-                                        <option value="">Delivery/Collection Time </option>
+                                        <option value="0">Delivery/Collection Time </option>
 
                                             @foreach (\App\Models\TimeSlot::all() as $time)
 
                                                 {{-- @if (date('H:i:s') < $time->start_time)
                                                     <option value="{{date('h:i A', strtotime($time->start_time))}} - {{date('h:i A', strtotime($time->end_time))}}">{{date('h:i A', strtotime($time->start_time))}} - {{date('h:i A', strtotime($time->end_time))}}</option>
                                                 @endif --}}
+
+                                                
 
                                                 <option value="{{date('h:i A', strtotime($time->start_time))}} - {{date('h:i A', strtotime($time->end_time))}}">{{date('h:i A', strtotime($time->start_time))}} - {{date('h:i A', strtotime($time->end_time))}}</option>
 
@@ -1040,7 +1042,7 @@ $(document).ready(function() {
                 return;
             }
 
-            var markup = '<tr><td style="text-align: center; border:0px"><div style="color: white;  user-select:none;  padding: 5px;    background: red;    width: 35px;    display: flex;    align-items: center; margin-right:5px;   justify-content: center;    border-radius: 4px;   left: 4px;    top: 81px;" onclick="removeRow(event)" >X</div></td><td style="text-align: left; border:0px; width:60%" colspan="2">'+pname+'<input type="hidden" id="parent_product_name" name="parent_product_name[]" value="'+pname+'" class="form-control"><input type="hidden" id="parent_product_id'+pid+'" name="parent_product_id[]" value="'+pid+'" class="form-control"><div class="childitems'+pid+'" id="childitems'+pid+'"><span></span></div></td><td style="text-align: center; border:0px"><input type="number" id="parent_product_qty'+pid+'" name="parent_product_qty[]" min="1" value="'+pqty+'" class="form-control parent_product_qty"></td><td style="text-align: center; border:0px"><div id="parent_product_total_price_div'+pid+'" class="parent_product_total_price_div">'+net_amount_with_child_item.toFixed(2)+'</div><input type="hidden" id="parent_product_price'+pid+'" name="parent_product_price[]" step="any" value="'+price+'" class="form-control parent_product_price" readonly><input type="hidden" id="parent_product_total_price'+pid+'" name="parent_product_total_price[]" step="any" value="'+net_amount_with_child_item.toFixed(2)+'" class="form-control net_amount_with_child_item" readonly><input type="hidden" id="child_items_total_amnt'+pid+'" name="child_items_total_amnt[]" step="any" value="'+child_item_total+'" class="form-control child_items_total_amnt" readonly></td></tr>';
+            var markup = '<tr><td style="text-align: center; border:0px"><div style="color: white;  user-select:none;  padding: 5px;    background: red;    width: 35px;    display: flex;    align-items: center; margin-right:5px;   justify-content: center;    border-radius: 4px;   left: 4px;    top: 81px;" onclick="removeRow(event)" >X</div></td><td style="text-align: left; border:0px; width:60%" colspan="2">'+pname+'<input type="hidden" id="parent_product_name" name="parent_product_name[]" value="'+pname+'" class="form-control"><input type="text" name="note[]" value="" placeholder="Note" class="form-control"><input type="hidden" id="parent_product_id'+pid+'" name="parent_product_id[]" value="'+pid+'" class="form-control"><div class="childitems'+pid+'" id="childitems'+pid+'"><span></span></div></td><td style="text-align: center; border:0px"><input type="number" id="parent_product_qty'+pid+'" name="parent_product_qty[]" min="1" value="'+pqty+'" class="form-control parent_product_qty"></td><td style="text-align: center; border:0px"><div id="parent_product_total_price_div'+pid+'" class="parent_product_total_price_div">'+net_amount_with_child_item.toFixed(2)+'</div><input type="hidden" id="parent_product_price'+pid+'" name="parent_product_price[]" step="any" value="'+price+'" class="form-control parent_product_price" readonly><input type="hidden" id="parent_product_total_price'+pid+'" name="parent_product_total_price[]" step="any" value="'+net_amount_with_child_item.toFixed(2)+'" class="form-control net_amount_with_child_item" readonly><input type="hidden" id="child_items_total_amnt'+pid+'" name="child_items_total_amnt[]" step="any" value="'+child_item_total+'" class="form-control child_items_total_amnt" readonly></td></tr>';
             $("table #cardinner ").append(markup);
 
             var additmshowcard = $("#childitems"+pid);
@@ -1221,6 +1223,10 @@ $(document).ready(function() {
             } else {
                 var orderurl = "{{URL::to('/order-store')}}";
             }
+
+            
+            var note = $("input[name='note[]']")
+                .map(function(){return $(this).val();}).get();
             
             var parent_product_name = $("input[name='parent_product_name[]']")
                 .map(function(){return $(this).val();}).get();
@@ -1256,7 +1262,7 @@ $(document).ready(function() {
             $.ajax({
                 url: orderurl,
                 method: "POST",
-                data: {collection_date,collection_time,name,email,phone,parent_product_id,parent_product_qty,parent_product_price,parent_product_total_price,parent_product_name,delivery_type,payment_type,child_product_id,child_product_qty,child_product_total_price,related_parent_id,child_product_name,house,street,city,postcode,discount_percent,discount_amount},
+                data: {collection_date,collection_time,name,email,phone,parent_product_id,parent_product_qty,parent_product_price,parent_product_total_price,parent_product_name,delivery_type,payment_type,child_product_id,child_product_qty,child_product_total_price,related_parent_id,child_product_name,house,street,city,postcode,discount_percent,discount_amount,note},
 
                 success: function (d) {
                     console.log(d);

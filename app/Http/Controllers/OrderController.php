@@ -115,6 +115,7 @@ class OrderController extends Controller
             {
                 $orderDtl = new OrderDetail();
                 $orderDtl->order_id = $order->id;
+                $orderDtl->note = $request->get('note')[$key];
                 $orderDtl->product_id = $request->get('parent_product_id')[$key];
                 $orderDtl->product_name = $request->get('parent_product_name')[$key];
                 $orderDtl->quantity = $request->get('parent_product_qty')[$key];
