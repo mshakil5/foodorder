@@ -131,7 +131,7 @@
                                     <td class="thick-line"></td>
                                     <td class="thick-line"></td>
                                     <td class="thick-line text-right"><strong>Subtotal:</strong></td>
-                                    <td class="thick-line text-right">{{$data->net_amount + $data->discount}}</td>
+                                    <td class="thick-line text-right">{{number_format($data->total_amount, 2)}}</td>
                                 </tr>
                                 @if ($data->discount > 0)
                                     
