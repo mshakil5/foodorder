@@ -125,7 +125,7 @@
                             <tr>
                                 <td><strong>Item</strong></td>
                                 <td class="text-center"><strong>Additional Item</strong></td>
-                                <td class="text-center"><strong>Note</strong></td>
+                                <td class="text-center"><strong></strong></td>
                                 <td class="text-center"><strong>Qty</strong></td>
                                 <td class="text-center"><strong>Price</strong></td>
                                 <td class="text-right" style="text-align: right"><strong>Totals</strong></td>
@@ -141,10 +141,10 @@
                                             {{$additms->item_name}},Qty: {{$additms->quantity}} <br>
                                         @endforeach
                                     </td>
-                                    <td class="text-center">{{$item->note}}</td>
+                                    <td class="text-center"></td>
                                     <td class="text-center">{{$item->quantity}}</td>
                                     <td class="text-center">{{$item->price_per_unit}}</td>
-                                    <td class="text-right" style="text-align: right">{{$item->total_price}}</td>
+                                    <td class="text-right" style="text-align: right">{{number_format($item->total_price, 2)}}</td>
                                 </tr> 
 
                             @endforeach

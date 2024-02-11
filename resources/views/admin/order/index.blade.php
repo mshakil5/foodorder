@@ -44,7 +44,7 @@
                                         <td style="text-align: center">{{$data->phone}}</td>
                                         <td style="text-align: center">{{$data->email}}</td>
                                         <td style="text-align: center">{{$data->payment_type}}</td>
-                                        <td style="text-align: center">{{$data->net_amount}}</td>
+                                        <td style="text-align: center">{{number_format($data->net_amount, 2)}}</td>
                                         <td style="text-align: center">
                                             {{-- <a href="{{route('admin.orderDeatils', $data->id)}}"> <i class="fa fa-eye" style="color: #2196f3;font-size:16px;"> </i></a> --}}
 

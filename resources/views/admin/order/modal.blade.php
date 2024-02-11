@@ -99,7 +99,6 @@
                                 <tr>
                                     <td><strong>Item</strong></td>
                                     <td class="text-center"><strong>Additional Item</strong></td>
-                                    <td class="text-center"><strong>Note</strong></td>
                                     <td class="text-center"><strong>Price</strong></td>
                                     <td class="text-center"><strong>Quantity</strong></td>
                                     <td class="text-right"><strong>Totals</strong></td>
@@ -118,10 +117,9 @@
                                                 {{$additms->item_name}},Qty: {{$additms->quantity}} <br>
                                             @endforeach
                                         </td>
-                                        <td class="text-center">{{$item->note}}</td>
-                                        <td class="text-center">{{$item->price_per_unit}}</td>
+                                        <td class="text-center">{{number_format($item->price_per_unit, 2)}}</td>
                                         <td class="text-center">{{$item->quantity}}</td>
-                                        <td class="text-right">{{$item->total_price}}</td>
+                                        <td class="text-right">{{number_format($item->total_price, 2)}}</td>
                                     </tr> 
 
                                 @endforeach
@@ -130,33 +128,30 @@
                                     <td class="thick-line"></td>
                                     <td class="thick-line"></td>
                                     <td class="thick-line"></td>
-                                    <td class="thick-line"></td>
                                     <td class="thick-line text-right"><strong>Subtotal:</strong></td>
-                                    <td class="thick-line text-right">{{$data->net_amount}}</td>
+                                    <td class="thick-line text-right">{{number_format($data->net_amount, 2)}}</td>
                                 </tr>
                                 <tr>
                                     <td class="no-line"></td>
                                     <td class="no-line"></td>
                                     <td class="no-line"></td>
-                                    <td class="no-line"></td>
-                                    <td class="thick-line text-right"><strong>Discount Amount:</strong></td>
-                                    <td class="thick-line text-right">{{$data->discount}}</td>
+                                    <td class="thick-line text-right"><strong>Discount:</strong></td>
+                                    <td class="thick-line text-right">{{number_format($data->discount, 2)}}</td>
                                 </tr>
                                 <tr>
-                                    <td class="no-line"></td>
                                     <td class="no-line"></td>
                                     <td class="no-line"></td>
                                     <td class="no-line"></td>
                                     <td class="thick-line text-right"><strong>Delivery Charge:</strong></td>
                                     <td class="thick-line text-right"></td>
                                 </tr>
+                                @php
+                                    $netamnt = $data->net_amount - $data->discount;
+                                @endphp
                                 <tr>
-                                    <td class="no-line"></td>
-                                    <td class="no-line"></td>
-                                    <td class="no-line"></td>
-                                    <td class="no-line"></td>
+                                    <td class="no-line" colspan="3">{{$data->note}}</td>
                                     <td class="thick-line text-right"><strong>Total:</strong></td>
-                                    <td class="thick-line text-right">{{$data->net_amount - $data->discount}}</td>
+                                    <td class="thick-line text-right">{{number_format($netamnt, 2)}}</td>
                                 </tr>
                             </tbody>
                         </table>

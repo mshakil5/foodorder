@@ -123,7 +123,7 @@
                                         <td class="text-center">{{$item->note}}</td>
                                         <td class="text-center">{{$item->price_per_unit}}</td>
                                         <td class="text-center">{{$item->quantity}}</td>
-                                        <td class="text-right">{{$item->total_price}}</td>
+                                        <td class="text-right">{{number_format($item->total_price, 2)}}</td>
                                     </tr> 
 
                                 @endforeach
@@ -144,7 +144,7 @@
                                     <td class="no-line"></td>
                                     <td class="no-line"></td>
                                     <td class="thick-line text-right"><strong>Discount:</strong></td>
-                                    <td class="thick-line text-right">{{$data->discount}}</td>
+                                    <td class="thick-line text-right">{{number_format($data->discount, 2)}}</td>
                                 </tr>
                                 {{-- <tr>
                                     <td class="no-line"></td>
@@ -159,7 +159,7 @@
                                 <tr>
                                     <td class="no-line text-left" colspan="4">{{$data->note}}</td>
                                     <td class="thick-line text-right"><strong>Total:</strong></td>
-                                    <td class="thick-line text-right">{{$data->net_amount}}</td>
+                                    <td class="thick-line text-right">{{number_format($data->net_amount, 2)}}</td>
                                 </tr>
                             </tbody>
                         </table>
