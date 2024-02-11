@@ -74,19 +74,19 @@
                     <h3 class="pull-right">Order #{{$array['invoiceno']}}</h3>
                 </div>
                 <hr>
-                <div class="row" style="color: #74787E">
+                <div class="row" style="color: #74787E;font-size: 12px">
                     <div class="col-xs-6">
-                        <strong>Billed To:</strong><br>
+                        <strong style="">Billed To:</strong><br>
                             {{$array['name']}}<br>
                             {{$array['house']}}  {{$array['street']}} {{$array['city']}} {{$array['postcode']}}<br>
                     </div>
-                    <div class="col-xs-6 text-right" style="text-decoration: none;">
+                    <div class="col-xs-6 text-right" style="text-decoration: none;font-size: 12px">
                             <strong>Contact Info:</strong><br>
                                 Mail:   <span style="text-decoration: none;">{{$array['email']}}</span><br>
                                 Mobile:   {{$array['phone']}}<br>
                     </div>
                 </div>
-                <div class="row" style="color: #74787E">
+                <div class="row" style="color: #74787E;font-size: 12px">
                     <div class="col-xs-6" style="color: #74787E">
                             <strong>Payment Method:</strong> {{$array['payment_type']}}<br>
                     </div>
@@ -100,9 +100,9 @@
                 </div>
 
 
-                <div class="row" style="color: #74787E">
+                <div class="row" style="color: #74787E;font-size: 12px">
                     <div class="col-xs-6 text-right">
-                        <strong>Delivery/Collection Details:</strong><br>
+                        <strong style="color: #74787E;font-size: 12px">Delivery/Collection Details:</strong><br>
                         Type: {{$array['delivery_type']}}<br>
                         Date: {{$array['collection_date']}}<br>
                         Time: {{$array['collection_time']}}<br>
@@ -126,7 +126,7 @@
                                 <td><strong>Item</strong></td>
                                 <td class="text-center"><strong>Additional Item</strong></td>
                                 <td class="text-center"><strong>Note</strong></td>
-                                <td class="text-center"><strong>Quantity</strong></td>
+                                <td class="text-center"><strong>Qty</strong></td>
                                 <td class="text-center"><strong>Price</strong></td>
                                 <td class="text-right" style="text-align: right"><strong>Totals</strong></td>
                             </tr>

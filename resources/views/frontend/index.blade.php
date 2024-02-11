@@ -289,10 +289,10 @@
                                         <label for="date">Collection/Delivery Date</label><input type="text" class="date-picker form-control hasDatepicker" name="date" id="date" value="{{date('Y-m-d')}}" placeholder="Select date" required>
                                     </div>
 
-                                    <div class="col-md-6 col-xs-6" style="display: none">
+                                    <div class="col-md-6 col-xs-6">
                                         <label for="timeslot">Collection/Delivery Time</label> 
                                         <select id="timeslot" class="form-control"  name="timeslot">					
-                                        <option value="time">Delivery/Collection Time </option>
+                                        <option value="">Delivery/Collection Time </option>
 
                                             @foreach (\App\Models\TimeSlot::all() as $time)
 

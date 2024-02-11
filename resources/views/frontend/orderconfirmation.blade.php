@@ -106,7 +106,7 @@
                                     <td class="text-center"><strong>Additional Item</strong></td>
                                     <td class="text-center"><strong>Note</strong></td>
                                     <td class="text-center"><strong>Price</strong></td>
-                                    <td class="text-center"><strong>Quantity</strong></td>
+                                    <td class="text-center"><strong>QTY</strong></td>
                                     <td class="text-right"><strong>Totals</strong></td>
                                 </tr>
                             </thead>
