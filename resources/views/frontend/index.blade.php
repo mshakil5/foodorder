@@ -53,9 +53,6 @@
     }
     
 
-</style>
-
-<style>
     input.largerCheckbox {
       width: 25px;
       height: 25px;
@@ -183,15 +180,6 @@
                             <div class="panel-body">
                                 <div class="row">
                                     <table class="table">
-                                        {{-- <thead>
-                                            <tr>
-                                                <th style="text-align: center">Action</th>
-                                                <th style="text-align: center">Name</th>
-                                                <th style="text-align: center">Quantity</th>
-                                                <th style="text-align: center">Price</th>
-                                                <th style="text-align: center">Total</th>
-                                            </tr>
-                                        </thead> --}}
                                         <tbody id="cardinner">
 
                                             @if(session('cart'))
@@ -578,12 +566,6 @@ $(document).ready(function() {
             $('.orderBtn').attr('pid', productid);
             $('.orderBtn').attr('pname', pname);
             $('.orderBtn').attr('pqty', 1);
-
-            // $("#addebreaditems").attr("data-count","");
-            // $("#addebreaditems").attr("data-itemid","");
-            // $("#addebreaditems").attr("class","extraaitem");
-            // $("#addebreaditems").attr("itemname","");
-            // $("#addebreaditems").attr("value","");
             
             // loop start
             $.ajax({
@@ -830,38 +812,6 @@ $(document).ready(function() {
         });
         // bread item check and uncheck end
 
-
-        // child checkbox item calculation start
-        // $("body").delegate(".breadsingleitem","change",function () {
-            
-        //     var id = $(this).attr('value');
-        //     var price = $(this).attr('price');
-        //     var breadname = $(this).attr('breadname');
-        //     var parent_item_price = $("#tamount").val();
-        //     var additemtamnt = $("#additemtamnt").val();
-        //     var additemtamntint = parseFloat(price);
-            
-        //     if(this.checked){
-        //         var total_add_item_amnt = parseFloat(additemtamnt) + parseFloat(price);
-        //         var parent_item_total_price = parseFloat(parent_item_price) + parseFloat(total_add_item_amnt);
-        //         $("#pShow").html("£"+ parent_item_total_price.toFixed(2));
-        //         $("#additemtamnt").val(total_add_item_amnt.toFixed(2));
-
-        //         $("#addebreaditems").val(additemtamntint);
-        //         $("#addebreaditems").attr('data-count', 1);
-        //         $("#addebreaditems").attr('data-itemid', id);
-        //         $("#addebreaditems").attr('data-itemname', breadname);
-        //         $("#addebreaditems").attr('value', price);
-        //     } else {
-        //         var total_add_item_amnt = parseFloat(additemtamnt) - parseFloat(price);
-        //         var parent_item_total_price = parseFloat(parent_item_price) + parseFloat(total_add_item_amnt);
-        //         $("#pShow").html("£"+ parent_item_total_price.toFixed(2));
-        //         $("#additemtamnt").val(total_add_item_amnt.toFixed(2));
-
-        //         $("#addebreaditems").attr('data-count', 0);
-        //         $("#addebreaditems").val(0);
-        //     }
-        // });
 
         $("body").delegate(".breadsingleitem","click",function () {
             var id = $(this).attr('value');

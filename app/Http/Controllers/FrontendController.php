@@ -81,8 +81,6 @@ class FrontendController extends Controller
                             $prop.='</div></div></div>';
             }
 
-
-
             return response()->json(['status'=> 303,'product'=>$prop]);
 
         }
